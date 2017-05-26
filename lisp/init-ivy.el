@@ -1,3 +1,5 @@
+(require 'counsel)
+(require 'cl-lib)
 ;; (ivy-mode 1)
 ;; not good experience
 ;; (setq ivy-use-virtual-buffers t)
@@ -5,34 +7,17 @@
 (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
 
 ;; {{ @see http://oremacs.com/2015/04/19/git-grep-ivy/
-(defun counsel-escape (keyword)
-  (setq keyword (replace-regexp-in-string "\"" "\\\\\"" keyword))
-  (setq keyword (replace-regexp-in-string "\\?" "\\\\\?" keyword))
-  (setq keyword (replace-regexp-in-string "\\$" "\\\\x24" keyword))
-  (setq keyword (replace-regexp-in-string "\\*" "\\\\\*" keyword))
-  (setq keyword (replace-regexp-in-string "\\." "\\\\\." keyword))
-  (setq keyword (replace-regexp-in-string "\\[" "\\\\\[" keyword))
-  (setq keyword (replace-regexp-in-string "\\]" "\\\\\]" keyword))
-  ;; perl-regex support non-ASCII characters
-  ;; Turn on `-P` from `git grep' and `grep'
-  ;; the_silver_searcher needs no setup
-  (setq keyword (replace-regexp-in-string "(" "\\\\x28" keyword))
-  (setq keyword (replace-regexp-in-string ")" "\\\\x29" keyword))
-  (setq keyword (replace-regexp-in-string "{" "\\\\x7b" keyword))
-  (setq keyword (replace-regexp-in-string "}" "\\\\x7d" keyword))
-  keyword)
-
 (defun counsel-read-keyword (hint &optional default-when-no-active-region)
-  (let* (keyword)
+  (let (keyword)
     (cond
      ((region-active-p)
-      (setq keyword (counsel-escape (my-selected-str)))
+      (setq keyword (counsel-unquote-regex-parens (my-selected-str)))
       ;; de-select region
       (set-mark-command nil))
      (t
       (setq keyword (if default-when-no-active-region
-          default-when-no-active-region
-          (read-string hint)))))
+                        default-when-no-active-region
+                      (read-string hint)))))
     keyword))
 
 (defmacro counsel-git-grep-or-find-api (fn git-cmd hint &optional no-keyword filter)
@@ -151,15 +136,20 @@ It's SLOW when more than 20 git blame process start."
   (end-of-line))
 
 (defvar counsel-complete-line-use-git t)
+
 (defun counsel-find-quickest-grep ()
- (or (executable-find "rg") (executable-find "ag")))
+  (let* ((exe (or (executable-find "rg") (executable-find "ag"))))
+    ;; ripgrep says that "-n" is enabled actually not,
+    ;; so we manually add it
+    (if exe (concat exe " -n"))))
+
 (defun counsel-complete-line-by-grep ()
   "Complete line using text from (line-beginning-position) to (point).
 If OTHER-GREP is not nil, we use the_silver_searcher and grep instead."
   (interactive)
   (let* ((cur-line (my-line-str (point)))
          (default-directory (ffip-project-root))
-         (keyword (counsel-escape (replace-regexp-in-string "^[ \t]*" "" cur-line)))
+         (keyword (counsel-unquote-regex-parens (replace-regexp-in-string "^[ \t]*" "" cur-line)))
          (cmd (cond
                (counsel-complete-line-use-git
                 (format "git --no-pager grep --no-color -P -I -h -i -e \"^[ \\t]*%s\" | sed s\"\/^[ \\t]*\/\/\" | sed s\"\/[ \\t]*$\/\/\" | sort | uniq"
@@ -171,7 +161,6 @@ If OTHER-GREP is not nil, we use the_silver_searcher and grep instead."
          (leading-spaces "")
          (collection (split-string (shell-command-to-string cmd) "[\r\n]+" t)))
 
-         (message "cmd=%s" cmd)
     ;; grep lines without leading/trailing spaces
     (when collection
       (if (string-match "^\\([ \t]*\\)" cur-line)
@@ -435,9 +424,39 @@ Or else, find files since 24 weeks (6 months) ago."
     cmd))
 
 (defun my-root-dir ()
-  (file-name-as-directory (and (fboundp 'ffip-get-project-root-directory)
-       (ffip-get-project-root-directory))))
+  "If ffip is not installed, use `default-directory'."
+  (file-name-as-directory (or (and (fboundp 'ffip-get-project-root-directory)
+                                   (ffip-get-project-root-directory))
+                              default-directory)))
 
+;; TIP: after `M-x my-grep', you can:
+;; - then `C-c C-o' or `M-x ivy-occur'
+;; - `C-x C-q' or `M-x ivy-wgrep-change-to-wgrep-mode'
+;; - `C-c C-c' or `M-x wgrep-finish-edit'
+(defun my-grep-occur ()
+  "Generate a custom occur buffer for `my-grep'."
+  (unless (eq major-mode 'ivy-occur-grep-mode)
+    (ivy-occur-grep-mode))
+  ;; useless to set `default-directory', it's already correct
+  ;; (message "default-directory=%s" default-directory)
+  ;; we use regex in elisp, don't unquote regex
+  (let* ((regex (setq ivy--old-re
+                      (ivy--regex
+                       (progn (string-match "\"\\(.*\\)\"" (buffer-name))
+                              (match-string 1 (buffer-name))))))
+         (cands (remove nil (mapcar (lambda (s) (if (string-match-p regex s) s))
+                                    (split-string (shell-command-to-string (my-grep-cli keyword))
+                                                  "[\r\n]+" t)))))
+    ;; Need precise number of header lines for `wgrep' to work.
+    (insert (format "-*- mode:grep; default-directory: %S -*-\n\n\n"
+                    default-directory))
+    (insert (format "%d candidates:\n" (length cands)))
+    (ivy--occur-insert-lines
+     (mapcar
+      (lambda (cand) (concat "./" cand))
+      cands))))
+
+(defvar my-grep-show-full-directory t)
 (defun my-grep ()
   "Grep at project root directory or current directory.
 If ag (the_silver_searcher) exists, use ag.
@@ -445,13 +464,22 @@ Extended regex is used, like (pattern1|pattern2)."
   (interactive)
   (let* ((keyword (counsel-read-keyword "Enter grep pattern: "))
          (default-directory (my-root-dir))
-         (collection (split-string (shell-command-to-string (my-grep-cli keyword)) "[\r\n]+" t)))
+         (collection (split-string (shell-command-to-string (my-grep-cli keyword)) "[\r\n]+" t))
+         (dir (if my-grep-show-full-directory (my-root-dir)
+                (file-name-as-directory (file-name-base (directory-file-name (my-root-dir)))))))
 
-    (ivy-read (format "matching \"%s\" at %s:" keyword (my-root-dir))
+    (ivy-read (format "matching \"%s\" at %s:" keyword dir)
               collection
+              :history 'counsel-git-grep-history
               :action `(lambda (line)
                          (let* ((default-directory (my-root-dir)))
-                           (counsel--open-grepped-file line))))))
+                           (counsel--open-grepped-file line)))
+              :unwind (lambda ()
+                        (counsel-delete-process)
+                        (swiper--cleanup))
+              :caller 'my-grep)))
+(ivy-set-occur 'my-grep 'my-grep-occur)
+(ivy-set-display-transformer 'my-grep 'counsel-git-grep-transformer)
 ;; }}
 
 (defun counsel-browse-kill-ring (&optional n)

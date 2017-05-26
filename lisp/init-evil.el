@@ -49,6 +49,16 @@
   (push '(91 . ("[" . "]")) evil-surround-pairs-alist)
   (push '(93 . ("[" . "]")) evil-surround-pairs-alist))
 (add-hook 'prog-mode-hook 'evil-surround-prog-mode-hook-setup)
+
+(defun evil-surround-js-mode-hook-setup ()
+  ;; ES6
+  (push '(?1 . ("{`" . "`}")) evil-surround-pairs-alist)
+  (push '(?2 . ("${" . "}")) evil-surround-pairs-alist)
+  (push '(?4 . ("(e) => " . "(e)")) evil-surround-pairs-alist)
+  ;; ReactJS
+  (push '(?3 . ("classNames(" . ")")) evil-surround-pairs-alist))
+(add-hook 'js-mode-hook 'evil-surround-js-mode-hook-setup)
+
 (defun evil-surround-emacs-lisp-mode-hook-setup ()
   (push '(?` . ("`" . "'")) evil-surround-pairs-alist))
 (add-hook 'emacs-lisp-mode-hook 'evil-surround-emacs-lisp-mode-hook-setup)
@@ -387,6 +397,7 @@ If the character before and after CH is space or tab, CH is NOT slash"
        "ff" 'toggle-full-window ;; I use WIN+F in i3
        "ip" 'find-file-in-project
        "kk" 'find-file-in-project-by-selected
+       "kn" 'find-file-with-similar-name ; ffip v5.3.1
        "fd" 'find-directory-in-project-by-selected
        "trm" 'get-term
        "tff" 'toggle-frame-fullscreen
@@ -418,6 +429,7 @@ If the character before and after CH is space or tab, CH is NOT slash"
        "ga" 'counsel-git-grep-by-author
        "gm" 'counsel-git-find-my-file
        "gs" 'ffip-show-diff ; find-file-in-project 5.0+
+       "gd" 'ffip-show-diff-by-description ;find-file-in-project 5.3.0+
        "sf" 'counsel-git-show-file
        "sh" 'my-select-from-search-text-history
        "df" 'counsel-git-diff-file
@@ -508,6 +520,10 @@ If the character before and after CH is space or tab, CH is NOT slash"
        "bc" '(lambda () (interactive) (wxhelp-browse-class-or-api (thing-at-point 'symbol)))
        "oag" 'org-agenda
        "otl" 'org-toggle-link-display
+       "oa" '(lambda ()
+               (interactive)
+               (unless (featurep 'org) (require 'org))
+               (counsel-org-agenda-headlines))
        "om" 'toggle-org-or-message-mode
        "ut" 'undo-tree-visualize
        "ar" 'align-regexp
@@ -634,11 +650,28 @@ If the character before and after CH is space or tab, CH is NOT slash"
                     "jk" 'js2r-kill)
 ;; }}
 
+;; Press `dd' to delete lines in `wgrep-mode' in evil directly
+(defadvice evil-delete (around evil-delete-hack activate)
+  ;; make buffer writable
+  (if (and (boundp 'wgrep-prepared) wgrep-prepared)
+      (wgrep-toggle-readonly-area))
+  ad-do-it
+  ;; make buffer read-only
+  (if (and (boundp 'wgrep-prepared) wgrep-prepared)
+      (wgrep-toggle-readonly-area)))
+
 ;; {{ Use `;` as leader key, for searching something
 (nvmap :prefix ";"
-       ";" 'avy-goto-char-timer ; input one or more characters
+       ;; Search character(s) at the beginning of word
+       ;; See https://github.com/abo-abo/avy/issues/70
+       ;; You can change the avy font-face in ~/.custom.el:
+       ;;  (eval-after-load 'avy
+       ;;   '(progn
+       ;;      (set-face-attribute 'avy-lead-face-0 nil :foreground "black")
+       ;;      (set-face-attribute 'avy-lead-face-0 nil :background "#f86bf3")))
+       ";" 'avy-goto-char-timer
        "db" 'sdcv-search-pointer ; in buffer
-       "dt" 'sdcv-search-input+ ;; in tip
+       "dt" 'sdcv-search-input+ ; in tip
        "dd" 'my-lookup-dict-org
        "dw" 'define-word
        "dp" 'define-word-at-point

@@ -12,9 +12,12 @@ But you may use safer HTTPS instead.")
   '(ace-mc
     bbdb
     color-theme
-    ivy
     js-doc
-    counsel
+    ;; {{ since stable v0.9.1 released, we go back to stable version
+    ;; ivy
+    ;; counsel
+    ;; swiper ; abo-abo has not released 9.0 yet, at least he didn't tag master branch
+    ;; }}
     wgrep
     robe
     groovy-mode
@@ -174,7 +177,8 @@ But you may use safer HTTPS instead.")
 (require-package 'haskell-mode)
 (require-package 'gitignore-mode)
 (require-package 'gitconfig-mode)
-(require-package 'gist)
+(unless *emacs24old*
+  (require-package 'gist))
 (require-package 'wgrep)
 (require-package 'request)
 (require-package 'lua-mode)
@@ -263,7 +267,7 @@ But you may use safer HTTPS instead.")
 (require-package 'legalese)
 (require-package 'simple-httpd)
 (require-package 'git-messenger)
-(require-package 'git-gutter)
+;; (require-package 'git-gutter) ; use my patched version
 (require-package 'flx-ido)
 (require-package 'neotree)
 (require-package 'define-word)
