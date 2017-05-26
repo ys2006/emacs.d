@@ -418,6 +418,7 @@ If the character before and after CH is space or tab, CH is NOT slash"
        "ga" 'counsel-git-grep-by-author
        "gm" 'counsel-git-find-my-file
        "gs" 'ffip-show-diff ; find-file-in-project 5.0+
+       "gd" 'ffip-show-diff-by-description ;find-file-in-project 5.3.0+
        "sf" 'counsel-git-show-file
        "sh" 'my-select-from-search-text-history
        "df" 'counsel-git-diff-file
@@ -508,6 +509,10 @@ If the character before and after CH is space or tab, CH is NOT slash"
        "bc" '(lambda () (interactive) (wxhelp-browse-class-or-api (thing-at-point 'symbol)))
        "oag" 'org-agenda
        "otl" 'org-toggle-link-display
+       "oa" '(lambda ()
+               (interactive)
+               (unless (featurep 'org) (require 'org))
+               (counsel-org-agenda-headlines))
        "om" 'toggle-org-or-message-mode
        "ut" 'undo-tree-visualize
        "ar" 'align-regexp
@@ -634,11 +639,28 @@ If the character before and after CH is space or tab, CH is NOT slash"
                     "jk" 'js2r-kill)
 ;; }}
 
+;; Press `dd' to delete lines in `wgrep-mode' in evil directly
+(defadvice evil-delete (around evil-delete-hack activate)
+  ;; make buffer writable
+  (if (and (boundp 'wgrep-prepared) wgrep-prepared)
+      (wgrep-toggle-readonly-area))
+  ad-do-it
+  ;; make buffer read-only
+  (if (and (boundp 'wgrep-prepared) wgrep-prepared)
+      (wgrep-toggle-readonly-area)))
+
 ;; {{ Use `;` as leader key, for searching something
 (nvmap :prefix ";"
-       ";" 'avy-goto-char-timer ; input one or more characters
+       ;; Search character(s) at the beginning of word
+       ;; See https://github.com/abo-abo/avy/issues/70
+       ;; You can change the avy font-face in ~/.custom.el:
+       ;;  (eval-after-load 'avy
+       ;;   '(progn
+       ;;      (set-face-attribute 'avy-lead-face-0 nil :foreground "black")
+       ;;      (set-face-attribute 'avy-lead-face-0 nil :background "#f86bf3")))
+       ";" 'avy-goto-char-timer
        "db" 'sdcv-search-pointer ; in buffer
-       "dt" 'sdcv-search-input+ ;; in tip
+       "dt" 'sdcv-search-input+ ; in tip
        "dd" 'my-lookup-dict-org
        "dw" 'define-word
        "dp" 'define-word-at-point
