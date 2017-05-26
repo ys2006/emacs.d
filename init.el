@@ -71,7 +71,6 @@ cygwin-mount-cygwin-bin-directory "c:/Users/dyyin/.babun/cygwin/bin")
          (require 'setup-cygwin)
          (require 'fakecygpty)
          (fakecygpty-activatee)
-         
          ;; better to set HOME env in GUI
          ;; (setenv "HOME" "c:/cygwin/home/someuser")
          )
