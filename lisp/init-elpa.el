@@ -1,3 +1,4 @@
+
 (require 'package)
 
 ;; Set it to `t' to use safer HTTPS to download packages
@@ -60,6 +61,7 @@ But you may use safer HTTPS instead.")
     w3m
     erlang
     workgroups2
+    xah-lookup
     company-c-headers)
   "Don't install any Melpa packages except these packages")
 
@@ -73,12 +75,32 @@ But you may use safer HTTPS instead.")
         ;; ("my-js2-mode" . "https://raw.githubusercontent.com/redguardtoo/js2-mode/release/") ; github has some issue
         ("melpa" . "https://melpa.org/packages/")
         ("melpa-stable" . "https://stable.melpa.org/packages/")))
+;;(setq package-archives
+;;      '(("localelpa" . "~/.emacs.d/localelpa/")
+;;	;; uncomment below line if you need use GNU ELPA
+;;        ;;("org" . "http://orgmode.org/elpa/") ; latest org-mode
+;;        ;;("my-js2-mode" . "http://github.com/redguardtoo/js2-mode/")
+;;        ;;("my-js2-mode" . "http://github.com/mooz/js2-mode/")
+;;        ("melpa-stable" . "http://stable.melpa.org/packages/")
+;;        ("melpa" . "http://melpa.org/packages/")
+;;        ("gnu" . "http://elpa.gnu.org/packages/")))
 
+;; Local Repoを追加
+(add-to-list 'package-archives '("localelpa" . "~/.emacs.d/localelpa/"))
+;; MELPAを追加
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+;; MELPA-stableを追加
+(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
+;; Marmaladeを追加
+;;(add-to-list 'package-archives  '("marmalade" . "http://marmalade-repo.org/packages/"))
+;; Orgを追加
+(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
+	     
 ;; Un-comment below line if your extract https://github.com/redguardtoo/myelpa/archive/master.zip into ~/myelpa/
 ;; (setq package-archives '(("myelpa" . "~/myelpa")))
 
 ;; Or Un-comment below line if you install package from https://github.com/redguardtoo/myelpa/
-;; (setq package-archives '(("myelpa" . "https://raw.github.com/redguardtoo/myelpa/master/")))
+;; (setq package-archives '(("myelpa" . "https://raw.github.com/redguardtoo/myelpa/")))
 
 
 
