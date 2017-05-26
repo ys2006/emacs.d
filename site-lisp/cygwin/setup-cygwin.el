@@ -111,7 +111,7 @@ other hooks, such as major mode hooks, can do the job."
   "Return DIRECTORY if DIRECTORY is a readable directory, nil otherwise."
   (and (file-directory-p directory)  (file-readable-p directory)  directory))
 
-(defcustom cygwin-root-directory (or (setcyg-dir-p "C:/cygwin64/")  (setcyg-dir-p "C:/cygwin/"))
+(defcustom cygwin-root-directory (or (setcyg-dir-p "c:/Users/dyyin/.babun/cygwin/")  (setcyg-dir-p "C:/cygwin/"))
   "Root directory of Cygwin installation.
 It should have subdirectories `bin' and `usr/info'.
 Subdirectory `bin' should have file `bin/bash.exe'."
@@ -162,11 +162,11 @@ loaded as such.)"
 
 ;;; Use `bash' as the default shell in Emacs.
 (add-to-list 'exec-path (expand-file-name "bin" cygwin-root-directory))
-(setq shell-file-name  (expand-file-name "bin/bash.exe" cygwin-root-directory)) ; Subprocesses invoked by shell.
+(setq shell-file-name  (expand-file-name "bin/zsh.exe" cygwin-root-directory)) ; Subprocesses invoked by shell.
 (setenv "SHELL" shell-file-name)
 ;; (setenv "PATH" (concat (getenv "PATH") ";" (expand-file-name "bin" cygwin-root-directory)))
 (setenv "PATH" (concat (expand-file-name "bin" cygwin-root-directory) ";" (getenv "PATH")))
-(setq explicit-shell-file-name  shell-file-name) ; Interactive shell
+
 (setq ediff-shell               shell-file-name)    ; Ediff shell
 (setq explicit-shell-args       '("--login" "-i"))
 

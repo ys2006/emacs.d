@@ -1,4 +1,4 @@
-;; -*- coding: utf-8 -*-
+; -*- coding: utf-8 -*-
 ;(defvar best-gc-cons-threshold gc-cons-threshold "Best default gc threshold value. Should't be too big.")
 
 ;; Added by Package.el.  This must come before configurations of
@@ -14,6 +14,16 @@
 (setq emacs-load-start-time (current-time))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
 
+(setq url-proxy-services
+      '(("http"     . "cn-proxy.jp.oracle.com:80")
+        ("https"    . "cn-proxy.jp.oracle.com:80")
+        ("ftp"      . "cn-proxy.jp.oracle.com:80")
+        ("no_proxy" . "^\\(localhost\\|10.*\\)")))
+
+(setq default-directory "~/")
+;;(setq browse-url-browser-function 'browse-url-default-windows-browser)
+(setq browse-url-browser-function 'eww-browse-url)
+
 ;;----------------------------------------------------------------------------
 ;; Which functionality to enable (use t or nil for true and false)
 ;;----------------------------------------------------------------------------
@@ -28,7 +38,6 @@
                     (< (string-to-number (nth 1 (split-string (shell-command-to-string "sysctl hw.physmem")))) 4000000000))
                    (*linux* nil)
                    (t nil)))
-
 (setq *emacs24old*  (or (and (= emacs-major-version 24) (= emacs-minor-version 3))
                         (not *emacs24*)))
 
@@ -52,17 +61,23 @@
   (require 'init-utils)
 
   ;; Windows configuration, assuming that cygwin is installed at "c:/cygwin"
-  ;; (condition-case nil
-  ;;     (when *win64*
-  ;;       ;; (setq cygwin-mount-cygwin-bin-directory "c:/cygwin/bin")
-  ;;       (setq cygwin-mount-cygwin-bin-directory "c:/cygwin64/bin")
-  ;;       (require 'setup-cygwin)
-  ;;       ;; better to set HOME env in GUI
-  ;;       ;; (setenv "HOME" "c:/cygwin/home/someuser")
-  ;;       )
-  ;;   (error
-  ;;    (message "setup-cygwin failed, continue anyway")
-  ;;    ))
+   (condition-case nil
+       (when *win64*
+         ;; (setq
+         ;; cygwin-mount-cygwin-bin-directory "c:/cygwin/bin")
+         (setq
+
+cygwin-mount-cygwin-bin-directory "c:/Users/dyyin/.babun/cygwin/bin")
+         (require 'setup-cygwin)
+         (require 'fakecygpty)
+         (fakecygpty-activatee)
+         
+         ;; better to set HOME env in GUI
+         ;; (setenv "HOME" "c:/cygwin/home/someuser")
+         )
+     (error
+      (message "setup-cygwin failed, continue anyway")
+      ))
 
   (require 'idle-require)
   (require 'init-elpa)
@@ -127,8 +142,11 @@
   ;; comment below line if you want to setup color theme in your own way
   (if (or (display-graphic-p) (string-match-p "256color"(getenv "TERM"))) (require 'init-color-theme))
 
-  (require 'init-emacs-w3m)
+  ;;(require 'init-emacs-w3m)
+  (require 'init-emacs-eww)
   (require 'init-hydra)
+  ;; encoding setting
+  (require 'init-encoding)
 
   ;; {{ idle require other stuff
   (setq idle-require-idle-delay 2)
@@ -161,3 +179,5 @@
 ;;; no-byte-compile: t
 ;;; End:
 (put 'erase-buffer 'disabled nil)
+
+
