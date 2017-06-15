@@ -30,6 +30,7 @@ But you may use safer HTTPS instead.")
     findr
     mwe-log-commands
     yaml-mode
+    counsel-gtags ; the stable version is never released
     noflet
     db
     creole
@@ -234,7 +235,7 @@ But you may use safer HTTPS instead.")
 (require-package 'unfill)
 (require-package 'w3m)
 (require-package 'idomenu)
-(require-package 'ggtags)
+(require-package 'counsel-gtags)
 (require-package 'buffer-move)
 (require-package 'ace-window)
 (require-package 'cmake-mode)
@@ -274,5 +275,7 @@ But you may use safer HTTPS instead.")
 (require-package 'quack) ; for scheme
 (require-package 'hydra)
 (require-package 'chinese-pyim)
+(require-package 'web-mode)
+(require-package 'emms)
 
 (provide 'init-elpa)

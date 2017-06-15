@@ -4,6 +4,8 @@
 ;; not good experience
 ;; (setq ivy-use-virtual-buffers t)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
+(global-set-key (kbd "C-x b") 'ivy-switch-buffer)
+
 (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
 
 ;; {{ @see http://oremacs.com/2015/04/19/git-grep-ivy/
@@ -541,5 +543,13 @@ If N is nil, use `ivy-mode' to browse the `kill-ring'."
      ;; work around ivy issue.
      ;; @see https://github.com/abo-abo/swiper/issues/828
      (setq ivy-display-style 'fancy)))
+
+;; {{ swiper&ivy-mode
+(defun swiper-the-thing ()
+  (interactive)
+  (swiper (my-use-selected-string-or-ask "")))
+
+(global-set-key (kbd "C-s") 'swiper)
+;; }}
 
 (provide 'init-ivy)
