@@ -287,5 +287,6 @@ But you may use safer HTTPS instead.")
 (require-package 'emms)
 (require-package 'package-lint) ; lint package before submit it to MELPA
 (require-package 'iedit)
+(require-package 'magit)
 
 (provide 'init-elpa)

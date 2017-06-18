@@ -1,4 +1,5 @@
-; -*- coding: utf-8 -*-
+
+					; -*- coding: utf-8 -*-
 ;(defvar best-gc-cons-threshold gc-cons-threshold "Best default gc threshold value. Should't be too big.")
 
 ;; Added by Package.el.  This must come before configurations of
@@ -174,6 +175,18 @@ cygwin-mount-cygwin-bin-directory "c:/Users/dyyin/.babun/cygwin/bin")
 (load custom-file 'noerror)
 
 (setq gc-cons-threshold best-gc-cons-threshold)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-check-signature nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
 ;;; Local Variables:
 ;;; no-byte-compile: t
 ;;; End:
