@@ -277,5 +277,6 @@ But you may use safer HTTPS instead.")
 (require-package 'chinese-pyim)
 (require-package 'web-mode)
 (require-package 'emms)
+(require-package 'magit)
 
 (provide 'init-elpa)
