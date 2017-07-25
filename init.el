@@ -133,6 +133,7 @@ cygwin-mount-cygwin-bin-directory "c:/Users/dyyin/.babun/cygwin/bin")
   ;; need statistics of keyfreq asap
   (require 'init-keyfreq)
   (require 'init-httpd)
+  (require 'init-magit)
 
   ;; projectile costs 7% startup time
 
@@ -193,3 +194,4 @@ cygwin-mount-cygwin-bin-directory "c:/Users/dyyin/.babun/cygwin/bin")
 (put 'erase-buffer 'disabled nil)
 
 
+(put 'dired-find-alternate-file 'disabled nil)

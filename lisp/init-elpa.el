@@ -278,5 +278,6 @@ But you may use safer HTTPS instead.")
 (require-package 'web-mode)
 (require-package 'emms)
 (require-package 'magit)
+(require-package 'ensime)
 
 (provide 'init-elpa)
