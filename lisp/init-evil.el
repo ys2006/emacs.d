@@ -84,6 +84,8 @@
     (evil-local-set-key 'normal "N" 'diff-file-next)
     (evil-local-set-key 'normal "q" 'ffip-diff-quit)
     (evil-local-set-key 'normal (kbd "RET") 'ffip-diff-find-file)
+    ;; "C-c C-a" is binding to `diff-apply-hunk' in `diff-mode'
+    (evil-local-set-key 'normal "a" 'ffip-diff-apply-hunk)
     (evil-local-set-key 'normal "o" 'ffip-diff-find-file))
 (add-hook 'ffip-diff-mode-hook 'ffip-diff-mode-hook-setup)
 
@@ -380,7 +382,7 @@ If the character before and after CH is space or tab, CH is NOT slash"
        "em" 'erase-message-buffer
        "eb" 'eval-buffer
        "sd" 'sudo-edit
-       "sc" 'shell-command
+       "sc" 'scratch
        "ee" 'eval-expression
        "aa" 'copy-to-x-clipboard ; used frequently
        "aw" 'ace-swap-window
@@ -392,6 +394,7 @@ If the character before and after CH is space or tab, CH is NOT slash"
        "bs" '(lambda () (interactive) (goto-edge-by-comparing-font-face -1))
        "es" 'goto-edge-by-comparing-font-face
        "vj" 'my-validate-json-or-js-expression
+       "kc" 'kill-ring-to-clipboard
        "mcr" 'my-create-regex-from-kill-ring
        "ntt" 'neotree-toggle
        "ntf" 'neotree-find ; open file in current buffer in neotree
@@ -430,11 +433,9 @@ If the character before and after CH is space or tab, CH is NOT slash"
        "mm" 'counsel-bookmark-goto
        "mk" 'bookmark-set
        "yy" 'counsel-browse-kill-ring
-       "gf" 'counsel-git-find-file
-       "gc" 'counsel-git-find-file-committed-with-line-at-point
+       "gf" 'counsel-git ; find file
        "gl" 'counsel-git-grep-yank-line
-       "gg" 'counsel-git-grep-in-project ; quickest grep should be easy to press
-       "ga" 'counsel-git-grep-by-author
+       "gg" 'counsel-git-grep-by-selected ; quickest grep should be easy to press
        "gm" 'counsel-git-find-my-file
        "gs" 'ffip-show-diff ; find-file-in-project 5.0+
        "gd" 'ffip-show-diff-by-description ;find-file-in-project 5.3.0+
@@ -454,12 +455,14 @@ If the character before and after CH is space or tab, CH is NOT slash"
        "lq" 'highlight-symbol-query-replace
        "ln" 'highlight-symbol-nav-mode ; use M-n/M-p to navigation between symbols
        "bm" 'pomodoro-start ;; beat myself
-       "ii" 'counsel-imenu-goto
+       "ii" 'counsel-imenu
        "ij" 'rimenu-jump
        "." 'evil-ex
        ;; @see https://github.com/pidu/git-timemachine
        ;; p: previous; n: next; w:hash; W:complete hash; g:nth version; q:quit
-       "tt" 'my-git-timemachine
+       "tt" 'dumb-jump-go
+       "tb" 'dumb-jump-back
+       "tm" 'my-git-timemachine
        "tdb" 'tidy-buffer
        "tdl" 'tidy-current-line
        ;; toggle overview,  @see http://emacs.wordpress.com/2007/01/16/quick-and-dirty-code-folding/
@@ -476,7 +479,7 @@ If the character before and after CH is space or tab, CH is NOT slash"
        "cxr" 'org-clock-report ; `C-c C-x C-r'
        "qq" 'my-grep
        "xc" 'save-buffers-kill-terminal
-       "rr" 'counsel-recentf-goto
+       "rr" 'counsel-recentf
        "rh" 'counsel-yank-bash-history ; bash history command => yank-ring
        "rf" 'counsel-goto-recent-directory
        "da" 'diff-region-tag-selected-as-a
@@ -569,7 +572,7 @@ If the character before and after CH is space or tab, CH is NOT slash"
        "vs" 'git-gutter:stage-hunk
        "vr" 'git-gutter:revert-hunk
        "vl" 'vc-print-log
-       "vv" 'git-messenger:popup-message
+       "vv" 'vc-msg-show
        "v=" 'git-gutter:popup-hunk
        "hh" 'cliphist-paste-item
        "yu" 'cliphist-select-item
@@ -589,6 +592,8 @@ If the character before and after CH is space or tab, CH is NOT slash"
 ;; all keywords arguments are still supported
 (nvmap :prefix "SPC"
        "ss" 'wg-create-workgroup ; save windows layout
+       "se" 'evil-iedit-state/iedit-mode ; start iedit in emacs
+       "sc" 'shell-command
        "ll" 'my-wg-switch-workgroup ; load windows layout
        "kk" 'scroll-other-window
        "jj" 'scroll-other-window-up
@@ -760,6 +765,16 @@ If the character before and after CH is space or tab, CH is NOT slash"
 ;; If the align separator is / you will be prompted for a regular expression instead of a plain character.
 (require 'evil-lion)
 (evil-lion-install)
+;; }}
+
+;; {{ @see https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org#replacing-text-with-iedit
+;; same keybindgs as spacemacs:
+;;  - "SPC s e" to start `iedit-mode'
+;;  - "TAB" to toggle current occurrence
+;;  - "n" next, "N" previous (obviously we use "p" for yank)
+;;  - "gg" the first occurence, "G" the last occurence
+;;  - Please note ";;" or `avy-goto-char-timer' is also useful
+(require 'evil-iedit-state)
 ;; }}
 
 (provide 'init-evil)

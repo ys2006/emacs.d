@@ -256,7 +256,9 @@
     (setq flyspell-check-doublon nil)
     ;; enable for all programming modes
     ;; http://emacsredux.com/blog/2013/04/21/camelcase-aware-editing/
-    (subword-mode)
+    (unless (derived-mode-p 'js2-mode)
+      (subword-mode 1))
+
     (setq-default electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit)
     (electric-pair-mode 1)
 
@@ -395,11 +397,6 @@ See \"Reusing passwords for several connections\" from INFO.
     (read-only-mode -1))
   (add-hook 'messages-buffer-mode-hook 'messages-buffer-mode-hook-setup))
 ;; }}
-
-;; increase and decrease font size in GUI emacs
-(when (display-graphic-p)
-  (global-set-key (kbd "C-=") 'text-scale-increase)
-  (global-set-key (kbd "C--") 'text-scale-decrease))
 
 ;; vimrc
 (add-to-list 'auto-mode-alist '("\\.?vim\\(rc\\)?$" . vimrc-mode))
@@ -689,7 +686,7 @@ If no region is selected. You will be asked to use `kill-ring' or clipboard inst
                       (car kill-ring))
                      ((string= choice "clipboard")
                       (unless (featurep 'simpleclip) (require 'simpleclip))
-                      (simpleclip-get-contents)))))
+                      (my-gclip)))))
           (with-temp-file fb
             (insert txt)))))
       ;; save region A as file A
@@ -848,6 +845,11 @@ If no region is selected. You will be asked to use `kill-ring' or clipboard inst
 
 ;; }}
 
+;; @see https://stackoverflow.com/questions/3417438/closing-all-other-buffers-in-emacs
+(defun kill-all-but-current-buffer ()
+  (interactive)
+    (mapc 'kill-buffer (cdr (buffer-list (current-buffer)))))
+
 (defun minibuffer-inactive-mode-hook-setup ()
   ;; make `try-expand-dabbrev' from `hippie-expand' work in mini-buffer
   ;; @see `he-dabbrev-beg', so we need re-define syntax for '/'
@@ -855,4 +857,25 @@ If no region is selected. You will be asked to use `kill-ring' or clipboard inst
                       (modify-syntax-entry ?/ "." table)
                       table)))
 (add-hook 'minibuffer-inactive-mode-hook 'minibuffer-inactive-mode-hook-setup)
+
+;; {{ dumb-jump
+(setq dumb-jump-selector 'ivy)
+(dumb-jump-mode)
+;; }}
+
+;; {{ vc-msg
+(defun vc-msg-hook-setup (vcs-type commit-info)
+  ;; copy commit id to clipboard
+  (my-pclip (plist-get commit-info :id)))
+(add-hook 'vc-msg-hook 'vc-msg-hook-setup)
+
+(defun vc-msg-show-code-setup ()
+  ;; use `ffip-diff-mode' from package find-file-in-project instead of `diff-mode'
+  (unless (featurep 'find-file-in-project)
+    (require 'find-file-in-project))
+  (ffip-diff-mode))
+
+  (add-hook 'vc-msg-show-code-hook 'vc-msg-show-code-setup)
+;; }}
+
 (provide 'init-misc)

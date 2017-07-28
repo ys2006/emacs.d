@@ -16,8 +16,8 @@
                             (cadr p4-file-to-url)
                             (concat (file-name-as-directory dir) "...")))
 
-(defun p4-generate-cmd (opts &optional not-current-file)
-  (format "p4 %s %s" opts (if not-current-file "..."
+(defun p4-generate-cmd (opts &optional in-project)
+  (format "p4 %s %s" opts (if in-project (p4-convert-dir-to-url (ffip-project-root))
                             (p4-covert-current-file-to-url))))
 
 (defun p4edit ()
@@ -25,6 +25,16 @@
   (interactive)
   (shell-command (p4-generate-cmd "edit"))
   (read-only-mode -1))
+
+(defun p4-edit-file-and-make-buffer-writable(file)
+  "p4 edit FILE and make corresponding buffer writable."
+  (shell-command (format "p4 edit %s" (p4-convert-file-to-url file)))
+  ;; make sure the buffer is readable
+  (let* ((buf (get-file-buffer file)))
+    (if buf
+        (with-current-buffer buf
+          ;; turn off read-only since we've already `p4 edit'
+          (read-only-mode -1)))))
 
 (defun p4submit (&optional file-opened)
   "p4 submit current file.
@@ -79,8 +89,8 @@ If FILE-OPENED, current file is still opened."
   (interactive)
   (shell-command (p4-generate-cmd "add")))
 
-(defun p4-show-changelist-patch (chg &optional not-current-file)
-  (let* ((url (if not-current-file (p4-convert-dir-to-url (ffip-project-root))
+(defun p4-show-changelist-patch (chg &optional in-project)
+  (let* ((url (if in-project (p4-convert-dir-to-url (ffip-project-root))
                 (p4-covert-current-file-to-url)))
          (pattern "^==== //.*====$")
          sep
@@ -90,7 +100,7 @@ If FILE-OPENED, current file is still opened."
          rlt)
 
     (cond
-     (not-current-file
+     (in-project
       (setq rlt original))
      (t
       (while (setq sep (string-match pattern original start))
@@ -152,23 +162,26 @@ If FILE-OPENED, current file is still opened."
       ;; quit easily in evil-mode
       (evil-local-set-key 'normal "q" (lambda () (interactive) (quit-window t))))))
 
-(defun p4-changes (just-lines current-file)
-  (let* ((cmd (if current-file (p4-generate-cmd "changes")
-                (format "p4 changes %s" (p4-convert-dir-to-url (ffip-project-root)))))
+(defun p4-changes (&optional just-lines in-project)
+  "Show changelists.  IF JUST-LINES is t, show the lines instead of changelists.
+IF IN-PROJECT is t, show changelists of current project instead current file."
+  (let* ((cmd (p4-generate-cmd "changes" in-project))
          (lines (split-string (shell-command-to-string cmd) "\n")))
     (if just-lines lines
       (delq nil (mapcar #'p4--extract-changenumber lines)))))
 
-(defun p4diff ()
-  "Show diff of current file like `git diff'."
-  (interactive)
-  (let* ((content (shell-command-to-string (p4-generate-cmd "diff -du -db"))))
+(defun p4diff (&optional in-project)
+  "Show diff of current file like `git diff'.
+If IN-PROJECT is t, operate in project root."
+  (interactive "P")
+  (let* ((content (shell-command-to-string (p4-generate-cmd "diff -du -db" in-project))))
     (p4--create-buffer "*p4diff*" content)))
 
-(defun p4show()
-  "p4 show change."
-  (interactive)
-  (let* ((lines (p4-changes t nil)))
+(defun p4show(&optional in-project)
+  "p4 show changes of current file.
+If IN-PROJECT is t, operate in project root."
+  (interactive "P")
+  (let* ((lines (p4-changes t in-project)))
     ;; According to Perforce documenation of `p4 describe`:
     ;; If a changelist is pending, it is flagged as such in the output,
     ;; and the list of open files is shown.
@@ -184,6 +197,8 @@ If FILE-OPENED, current file is still opened."
                                            (ffip-project-root))))))
 
 (defun p4edit-in-wgrep-buffer()
+  "'p4 edit' files in wgrep buffer.
+Turn off `read-only-mode' of opened files."
   (interactive)
   (save-restriction
     (let* ((start (wgrep-goto-first-found))
@@ -194,58 +209,26 @@ If FILE-OPENED, current file is still opened."
       (unless (featurep 'wgrep) (require 'featurep))
       (while (not (eobp))
         (if (looking-at wgrep-line-file-regexp)
-            (let* ((fn (match-string-no-properties 1)))
-              (unless (string= fn fn-accessed)
-                (setq fn-accessed fn)
-                (shell-command (format "p4 edit %s" fn)))))
+            (let* ((filename (match-string-no-properties 1)) buf)
+              (unless (string= filename fn-accessed)
+                (setq fn-accessed filename)
+                (shell-command (format "p4 edit %s" filename))
+                (if (setq buf (get-file-buffer filename))
+                    (with-current-buffer buf
+                      ;; turn off read-only since we've already `p4 edit'
+                      (read-only-mode -1))))))
         (forward-line 1)))))
 
-(defun p4history ()
-  "Show history of current file like `git log -p'."
-  (interactive)
+(defun p4history (&optional num)
+  "Show history of current file like `git log -p'.
+NUM default values i 10.  Show the latest NUM changes."
+  (interactive "P")
+  (unless num
+    (setq num 10))
   (let* ((content (mapconcat #'p4-show-changelist-patch
-                             (p4-changes nil t)
-                             "\n\n")))
-   (p4--create-buffer "*p4log*" content t default-directory)))
-
-;; Used in my patched emacs-git-messenger:
-;; (setq git-messenger:exp-to-create-commit-details 'p4-create-commit-details)
-(defun p4-create-commit-details ()
-  "Return '(commit-id author msg)"
-  (let* ((content (shell-command-to-string (p4-generate-cmd "annotate -c -q")))
-         (line-num (line-number-at-pos))
-         filelog-content
-         cur-line
-         changelist
-         commit-msg
-         rlt)
-
-    (with-temp-buffer
-      (insert content)
-      (goto-line line-num)
-      (setq cur-line (buffer-substring-no-properties (line-beginning-position)
-                                                     (line-end-position)))
-      (if (string-match "^\\([0-9]+\\): " cur-line)
-          (setq changelist (match-string 1 cur-line))))
-
-    (when changelist
-      (setq content (shell-command-to-string (p4-generate-cmd "p4 changes -l")))
-      (let* ((b (string-match (format "^Change %s on" changelist) filelog-content))
-             (e (string-match "^Change [0-9]+ on" filelog-content b)))
-        (if (or (not e) (<= e b))
-            (setq e (length filelog-content)))
-        (setq commit-msg (substring-no-properties filelog-content b e))))
-
-    ;; We need extract information from below text:
-    ;; Change 299998 on 2017/04/05 by somebody
-    ;;
-    ;;     test1 blah
-    (if (and commit-msg
-             (string-match "Change \\([0-9]+\\) on.* by \\([^ ]+\\)$" commit-msg))
-        (setq rlt (list (match-string 1 commit-msg)
-                        (match-string 2 commit-msg)
-                        commit-msg)))
-    ;; (message "rlt=%s" rlt)
-    rlt))
+                             (if num (subseq (p4-changes) 0 num)
+                               (p4-changes))
+                   "\n\n")))
+    (p4--create-buffer "*p4history*" content)))
 
 (provide 'init-perforce)

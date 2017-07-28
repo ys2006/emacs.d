@@ -11,6 +11,7 @@ But you may use safer HTTPS instead.")
 (defvar melpa-include-packages
   '(ace-mc
     bbdb
+    dumb-jump
     color-theme
     js-doc
     ;; {{ since stable v0.9.1 released, we go back to stable version
@@ -66,26 +67,26 @@ But you may use safer HTTPS instead.")
 
 ;; We include the org repository for completeness, but don't use it.
 ;; Lock org-mode temporarily:
-;;(setq package-archives
-;;      '(("localelpa" . "~/.emacs.d/localelpa/")
+(setq package-archives
+      '(("localelpa" . "~/.emacs.d/localelpa/")
 	;; uncomment below line if you need use GNU ELPA
         ;;("org" . "http://orgmode.org/elpa/") ; latest org-mode
         ;;("my-js2-mode" . "http://github.com/redguardtoo/js2-mode/")
         ;;("my-js2-mode" . "http://github.com/mooz/js2-mode/")
-;;        ("melpa-stable" . "http://stable.melpa.org/packages/")
-;;        ("melpa" . "http://melpa.org/packages/")
-;;        ("gnu" . "http://elpa.gnu.org/packages/")))
+        ("melpa-stable" . "http://stable.melpa.org/packages/")
+        ("melpa" . "http://melpa.org/packages/")
+        ("gnu" . "http://elpa.gnu.org/packages/")))
 
 ;; Local Repoを追加
-(add-to-list 'package-archives '("localelpa" . "~/.emacs.d/localelpa/"))
+;;(add-to-list 'package-archives '("localelpa" . "~/.emacs.d/localelpa/"))
 ;; MELPAを追加
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+;;(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
 ;; MELPA-stableを追加
-(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
+;;(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
 ;; Marmaladeを追加
 ;;(add-to-list 'package-archives  '("marmalade" . "http://marmalade-repo.org/packages/"))
 ;; Orgを追加
-(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
+;;(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 	     
 ;; Un-comment below line if your extract https://github.com/redguardtoo/myelpa/archive/master.zip into ~/myelpa/
 ;; (setq package-archives '(("myelpa" . "~/myelpa")))
@@ -178,12 +179,11 @@ But you may use safer HTTPS instead.")
 (require-package 'haskell-mode)
 (require-package 'gitignore-mode)
 (require-package 'gitconfig-mode)
-(unless *emacs24old*
-  (require-package 'gist))
+(unless *emacs24old* (require-package 'gist))
 (require-package 'wgrep)
 (require-package 'request)
 (require-package 'lua-mode)
-(require-package 'robe)
+(unless *emacs24old* (require-package 'robe))
 (require-package 'inf-ruby)
 (require-package 'workgroups2)
 (require-package 'yaml-mode)
@@ -267,7 +267,6 @@ But you may use safer HTTPS instead.")
 (require-package 'company-c-headers)
 (require-package 'legalese)
 (require-package 'simple-httpd)
-(require-package 'git-messenger)
 ;; (require-package 'git-gutter) ; use my patched version
 (require-package 'flx-ido)
 (require-package 'neotree)
@@ -276,8 +275,11 @@ But you may use safer HTTPS instead.")
 (require-package 'hydra)
 (require-package 'chinese-pyim)
 (require-package 'web-mode)
+(require-package 'dumb-jump)
 (require-package 'emms)
 (require-package 'magit)
 (require-package 'ensime)
+(require-package 'package-lint) ; lint package before submit it to MELPA
+(require-package 'iedit)
 
 (provide 'init-elpa)

@@ -62,7 +62,7 @@
 (let ((file-name-handler-alist nil))
   (require 'init-autoload)
   (require 'init-modeline)
-  (require 'cl-lib)
+  ;; (require 'cl-lib) ; it's built in since Emacs v24.3
   (require 'init-compat)
   (require 'init-site-lisp) ;; Must come before elpa, as it may provide package.el
   (require 'init-utils)
