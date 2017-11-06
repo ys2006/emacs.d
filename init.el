@@ -14,22 +14,24 @@
 
 (setq emacs-load-start-time (current-time))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
-
 ;;(setq url-proxy-services
 ;;      '(("http"     . "cn-proxy.jp.oracle.com:80")
 ;;        ("https"    . "cn-proxy.jp.oracle.com:80")
 ;;        ("ftp"      . "cn-proxy.jp.oracle.com:80")
 ;;        ("no_proxy" . "^\\(localhost\\|10.*\\)")))
 
-(setq url-proxy-services
-      '(("http"     . "www-proxy.us.oracle.com:80")
-        ("https"    . "www-proxy.us.oracle.com:80")
-        ("ftp"      . "www-proxy.us.oracle.com:80")
-        ("no_proxy" . "^\\(localhost\\|10.*\\)")))
+;;(setq url-proxy-services
+;;     '(("http"     . "www-proxy.us.oracle.com:80")
+;;       ("https"    . "www-proxy.us.oracle.com:80")
+;;       ("ftp"      . "www-proxy.us.oracle.com:80")
+;;       ("no_proxy" . "^\\(localhost\\|10.*\\)")))
 
 (setq default-directory "~/")
 ;;(setq browse-url-browser-function 'browse-url-default-windows-browser)
-(setq browse-url-browser-function 'eww-browse-url)
+;;(setq browse-url-browser-function 'eww-browse-url)
+;;(setq tramp-default-method "ssh")
+;;(setq tramp-chunksize 500)
+;;(eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
 
 ;;----------------------------------------------------------------------------
 ;; Which functionality to enable (use t or nil for true and false)
