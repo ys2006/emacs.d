@@ -86,11 +86,8 @@ But you may use safer HTTPS instead.")
 (add-to-list 'package-archives  '("marmalade" . "http://marmalade-repo.org/packages/"))
 ;; Orgを追加
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
-<<<<<<< HEAD
-=======
 ;; popkitを追加
 (add-to-list 'package-archives '("popkit" . "http://elpa.popkit.org/packages/"))
->>>>>>> update
 	     
 ;; Un-comment below line if your extract https://github.com/redguardtoo/myelpa/archive/master.zip into ~/myelpa/
 ;; (setq package-archives '(("myelpa" . "~/myelpa")))
@@ -283,6 +280,9 @@ But you may use safer HTTPS instead.")
 (require-package 'web-mode)
 (require-package 'dumb-jump)
 (require-package 'emms)
+(require-package 'magit)
+(require-package 'easy-hugo)
+(require-package 'ensime)
 (require-package 'package-lint) ; lint package before submit it to MELPA
 (require-package 'iedit)
 (require-package 'magit)
