@@ -282,6 +282,7 @@ But you may use safer HTTPS instead.")
 (require-package 'dumb-jump)
 (require-package 'emms)
 (require-package 'magit)
+(require-package 'easy-hugo)
 (require-package 'ensime)
 (require-package 'package-lint) ; lint package before submit it to MELPA
 (require-package 'iedit)
