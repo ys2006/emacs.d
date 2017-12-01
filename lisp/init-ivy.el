@@ -21,6 +21,18 @@
                       (read-string hint)))))
     keyword))
 
+(defun my-counsel-recentf ()
+  "Find a file on `recentf-list'."
+  (interactive)
+  (require 'recentf)
+  (recentf-mode)
+  (ivy-read "Recentf: " (mapcar #'substring-no-properties recentf-list)
+            :initial-input (if (region-active-p) (my-selected-str))
+            :action (lambda (f)
+                      (with-ivy-window
+                       (find-file f)))
+            :caller 'counsel-recentf))
+
 (defmacro counsel-git-grep-or-find-api (fn git-cmd hint no-keyword)
   "Apply FN on the output lines of GIT-CMD.  HINT is hint when user input.
 Yank the file name at the same time.  FILTER is function to filter the collection"
@@ -93,50 +105,18 @@ Yank the file name at the same time.  FILTER is function to filter the collectio
 
 (defvar counsel-complete-line-use-git t)
 
-(defun counsel-find-quickest-grep ()
-  ;; on debian ag v0.26.0 does not support "-n" option
-  (executable-find "ag"))
+(defun counsel-has-quick-grep ()
+  (executable-find "rg"))
 
-(defun counsel-complete-line-by-grep ()
-  "Complete line using text from (line-beginning-position) to (point).
-If OTHER-GREP is not nil, we use the_silver_searcher and grep instead."
-  (interactive)
-  (let* ((cur-line (my-line-str (point)))
-         (default-directory (ffip-project-root))
-         (keyword (counsel-unquote-regex-parens (replace-regexp-in-string "^[ \t]*" "" cur-line)))
-         (cmd (cond
-               (counsel-complete-line-use-git
-                (format "git --no-pager grep --no-color -P -I -h -i -e \"^[ \\t]*%s\" | sed s\"\/^[ \\t]*\/\/\" | sed s\"\/[ \\t]*$\/\/\" | sort | uniq"
-                        keyword))
-               (t
-                (concat  (my-grep-cli keyword nil (if (counsel-find-quickest-grep) "" "-h")) ; tell grep not to output file name
-                         (if (counsel-find-quickest-grep) " | sed s\"\/^.*:[0-9]*:\/\/\"" "") ; remove file names for ag
-                         " | sed s\"\/^[ \\t]*\/\/\" | sed s\"\/[ \\t]*$\/\/\" | sort | uniq"))))
-         (leading-spaces "")
-         (collection (split-string (shell-command-to-string cmd) "[\r\n]+" t)))
+(defun counsel-find-quick-grep (&optional for-swiper)
+  ;; ripgrep says that "-n" is enabled actually not,
+  ;; so we manually add it
+  (concat (executable-find "rg")
+          " -n -M 128 --no-heading --color never "
+          (if for-swiper "-i '%s' %s" "-s")))
 
-    ;; grep lines without leading/trailing spaces
-    (when collection
-      (if (string-match "^\\([ \t]*\\)" cur-line)
-          (setq leading-spaces (match-string 1 cur-line)))
-      (cond
-       ((= 1 (length collection))
-        (counsel--replace-current-line leading-spaces (car collection)))
-       ((> (length collection) 1)
-        (ivy-read "lines:"
-                  collection
-                  :action (lambda (l)
-                            (counsel--replace-current-line leading-spaces l))))))))
-(global-set-key (kbd "C-x C-l") 'counsel-complete-line-by-grep)
-
-(defun counsel-git-grep-yank-line (&optional insert-line)
-  "Grep in the current git repository and yank the line.
-If INSERT-LINE is not nil, insert the line grepped"
-  (interactive "P")
-  (counsel-git-grep-or-find-api 'counsel-insert-grepped-line
-                                "git --no-pager grep -I --full-name -n --no-color -i -e \"%s\""
-                                "grep"
-                                nil))
+(if (counsel-has-quick-grep)
+    (setq counsel-grep-base-command (counsel-find-quick-grep t)))
 
 (defvar counsel-my-name-regex ""
   "My name used by `counsel-git-find-my-file', support regex like '[Tt]om [Cc]hen'.")
@@ -217,127 +197,6 @@ Or else, find files since 24 weeks (6 months) ago."
                                   (split-string (shell-command-to-string "fasd -ld") "\n" t))))))
     (ivy-read "directories:" collection :action 'dired)))
 
-
-;; {{ ag/grep
-(defvar my-grep-ignore-dirs
-  '(".git"
-    ".bzr"
-    ".svn"
-    "bower_components"
-    "node_modules"
-    ".sass-cache"
-    ".cache"
-    "test"
-    "tests"
-    ".metadata"
-    "logs")
-  "Directories to ignore when grepping.")
-(defvar my-grep-ignore-file-exts
-  '("log"
-    "properties"
-    "session"
-    "swp")
-  "File extensions to ignore when grepping.")
-(defvar my-grep-ignore-file-names
-  '("TAGS"
-    "tags"
-    "GTAGS"
-    "GPATH"
-    ".bookmarks.el"
-    "*.svg"
-    "history"
-    "#*#"
-    "*.min.js"
-    "*bundle*.js"
-    "*vendor*.js"
-    "*.min.css"
-    "*~")
-  "File names to ignore when grepping.")
-
-(defvar my-grep-opts-cache '())
-
-(defun my-grep-exclude-opts (use-cache)
-  ;; (message "my-grep-exclude-opts called => %s" use-cache)
-  (let* ((ignore-dirs (if use-cache (plist-get my-grep-opts-cache :ignore-dirs)
-                        my-grep-ignore-dirs))
-         (ignore-file-exts (if use-cache (plist-get my-grep-opts-cache :ignore-file-exts)
-                             my-grep-ignore-file-exts))
-         (ignore-file-names (if use-cache (plist-get my-grep-opts-cache :ignore-file-names)
-                              my-grep-ignore-file-names)))
-    (cond
-     ((executable-find "ag")
-      (concat "-s --nocolor --nogroup --silent -z " ; -z to grep *.gz
-              (mapconcat (lambda (e) (format "--ignore-dir='%s'" e))
-                         ignore-dirs " ")
-              " "
-              (mapconcat (lambda (e) (format "--ignore='*.%s'" e))
-                         ignore-file-exts " ")
-              " "
-              (mapconcat (lambda (e) (format "--ignore='%s'" e))
-                         ignore-file-names " ")))
-     (t
-      (concat (mapconcat (lambda (e) (format "--exclude-dir='%s'" e))
-                         ignore-dirs " ")
-              " "
-              (mapconcat (lambda (e) (format "--exclude='*.%s'" e))
-                         ignore-file-exts " ")
-              " "
-              (mapconcat (lambda (e) (format "--exclude='%s'" e))
-                         ignore-file-names " "))))))
-
-(defun my-grep-cli (keyword use-cache &optional extra-opts)
-  "Extended regex is used, like (pattern1|pattern2)."
-  (let* (opts cmd)
-    (unless extra-opts (setq extra-opts ""))
-    (cond
-     ((counsel-find-quickest-grep)
-      (setq cmd (format "%s %s %s \"%s\" --"
-                        (counsel-find-quickest-grep)
-                        (my-grep-exclude-opts use-cache)
-                        extra-opts
-                        keyword)))
-     (t
-      ;; use extended regex always
-      (setq cmd (format "grep -rsnE -P %s \"%s\" *"
-                        (my-grep-exclude-opts use-cache)
-                        extra-opts
-                        keyword))))
-    ;; (message "cmd=%s" cmd)
-    cmd))
-
-(defun my-root-dir ()
-  "If ffip is not installed, use `default-directory'."
-  (file-name-as-directory (or (and (fboundp 'ffip-get-project-root-directory)
-                                   (ffip-get-project-root-directory))
-                              default-directory)))
-
-;; TIP: after `M-x my-grep', you can:
-;; - then `C-c C-o' or `M-x ivy-occur'
-;; - `C-c C-c' or `M-x wgrep-finish-edit'
-(defun my-grep-occur ()
-  "Generate a custom occur buffer for `my-grep'."
-  (unless (eq major-mode 'ivy-occur-grep-mode)
-    (ivy-occur-grep-mode))
-  ;; useless to set `default-directory', it's already correct
-  ;; (message "default-directory=%s" default-directory)
-  ;; we use regex in elisp, don't unquote regex
-  (let* ((regex (setq ivy--old-re
-                      (ivy--regex
-                       (progn (string-match "\"\\(.*\\)\"" (buffer-name))
-                              (match-string 1 (buffer-name))))))
-         (cands (remove nil (mapcar (lambda (s) (if (string-match-p regex s) s))
-                                    (split-string (shell-command-to-string (my-grep-cli keyword t))
-                                                  "[\r\n]+" t)))))
-
-    ;; Need precise number of header lines for `wgrep' to work.
-    (insert (format "-*- mode:grep; default-directory: %S -*-\n\n\n"
-                    default-directory))
-    (insert (format "%d candidates:\n" (length cands)))
-    (ivy--occur-insert-lines
-     (mapcar
-      (lambda (cand) (concat "./" cand))
-      cands))))
-;; goto `wgrep-mode' automatically after `C-c C-o', (why press extra `C-x C-q'?)
 (defun ivy-occur-grep-mode-hook-setup ()
   ;; no syntax highlight, I only care performance when searching/replacing
   (font-lock-mode -1)
@@ -347,38 +206,6 @@ Or else, find files since 24 weeks (6 months) ago."
   ;; (ivy-wgrep-change-to-wgrep-mode) ; doesn't work, don't know why
   )
 (add-hook 'ivy-occur-grep-mode-hook 'ivy-occur-grep-mode-hook-setup)
-
-(defvar my-grep-show-full-directory t)
-(defvar my-grep-debug nil)
-(defun my-grep ()
-  "Grep at project root directory or current directory.
-Try to find best grep program (the silver searcher, grep...) automatically.
-Extended regex like (pattern1|pattern2) is used."
-  (interactive)
-  (let* ((keyword (counsel-read-keyword "Enter grep pattern: "))
-         (default-directory (my-root-dir))
-         (collection (split-string (shell-command-to-string (my-grep-cli keyword nil)) "[\r\n]+" t))
-         (dir (if my-grep-show-full-directory (my-root-dir)
-                (file-name-as-directory (file-name-base (directory-file-name (my-root-dir)))))))
-
-    (setq my-grep-opts-cache (plist-put my-grep-opts-cache :ignore-dirs my-grep-ignore-dirs))
-    (setq my-grep-opts-cache (plist-put my-grep-opts-cache :ignore-file-exts my-grep-ignore-file-exts))
-    (setq my-grep-opts-cache (plist-put my-grep-opts-cache :ignore-file-names my-grep-ignore-file-names))
-    ;; (message "my-grep-opts-cache=%s" my-grep-opts-cache)
-
-    (ivy-read (format "matching \"%s\" at %s:" keyword dir)
-              collection
-              :history 'counsel-git-grep-history
-              :action `(lambda (line)
-                         (let* ((default-directory (my-root-dir)))
-                           (counsel--open-file line)))
-              :unwind (lambda ()
-                        (counsel-delete-process)
-                        (swiper--cleanup))
-              :caller 'my-grep)))
-(ivy-set-occur 'my-grep 'my-grep-occur)
-(ivy-set-display-transformer 'my-grep 'counsel-git-grep-transformer)
-;; }}
 
 (defun counsel-git-grep-by-selected ()
   (interactive)
@@ -427,5 +254,11 @@ If N is nil, use `ivy-mode' to browse the `kill-ring'."
 
 (global-set-key (kbd "C-s") 'swiper)
 ;; }}
+
+(global-set-key (kbd "C-h v") 'counsel-describe-variable)
+(global-set-key (kbd "C-h f") 'counsel-describe-function)
+
+;; better performance on everything (especially windows), required ivy-0.10.0
+(setq ivy-dynamic-exhibit-delay-ms 200)
 
 (provide 'init-ivy)

@@ -122,8 +122,8 @@ If FILE-OPENED, current file is still opened."
             (setq found t))
           (setq i (+ 1 i))))))
 
-    ;; remove p4 verbose bullshit
-    (setq rlt (replace-regexp-in-string "^\\(Affected\\|Moved\\) files \.\.\.[\r\n]+\\(\.\.\. .*[\r\n]+\\)+"
+    ;; clean the verbose summary
+    (setq rlt (replace-regexp-in-string "^\\(Affected\\|Moved\\) files \.\.\.[\r\n]+"
                                         ""
                                         rlt))
     (setq rlt (replace-regexp-in-string "Differences \.\.\.[\r\n]+" "" rlt))
@@ -196,6 +196,15 @@ If IN-PROJECT is t, operate in project root."
                                            nil
                                            (ffip-project-root))))))
 
+(defun p4--edit-file (filename &optional fn-accessed)
+  "'p4 edit' FILENAME unless it equals FN-ACCESSED."
+  (unless (string= filename fn-accessed)
+    (shell-command (format "p4 edit %s" filename))
+    (if (setq buf (get-file-buffer filename))
+        (with-current-buffer buf
+          ;; turn off read-only since we've already `p4 edit'
+          (read-only-mode -1)))))
+
 (defun p4edit-in-wgrep-buffer()
   "'p4 edit' files in wgrep buffer.
 Turn off `read-only-mode' of opened files."
@@ -210,14 +219,28 @@ Turn off `read-only-mode' of opened files."
       (while (not (eobp))
         (if (looking-at wgrep-line-file-regexp)
             (let* ((filename (match-string-no-properties 1)) buf)
-              (unless (string= filename fn-accessed)
-                (setq fn-accessed filename)
-                (shell-command (format "p4 edit %s" filename))
-                (if (setq buf (get-file-buffer filename))
-                    (with-current-buffer buf
-                      ;; turn off read-only since we've already `p4 edit'
-                      (read-only-mode -1))))))
+              (p4--edit-file filename fn-accessed)
+              (setq fn-accessed filename)))
         (forward-line 1)))))
+
+
+(defun p4edit-in-diff-mode()
+  "'p4 edit' files in `diff-mode'.
+Turn off `read-only-mode' of opened files."
+  (interactive)
+  (unless (featurep 'imenu)
+    (require 'imenu nil t))
+  (let* ((imenu-auto-rescan t)
+         (imenu-auto-rescan-maxout (if current-prefix-arg
+                                       (buffer-size)
+                                     imenu-auto-rescan-maxout))
+         (items (imenu--make-index-alist t))
+         fn-accessed)
+    (setq items (delete nil (delete-dups (mapcar #'car (delete (assoc "*Rescan*" items) items)))))
+    (save-restriction
+     (dolist (filename items)
+       (p4--edit-file filename fn-accessed)
+       (setq fn-accessed filename)))))
 
 (defun p4history (&optional num)
   "Show history of current file like `git log -p'.
@@ -226,9 +249,10 @@ NUM default values i 10.  Show the latest NUM changes."
   (unless num
     (setq num 10))
   (let* ((content (mapconcat #'p4-show-changelist-patch
-                             (if num (subseq (p4-changes) 0 num)
-                               (p4-changes))
+                             (let* ((chgs (p4-changes)))
+                               (if (and num (< num (length chgs))) (subseq chgs 0 num)
+                                 chgs))
                    "\n\n")))
-    (p4--create-buffer "*p4history*" content)))
+    (p4--create-buffer "*p4history*" content t)))
 
 (provide 'init-perforce)
