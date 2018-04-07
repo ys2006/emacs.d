@@ -242,4 +242,12 @@ If use-indirect-buffer is not nil, use `indirect-buffer' to hold the widen conte
   (interactive "P")
   (org-agenda arg "n"))
 
+
+;; {{  see http://https://coldnew.github.io/4bb1df06/
+;(org-crypt-use-before-save-magic)
+;(setq org-crypt-tag-matcher "secret")
+;(setq org-tags-exclude-from-inheritance (quote ("secret")))
+;(setq org-crypt-key nil)
+;; }}
+
 (provide 'init-org)
