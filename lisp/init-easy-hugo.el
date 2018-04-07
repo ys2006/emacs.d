@@ -6,5 +6,4 @@
 (setq easy-hugo-previewtime "300")
 (setq easy-hugo-default-ext ".org")
 (define-key global-map (kbd "C-c C-e") 'easy-hugo)
-;;:bind ("C-C C-e" . easy-hugo)
 (provide 'init-easy-hugo)
