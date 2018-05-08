@@ -9,6 +9,7 @@
   '(ace-mc
     ace-window ; lastest stable is released on year 2014
     bbdb
+    zoutline
     dumb-jump
     websocket ; to talk to the browser
     color-theme
@@ -17,8 +18,6 @@
     evil-lion
     iedit
     undo-tree
-    lispy
-    lispyville
     js-doc
     jss ; remote debugger of browser
     ;; {{ since stable v0.9.1 released, we go back to stable version
@@ -28,7 +27,6 @@
     ;; }}
     wgrep
     robe
-    groovy-mode
     inf-ruby
     ;; company ; I won't wait another 2 years for stable
     simple-httpd
@@ -52,7 +50,6 @@
     htmlize
     scratch
     session
-    bookmark+
     flymake-lua
     multi-term
     dired+
@@ -70,7 +67,6 @@
     erlang
     workgroups2
     xah-lookup
-    zoutline
     company-c-headers)
   "Don't install any Melpa packages except these packages")
 
@@ -81,19 +77,20 @@
       ;;("org" . "http://orgmode.org/elpa/") ; latest org-mode
       ;;("my-js2-mode" . "http://github.com/redguardtoo/js2-mode/")
       ;;("my-js2-mode" . "http://github.com/mooz/js2-mode/")
-        ("melpa" . "https://melpa.org/packages/")
-        ("melpa-stable" . "https://stable.melpa.org/packages/")))
+      ;;("melpa" . "https://melpa.org/packages/")
+        ("melpa" . "http://melpa.milkbox.net/packages/")
+        ("melpa-stable" . "http://stable.melpa.org/packages/")))
 
 ;; Local Repoを追加
-(add-to-list 'package-archives '("localelpa" . "~/.emacs.d/localelpa/"))
+;;(add-to-list 'package-archives '("localelpa" . "~/.emacs.d/localelpa/"))
 ;; MELPAを追加
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+;;(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
 ;; MELPA-stableを追加
-(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
+;;(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
 ;; Marmaladeを追加
-(add-to-list 'package-archives  '("marmalade" . "http://marmalade-repo.org/packages/"))
+;;(add-to-list 'package-archives  '("marmalade" . "http://marmalade-repo.org/packages/"))
 ;; Orgを追加
-(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
+;;(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 ;; popkitを追加
 (add-to-list 'package-archives '("popkit" . "http://elpa.popkit.org/packages/"))
 	     
@@ -174,6 +171,11 @@
 ;; Fire up package.el and ensure the following packages are installed.
 ;;------------------------------------------------------------------------------
 
+(require-package 'goto-chg)
+(require-package 'ghub)
+(require-package 'magit-popup)
+(require-package 'with-editor)
+(require-package 'dockerfile-mode)
 (require-package 'async)
 (require-package 'dash) ; required by string-edit
 ; color-theme 6.6.1 in elpa is buggy
@@ -181,6 +183,7 @@
 (require-package 'auto-compile)
 (require-package 'smex)
 (require-package 'avy)
+(require-package 'zoutline)
 (require-package 'auto-yasnippet)
 (require-package 'ace-link)
 (require-package 'expand-region) ; I prefer stable version
@@ -256,7 +259,7 @@
 ;; rvm-open-gem to get gem's code
 (require-package 'rvm)
 ;; C-x r l to list bookmarks
-(require-package 'bookmark+)
+;;(require-package 'bookmark+)
 (require-package 'multi-term)
 (require-package 'js-doc)
 (require-package 'js2-mode)
@@ -289,7 +292,6 @@
 (require-package 'web-mode)
 (require-package 'dumb-jump)
 (require-package 'emms)
-(require-package 'magit)
 (require-package 'easy-hugo)
 (require-package 'ensime)
 (require-package 'package-lint) ; lint package before submit it to MELPA

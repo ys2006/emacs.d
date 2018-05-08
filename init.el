@@ -21,7 +21,7 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
 
 (setq url-proxy-services
-      '(("http"     . "cn-proxy.jp.oracle.com:80")
+     '(("http"     . "cn-proxy.jp.oracle.com:80")
         ("https"    . "cn-proxy.jp.oracle.com:80")
         ("ftp"      . "cn-proxy.jp.oracle.com:80")
         ("no_proxy" . "^\\(localhost\\|10.*\\)")))
@@ -161,6 +161,7 @@ cygwin-mount-cygwin-bin-directory "c:/Users/dyyin/.babun/cygwin/bin")
   ;; need statistics of keyfreq asap
   (require 'init-keyfreq)
   (require 'init-httpd)
+  (require 'init-dictionary)
   (require 'init-magit)
   (require 'init-easy-hugo)
 

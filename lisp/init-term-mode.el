@@ -48,7 +48,7 @@
   (interactive)
   (term-send-raw-string "\C-k"))
 
-(setq multi-term-program "/bin/bash")
+(setq multi-term-program "/bin/zsh")
 ;; check `term-bind-key-alist' for key bindings
 (eval-after-load 'multi-term
   '(progn
@@ -70,5 +70,11 @@
        (setq term-bind-key-alist (delq (assoc (car p) term-bind-key-alist) term-bind-key-alist))
        (add-to-list 'term-bind-key-alist p))))
 ;; }}
+
+(add-hook 'term-mode-hook
+          (lambda ()
+            (setq term-buffer-maximum-size 10000))
+
+          )
 
 (provide 'init-term-mode)

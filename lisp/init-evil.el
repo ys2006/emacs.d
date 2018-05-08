@@ -37,7 +37,7 @@
 ;; }}
 
 ;; enable evil-mode
-(evil-mode 1)
+(evil-mode )
 
 ;; {{ @see https://github.com/timcharper/evil-surround for tutorial
 (require 'evil-surround)
@@ -579,7 +579,7 @@ If the character before and after CH is space or tab, CH is NOT slash"
        "gr" 'counsel-gtags-find-symbol
        "gu" 'counsel-gtags-update-tags
        "fb" 'flyspell-buffer
-       "fe" 'flyspell-goto-next-error
+       "fe" 'flyspell-goto-next-errodr
        "fa" 'flyspell-auto-correct-word
        "pe" 'flymake-goto-prev-error
        "ne" 'flymake-goto-next-error
@@ -720,6 +720,7 @@ If the character before and after CH is space or tab, CH is NOT slash"
 ;; }}
 
 ;; Press `dd' to delete lines in `wgrep-mode' in evil directly
+
 (defadvice evil-delete (around evil-delete-hack activate)
   ;; make buffer writable
   (if (and (boundp 'wgrep-prepared) wgrep-prepared)
