@@ -1,3 +1,9 @@
 [submodule "site-lisp/magit"]
 	path = site-lisp/magit
 	url = https://github.com/magit/magit.git
+[submodule "emacs-ipython-notebook"]
+	path = site-lisp/emacs-ipython-notebook
+	url = http://github.com/millejoh/emacs-ipython-notebook.git
+[submodule "org-jira"]
+	path = site-lisp/org-jira
+	url = https://github.com/ahungry/org-jira

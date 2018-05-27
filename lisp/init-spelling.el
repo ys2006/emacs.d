@@ -189,4 +189,12 @@ Please note RUN-TOGETHER will make aspell less capable. So it should only be use
                         (length aspell-words)
                         (mapconcat 'identity aspell-words "\n"))))))
 
+(defun my-save-word ()
+  (interactive)
+  (let ((current-location (point))
+         (word (flyspell-get-word)))
+    (print word)
+    (when (consp word)
+      (flyspell-do-correct 'save nil (car word) current-location (cadr word) (caddr word) current-location)))
+  )
 (provide 'init-spelling)

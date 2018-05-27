@@ -1,5 +1,5 @@
 
-					; -*- coding: utf-8 -*-
+; -*- coding: utf-8 -*-
 ;(defvar best-gc-cons-threshold gc-cons-threshold "Best default gc threshold value. Should't be too big.")
 
 
@@ -20,19 +20,20 @@
 (setq emacs-load-start-time (current-time))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
 
-(setq url-proxy-services
-     '(("http"     . "cn-proxy.jp.oracle.com:80")
-        ("https"    . "cn-proxy.jp.oracle.com:80")
-        ("ftp"      . "cn-proxy.jp.oracle.com:80")
-        ("no_proxy" . "^\\(localhost\\|10.*\\)")))
+(setq url-using-proxy t)
+;; (setq url-proxy-services
+;;       '(("http"     . "cn-proxy.cn.oracle.com:80")
+;;         ("https"    . "cn-proxy.cn.oracle.com:80")
+;;         ("ftp"      . "cn-proxy.cn.oracle.com:80")
+;;         ("no_proxy" . "^\\(localhost\\|10.*\\)")))
 
-;;(setq url-proxy-services
+;; (setq url-proxy-services
 ;;     '(("http"     . "www-proxy.us.oracle.com:80")
 ;;       ("https"    . "www-proxy.us.oracle.com:80")
 ;;       ("ftp"      . "www-proxy.us.oracle.com:80")
 ;;       ("no_proxy" . "^\\(localhost\\|10.*\\)")))
 
-(setq default-directory "~/")
+(setq default-directory "~/.emacs.d")
 ;;(setq browse-url-browser-function 'browse-url-default-windows-browser)
 ;;(setq browse-url-browser-function 'eww-browse-url)
 ;;(setq tramp-default-method "ssh")
@@ -161,9 +162,11 @@ cygwin-mount-cygwin-bin-directory "c:/Users/dyyin/.babun/cygwin/bin")
   ;; need statistics of keyfreq asap
   (require 'init-keyfreq)
   (require 'init-httpd)
-  (require 'init-dictionary)
+  ;; (require 'init-dictionary)
   (require 'init-magit)
   (require 'init-easy-hugo)
+  (require 'init-calendar)
+  (require 'init-mu4e)
 
   ;; projectile costs 7% startup time
 

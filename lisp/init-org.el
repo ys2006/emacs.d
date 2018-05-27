@@ -160,6 +160,7 @@ If use-indirect-buffer is not nil, use `indirect-buffer' to hold the widen conte
   '(progn
      (setq org-imenu-depth 9)
      (require 'org-clock)
+     (require 'org-jira)
      ;; @see http://irreal.org/blog/1
      (setq org-src-fontify-natively t)))
 

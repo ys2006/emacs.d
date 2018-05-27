@@ -947,4 +947,16 @@ If no region is selected. You will be asked to use `kill-ring' or clipboard inst
 
 (add-hook 'lispy-mode-hook #'lispyville-mode)
 
+(setq jiralib-url "https://jira.oraclecorp.com")
+
+;; {{ mail setup
+(require 'epa-file)
+(epa-file-enable)
+
+(defun offlineimap-get-password (host port)
+      (let* ((netrc (netrc-parse (expand-file-name "~/.netrc.gpg")))
+             (hostentry (netrc-machine netrc host port port)))
+        (when hostentry (netrc-get hostentry "password"))))
+;; }}
+
 (provide 'init-misc)

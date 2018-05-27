@@ -78,8 +78,9 @@
       ;;("my-js2-mode" . "http://github.com/redguardtoo/js2-mode/")
       ;;("my-js2-mode" . "http://github.com/mooz/js2-mode/")
       ;;("melpa" . "https://melpa.org/packages/")
-        ("melpa" . "http://melpa.milkbox.net/packages/")
-        ("melpa-stable" . "http://stable.melpa.org/packages/")))
+      ("melpa" . "http://melpa.milkbox.net/packages/")
+      ("marmalade" . "http://marmalade-repo.org/packages/")
+      ("melpa-stable" . "http://stable.melpa.org/packages/")))
 
 ;; Local Repoを追加
 ;;(add-to-list 'package-archives '("localelpa" . "~/.emacs.d/localelpa/"))
@@ -294,9 +295,14 @@
 (require-package 'emms)
 (require-package 'easy-hugo)
 (require-package 'ensime)
+;; (require-package 'ein)
+;; (require-package 'ein-loaddefs)
+;; (require-package 'ein-notebook)
+;; (require-package 'ein-subpackages)
 (require-package 'package-lint) ; lint package before submit it to MELPA
 (require-package 'iedit)
 (require-package 'magit)
+;; (require-package 'org-jira)
 (require-package 'ensime)
 (require-package 'ace-pinyin)
 (require-package 'bash-completion)
@@ -315,6 +321,5 @@
 (require-package 'evil-nerd-commenter)
 (require-package 'evil-surround)
 (require-package 'evil-visualstar)
-
 
 (provide 'init-elpa)

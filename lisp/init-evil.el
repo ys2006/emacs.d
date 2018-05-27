@@ -584,6 +584,7 @@ If the character before and after CH is space or tab, CH is NOT slash"
        "pe" 'flymake-goto-prev-error
        "ne" 'flymake-goto-next-error
        "fw" 'ispell-word
+       "sw" 'my-save-word
        "bc" '(lambda () (interactive) (wxhelp-browse-class-or-api (thing-at-point 'symbol)))
        "og" 'org-agenda
        "otl" 'org-toggle-link-display
@@ -744,7 +745,8 @@ If the character before and after CH is space or tab, CH is NOT slash"
        "a" 'avy-goto-char-timer
        "db" 'sdcv-search-pointer ; in buffer
        "dt" 'sdcv-search-input+ ; in tip
-       "dd" 'my-lookup-dict-org
+       ;; "dd" 'my-lookup-dict-org
+       "dd" 'my-save-word
        "mm" 'lookup-doc-in-man
        "gg" 'w3m-google-search
        "gf" 'w3m-google-by-filetype
