@@ -20,7 +20,7 @@
 (setq emacs-load-start-time (current-time))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
 
-(setq url-using-proxy t)
+;; (setq url-using-proxy t)
 ;; (setq url-proxy-services
 ;;       '(("http"     . "cn-proxy.cn.oracle.com:80")
 ;;         ("https"    . "cn-proxy.cn.oracle.com:80")
@@ -167,6 +167,7 @@ cygwin-mount-cygwin-bin-directory "c:/Users/dyyin/.babun/cygwin/bin")
   (require 'init-easy-hugo)
   (require 'init-calendar)
   (require 'init-mu4e)
+  (require 'restclient)
 
   ;; projectile costs 7% startup time
 

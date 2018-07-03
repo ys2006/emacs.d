@@ -64,11 +64,11 @@
 ;; (add-hook 'mu4e-main-mode-hook 'my-mu4e-set-account)
 
 ;; the maildirs you use frequently; access them with 'j' ('jump')
-;; (setq   mu4e-maildir-shortcuts
-;;     '(("/archive"     . ?a)
-;;       ("/INBOX"       . ?i)
-;;       ("/work"        . ?w)
-;; ))
+(setq   mu4e-maildir-shortcuts
+    '(("/archive"     . ?a)
+      ("/INBOX"       . ?i)
+      ("/Sent"        . ?s)
+))
 
 ;; program to get mail; alternatives are 'fetchmail', 'getmail'
 ;; isync or your own shellscript. called when 'U' is pressed in
@@ -76,7 +76,8 @@
 
 ;; If you get your mail without an explicit command,
 ;; use "true" for the command (this is the default)
-(setq mu4e-get-mail-command "offlineimap")
+;; (setq mu4e-get-mail-command "offlineimap")
+(setq mu4e-get-mail-command "true")
 
 ;; smtp mail setting; these are the same that `gnus' uses.
 ;; (require 'smtpmail)
@@ -90,9 +91,6 @@
 
 ;; save attachment to my desktop (this can also be a function)
 (setq mu4e-attachment-dir "~/Downloads")
-
-;; attempt to show images when viewing messages
-(setq mu4e-view-show-images t)
 
 ;; (setq message-send-mail-function 'smtpmail-send-it
 ;;       smtpmail-default-smtp-server "stbeehive.oracle.com"
@@ -144,10 +142,11 @@
                   (smtpmail-smtp-service   . 587)
                   (mu4e-sent-folder        . "/Sent")
                   (mu4e-drafts-folder      . "/Drafts")
-                  (mu4e-trash-folder       . "/Junk E-mail")
-                  (mu4e-refile-folder      . "/Archives")
-                  (user-mail-address      . "yinshuo335@hotmail.com")
-                  (user-full-name         . "Yinshuo" )
+                  (mu4e-sent-messages-behavior . "delete")
+                  (mu4e-trash-folder           . "/Junk E-mail")
+                  (mu4e-refile-folder          . "/Archives")
+                  (user-mail-address           . "yinshuo335@hotmail.com")
+                  (user-full-name              . "Yinshuo" )
                   (mu4e-compose-signature .
                                           (concat
                                            "Sincerely,\n"
@@ -163,17 +162,11 @@
                           (string= (mu4e-message-field msg :maildir) "/Gmail")))
           :vars '((user-mail-address       . "dylan.yins@gmail.com" )
                   (user-full-name          . "Yinshuo" )
+                  (mu4e-sent-messages-behavior . "delete")
                   (mu4e-compose-signature  .
                                              (concat
                                               "Sincerely,\n"
                                               "Yin Shuo.\n"))))))
-
-  ;; set `mu4e-context-policy` and `mu4e-compose-policy` to tweak when mu4e should
-  ;; guess or ask the correct context, e.g.
-
-  ;; start with the first (default) context;
-  ;; default is to ask-if-none (ask when there's no context yet, and none match)
-  ;; (setq mu4e-context-policy 'pick-first)
 
   ;; compose with the current context is no context matches;
   ;; default is to ask
@@ -205,7 +198,7 @@
       (t  "/archive"))))
 
 ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
-(setq mu4e-sent-messages-behavior 'delete)
+;; (setq mu4e-sent-messages-behavior 'delete)
 
 (require 'mu4e-contrib)
 (setq mu4e-html2text-command 'mu4e-shr2text)
@@ -222,13 +215,53 @@
 
 ;; This allows me to use 'helm' to select mailboxes
 (setq mu4e-completing-read-function 'completing-read)
-;; Why would I want to leave my message open after I've sent it?
-(setq message-kill-buffer-on-exit t)
+
 ;; Don't ask for a 'context' upon opening mu4e
 ;; (setq mu4e-context-policy 'pick-first)
 ;; Don't ask to quit... why is this the default?
 (setq mu4e-confirm-quit nil)
 
 mu4e-attachment-dir (expand-file-name "~/Downloads")
+
+;; Try to show images
+(setq mu4e-view-show-images t
+      mu4e-show-images t
+      mu4e-view-image-max-width 800)
+;; the list of all of my e-mail addresses
+(setq mu4e-user-mail-address-list '("dylan.yin@oracle.com"
+                                    "yinshuo335@hotmail.com"
+                                    "dylan.yins@gmail.com"))
+;; the headers to show in the headers list -- a pair of a field
+;; and its width, with `nil' meaning 'unlimited'
+;; (better only use that for the last field.
+;; These are the defaults:
+(setq mu4e-headers-fields
+     '( (:human-date          .  25)    ;; alternatively, use :human-date
+        (:flags               .   6)
+        (:from-or-to          .  22)
+        (:thread-subject      .  nil))) ;; alternatively, use :thread-subject
+
+;; don't keep message buffers around
+(setq message-kill-buffer-on-exit t)
+
+;; start with the first (default) context; 
+(setq mu4e-context-policy 'pick-first)
+;; give me ISO(ish) format date-time stamps in the header list
+(setq mu4e-headers-date-format "%Y/%m/%d %H:%M")
+
+;; Call EWW to display HTML messages
+(defun jcs-view-in-eww (msg)
+  (eww-browse-url (concat "file://" (mu4e~write-body-to-html msg))))
+
+;; Arrange to view messages in either the default browser or EWW
+(add-to-list 'mu4e-view-actions '("ViewInBrowser" . mu4e-action-view-in-browser) t)
+(add-to-list 'mu4e-view-actions '("Eww view" . jcs-view-in-eww) t)
+
+;; From Ben Maughan: Get some Org functionality in compose buffer
+(add-hook 'message-mode-hook 'turn-on-orgtbl)
+(add-hook 'message-mode-hook 'turn-on-orgstruct++)
+
+;; every new email composition gets its own frame! (window)
+;; (setq mu4e-compose-in-new-frame t)
 
 (provide 'init-mu4e)

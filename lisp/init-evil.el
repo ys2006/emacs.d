@@ -744,9 +744,9 @@ If the character before and after CH is space or tab, CH is NOT slash"
        "w" 'avy-goto-word-or-subword-1
        "a" 'avy-goto-char-timer
        "db" 'sdcv-search-pointer ; in buffer
-       "dt" 'sdcv-search-input+ ; in tip
+       "dd" 'sdcv-search-input+ ; in tip
        ;; "dd" 'my-lookup-dict-org
-       "dd" 'my-save-word
+       ;; "dd" 'my-save-word
        "mm" 'lookup-doc-in-man
        "gg" 'w3m-google-search
        "gf" 'w3m-google-by-filetype

@@ -79,7 +79,7 @@
       ;;("my-js2-mode" . "http://github.com/mooz/js2-mode/")
       ;;("melpa" . "https://melpa.org/packages/")
       ("melpa" . "http://melpa.milkbox.net/packages/")
-      ("marmalade" . "http://marmalade-repo.org/packages/")
+      ;; ("marmalade" . "http://marmalade-repo.org/packages/")
       ("melpa-stable" . "http://stable.melpa.org/packages/")))
 
 ;; Local Repoを追加
@@ -295,6 +295,8 @@
 (require-package 'emms)
 (require-package 'easy-hugo)
 (require-package 'ensime)
+(require-package 'gntp)
+(require-package 'mu4e-alert)
 ;; (require-package 'ein)
 ;; (require-package 'ein-loaddefs)
 ;; (require-package 'ein-notebook)
