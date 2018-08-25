@@ -20,12 +20,12 @@
 (setq emacs-load-start-time (current-time))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
 
-;; (setq url-using-proxy t)
-;; (setq url-proxy-services
-;;       '(("http"     . "cn-proxy.cn.oracle.com:80")
-;;         ("https"    . "cn-proxy.cn.oracle.com:80")
-;;         ("ftp"      . "cn-proxy.cn.oracle.com:80")
-;;         ("no_proxy" . "^\\(localhost\\|10.*\\)")))
+(setq url-using-proxy t)
+;;(setq url-proxy-services
+;;      '(("http"     . "cn-proxy.sg.oracle.com:80")
+;;        ("https"    . "cn-proxy.sg.oracle.com:80")
+;;        ("ftp"      . "cn-proxy.sg.oracle.com:80")
+;;        ("no_proxy" . "^\\(localhost\\|10.*\\)")))
 
 ;; (setq url-proxy-services
 ;;     '(("http"     . "www-proxy.us.oracle.com:80")
@@ -46,6 +46,7 @@
   '(defun enriched-decode-display-prop (start end &optional param)
      (list start end)))
 ;; }}
+(modify-all-frames-parameters '((inhibit-double-buffering . t)))
 ;;----------------------------------------------------------------------------
 ;; Which functionality to enable (use t or nil for true and false)
 ;;----------------------------------------------------------------------------
@@ -167,7 +168,6 @@ cygwin-mount-cygwin-bin-directory "c:/Users/dyyin/.babun/cygwin/bin")
   (require 'init-easy-hugo)
   (require 'init-calendar)
   (require 'init-mu4e)
-  (require 'restclient)
 
   ;; projectile costs 7% startup time
 
@@ -189,7 +189,7 @@ cygwin-mount-cygwin-bin-directory "c:/Users/dyyin/.babun/cygwin/bin")
                                init-misc-lazy
                                init-which-func
                                init-fonts
-                               init-hs-minor-mode
+                               ;; init-hs-minor-mode
                                init-writting
                                init-pomodoro
                                init-artbollocks-mode
@@ -221,7 +221,7 @@ cygwin-mount-cygwin-bin-directory "c:/Users/dyyin/.babun/cygwin/bin")
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+)
 ;;; Local Variables:
 ;;; no-byte-compile: t
 ;;; End:

@@ -1,7 +1,7 @@
 
 ;; emacs24 require calling `package-initialize' explicitly
 (require 'package)
-(package-initialize)
+;; (package-initialize)
 
 ;; List of VISIBLE packages from melpa-unstable (http://melpa.org)
 ;; Feel free to add more packages!
@@ -50,11 +50,8 @@
     htmlize
     scratch
     session
-    flymake-lua
     multi-term
-    dired+
     inflections
-    dropdown-list
     lua-mode
     tidy
     pomodoro
@@ -65,8 +62,11 @@
     w3m
     org-crypt
     erlang
+    link
     workgroups2
     xah-lookup
+    lispyville
+    restclient
     company-c-headers)
   "Don't install any Melpa packages except these packages")
 
@@ -79,7 +79,7 @@
       ;;("my-js2-mode" . "http://github.com/mooz/js2-mode/")
       ;;("melpa" . "https://melpa.org/packages/")
       ("melpa" . "http://melpa.milkbox.net/packages/")
-      ;; ("marmalade" . "http://marmalade-repo.org/packages/")
+      ("marmalade" . "http://marmalade-repo.org/packages/")
       ("melpa-stable" . "http://stable.melpa.org/packages/")))
 
 ;; Local Repoを追加
@@ -93,7 +93,7 @@
 ;; Orgを追加
 ;;(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 ;; popkitを追加
-(add-to-list 'package-archives '("popkit" . "http://elpa.popkit.org/packages/"))
+;; (add-to-list 'package-archives '("popkit" . "http://elpa.popkit.org/packages/"))
 	     
 ;; Un-comment below line if your extract https://github.com/redguardtoo/myelpa/archive/master.zip into ~/myelpa/
 ;; (setq package-archives '(("myelpa" . "~/myelpa")))
@@ -211,8 +211,7 @@
 (require-package 'haml-mode)
 (require-package 'scss-mode)
 (require-package 'markdown-mode)
-(require-package 'dired+)
-(require-package 'link)
+;; (require-package 'link)
 (require-package 'connection)
 (require-package 'dictionary) ; dictionary requires 'link and 'connection
 (require-package 'htmlize)
@@ -255,8 +254,6 @@
 (require-package 'flyspell-lazy)
 (require-package 'bbdb)
 (require-package 'pomodoro)
-(require-package 'flymake-lua)
-(require-package 'dropdown-list)
 ;; rvm-open-gem to get gem's code
 (require-package 'rvm)
 ;; C-x r l to list bookmarks
@@ -312,7 +309,6 @@
 (require-package 'jss)
 (require-package 'undo-tree)
 (require-package 'lispy)
-(require-package 'lispyville)
 (require-package 'evil)
 (require-package 'evil-escape)
 (require-package 'evil-exchange)
@@ -323,5 +319,6 @@
 (require-package 'evil-nerd-commenter)
 (require-package 'evil-surround)
 (require-package 'evil-visualstar)
+(require-package 'which-key)
 
 (provide 'init-elpa)
