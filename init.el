@@ -17,14 +17,15 @@
 ;; don't GC during startup to save time
 (setq gc-cons-threshold most-positive-fixnum)
 
+
 (setq emacs-load-start-time (current-time))
 
-(setq url-using-proxy t)
-;;(setq url-proxy-services
-;;      '(("http"     . "cn-proxy.sg.oracle.com:80")
-;;        ("https"    . "cn-proxy.sg.oracle.com:80")
-;;        ("ftp"      . "cn-proxy.sg.oracle.com:80")
-;;        ("no_proxy" . "^\\(localhost\\|10.*\\)")))
+;; (setq url-using-proxy t)
+;; (setq url-proxy-services
+;;       '(("http"     . "cn-proxy.cn.oracle.com:78")
+;;         ("https"    . "cn-proxy.cn.oracle.com:78")
+;;         ("ftp"      . "cn-proxy.cn.oracle.com:78")
+;;         ("no_proxy" . "^\\(localhost\\|8.*\\)")))
 
 ;; (setq url-proxy-services
 ;;     '(("http"     . "www-proxy.us.oracle.com:80")
@@ -154,27 +155,24 @@
   (require-init 'init-company)
   (require-init 'init-chinese) ;; cannot be idle-required
   ;; need statistics of keyfreq asap
-  (require 'init-keyfreq)
-  (require 'init-httpd)
-  ;; (require 'init-dictionary)
-  (require 'init-magit)
-  (require 'init-easy-hugo)
-  (require 'init-calendar)
-  (require 'init-mu4e)
+  (require-init 'init-keyfreq)
+  (require-init 'init-httpd)
+  ;; (require-init 'init-dictionary)
+  (require-init 'init-magit)
+  (require-init 'init-easy-hugo)
+  (require-init 'init-calendar)
+  (require-init 'init-mu4e)
 
   ;; projectile costs 7% startup time
 
   ;; misc has some crucial tools I need immediately
   (require-init 'init-misc)
-
-  ;; comment below line if you want to setup color theme in your own way
-  (if (or (display-graphic-p) (string-match-p "256color"(getenv "TERM"))) (require 'init-color-theme))
-
   ;;(require 'init-emacs-w3m)
-  (require 'init-emacs-eww)
-  (require 'init-hydra)
+  (require-init 'init-emacs-eww)
+  (require-init 'init-hydra)
+
   ;; encoding setting
-  (require 'init-encoding)
+  (require-init 'init-encoding)
 
   (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
   ;; {{ idle require other stuff

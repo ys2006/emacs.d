@@ -91,7 +91,7 @@
     xah-lookup
     lispyville
     restclient
-    company-c-headers)
+    company-c-headers
     zoutline
     company-statistics)
   "Packages to install from melpa-unstable.")
@@ -108,7 +108,7 @@
       ;;("org" . "http://orgmode.org/elpa/") ; latest org-mode
       ;;("my-js2-mode" . "http://github.com/redguardtoo/js2-mode/")
       ;;("my-js2-mode" . "http://github.com/mooz/js2-mode/")
-      ;;("melpa" . "https://melpa.org/packages/")
+      ;; ("melpa" . "https://melpa.org/packages/")
       ("melpa" . "http://melpa.milkbox.net/packages/")
       ("marmalade" . "http://marmalade-repo.org/packages/")
       ("melpa-stable" . "http://stable.melpa.org/packages/")))
