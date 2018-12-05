@@ -93,6 +93,8 @@
     restclient
     company-c-headers
     zoutline
+    tablist
+    pdf-tools
     company-statistics)
   "Packages to install from melpa-unstable.")
 

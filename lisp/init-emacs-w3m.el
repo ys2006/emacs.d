@@ -9,7 +9,7 @@
       w3m-terminal-coding-system 'utf-8
       w3m-use-cookies t
       w3m-cookie-accept-bad-cookies t
-      w3m-home-page "http://www.google.com"
+      w3m-home-page "https://www.duckduckgo.com"
       w3m-command-arguments       '("-F" "-cookie")
       w3m-mailto-url-function     'compose-mail
       browse-url-browser-function 'w3m
@@ -38,7 +38,9 @@
 
 ;; C-u S g RET <search term> RET in w3m
 (setq w3m-search-engine-alist
-      '(("g" "http://www.google.com/search?q=%s" utf-8)
+      '(("o" "http://www.duckduckgo.com/search?q=%s" utf-8)
+        ;; google search
+        ("g" "http://www.google.com/search?q=%s" utf-8)
         ;; stackoverflow search
         ("q" "http://www.google.com/search?q=%s+site:stackoverflow.com" utf-8)
         ;; elisp code search

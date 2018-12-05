@@ -3,6 +3,7 @@
 (add-to-list 'auto-mode-alist '("\\.app\\'" . web-mode)) ; salesforce
 (add-to-list 'auto-mode-alist '("\\.page\\'" . web-mode)) ; salesforce
 (add-to-list 'auto-mode-alist '("\\.component\\'" . web-mode)) ; salesforce
+(add-to-list 'auto-mode-alist '("\\.dust\\'" . web-mode)) ; salesforce
 (add-to-list 'auto-mode-alist '("\\.wp\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tmpl\\'" . web-mode))

@@ -20,12 +20,12 @@
 
 (setq emacs-load-start-time (current-time))
 
-;; (setq url-using-proxy t)
-;; (setq url-proxy-services
-;;       '(("http"     . "cn-proxy.cn.oracle.com:78")
-;;         ("https"    . "cn-proxy.cn.oracle.com:78")
-;;         ("ftp"      . "cn-proxy.cn.oracle.com:78")
-;;         ("no_proxy" . "^\\(localhost\\|8.*\\)")))
+(setq url-using-proxy t)
+(setq url-proxy-services
+      '(("http"     . "cn-proxy.cn.oracle.com:80")
+        ("https"    . "cn-proxy.cn.oracle.com:80")
+        ("ftp"      . "cn-proxy.cn.oracle.com:80")
+        ("no_proxy" . "^\\(localhost\\|8.*\\)")))
 
 ;; (setq url-proxy-services
 ;;     '(("http"     . "www-proxy.us.oracle.com:80")

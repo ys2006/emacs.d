@@ -325,15 +325,17 @@ version control automatically"
 (defun toggle-env-http-proxy ()
   "set/unset the environment variable http_proxy which w3m uses"
   (interactive)
-  (let ((proxy "http://127.0.0.1:8000"))
+  (let ((proxy "http://cn-proxy.cn.oracle.com:80"))
     (if (string= (getenv "http_proxy") proxy)
         ;; clear the the proxy
         (progn
           (setenv "http_proxy" "")
+          (setenv "https_proxy" "")
           (message "env http_proxy is empty now")
           )
       ;; set the proxy
       (setenv "http_proxy" proxy)
+      (setenv "https_proxy" proxy)
       (message "env http_proxy is %s now" proxy))
     ))
 
@@ -453,6 +455,129 @@ Including indent-buffer, which should not be called automatically on save."
   ;; Create `~/.gnupg/gpg-agent.conf' container one line `pinentry-program /usr/bin/pinentry-curses`
   (setq epa-pinentry-mode 'loopback))
 ;; }}
+
+
+;; {{ word count statistics
+;; @see https://emacs.stackexchange.com/questions/13514/how-to-obtain-the-statistic-of-the-the-frequency-of-words-in-a-buffer
+(defvar word-frequency-table (make-hash-table :test 'equal :size 128))
+
+(defvar word-frequency-buffer "*frequencies*"
+  "Buffer where frequencies are displayed.")
+
+(defun word-frequency-incr (word)
+  (puthash word (1+ (gethash word word-frequency-table 0)) word-frequency-table))
+
+(defun word-frequency-list (&optional reverse limit)
+  "Returns a cons which car is sum of times any word was used
+and cdr is a list of (word . count) pairs.  If REVERSE is nil
+sorts it starting from the most used word; if it is 'no-sort
+the list is not sorted; if it is non-nil and not 'no-sort sorts
+it from the least used words.  If LIMIT is positive number
+only words which were used more then LIMIT times will be
+added.  If it is negative number only words which were used
+less then -LIMIT times will be added."
+  (let (l (sum 0))
+    (maphash
+     (cond
+      ((or (not (numberp limit)) (= limit 0))
+       (lambda (k v) (setq l (cons (cons k v) l) sum (+ sum v))))
+      ((= limit -1) (lambda (k v) (setq sum (+ sum v))))
+      ((< limit 0)
+       (setq limit (- limit))
+       (lambda (k v) (setq sum (+ sum v))
+         (if (< v limit) (setq l (cons (cons k v) l)))))
+      (t
+       (lambda (k v) (setq sum (+ sum v))
+         (if (> v limit) (setq l (cons (cons k v) l))))))
+     word-frequency-table)
+    (cons sum
+          (cond
+           ((equal reverse 'no-sort) l)
+           (reverse (sort l (lambda (a b) (< (cdr a) (cdr b)))))
+           (t       (sort l (lambda (a b) (> (cdr a) (cdr b)))))))))
+
+(defun word-frequency-string (&optional reverse limit func)
+  "Returns formatted string with word usage statistics.
+
+If FUNC is nil each line contains number of times word was
+called and the word; if it is t percentage usage is added in
+the middle; if it is 'raw each line will contain number an
+word separated by single line (with no formatting) otherwise
+FUNC must be a function returning a string which will be called
+for each entry with three arguments: number of times word was
+called, percentage usage and the word.
+
+See `word-frequency-list' for description of REVERSE and LIMIT
+arguments."
+  (let* ((list (word-frequency-list reverse)) (sum (car list)))
+    (mapconcat
+     (cond
+      ((not func) (lambda (e) (format "%7d  %s\n" (cdr e) (car e))))
+      ((equal func t)
+       (lambda (e) (format "%7d  %6.2f%%  %03d %s\n"
+                           (cdr e) 
+               (/ (* 1e2 (cdr e)) sum) 
+               (length (car e))
+               (car e))))
+      ((equal func 'raw) (lambda (e) (format "%d %s\n" (cdr e) (car e))))
+      (t (lambda (e) (funcall func (cdr e) (/ (* 1e2 (cdr e)) sum) (car e)))))
+     (cdr list) "")))
+
+(defun word-frequency (&optional where reverse limit func)
+  "Formats word usage statistics using
+`word-frequency-string' function (see for description of
+REVERSE, LIMIT and FUNC arguments) and:
+- if WHERE is nil inserts it in th e
+  or displays it in echo area if possible; else
+- if WHERE is t inserts it in the current buffer; else
+- if WHERE is an empty string inserts it into
+  `word-frequency-buffer' buffer; else
+- inserts it into buffer WHERE.
+
+When called interactively behaves as if WHERE and LIMIT were nil,
+FUNC was t and:
+- with no prefix argument - REVERSE was nil;
+- with universal or positive prefix arument - REVERSE was t;
+- with negative prefix argument - REVERSE was 'no-sort."
+
+  (interactive (list nil
+                     (cond
+                      ((not current-prefix-arg) nil)
+                      ((> (prefix-numeric-value current-prefix-arg) 0))
+                      (t 'no-sort))
+                     nil t))
+  (clrhash word-frequency-table)
+  (word-frequency-process-buffer)
+  (cond
+   ((not where)
+    (display-message-or-buffer (word-frequency-string reverse limit func)
+                               word-frequency-buffer))
+   ((equal where t)
+    (insert (word-frequency-string reverse limit func)))
+   (t
+    (display-buffer
+     (if (and (stringp where) (string= where ""))
+         word-frequency-buffer where)
+     (word-frequency-string reverse limit func)))))
+
+(defun word-frequency-process-buffer ()
+  (interactive)
+  (let ((buffer (current-buffer))
+        bounds
+        beg
+        end
+        word)
+    (save-excursion
+      (goto-char (point-min))
+      (while (re-search-forward "\\<[[:word:]]+\\>" nil t)
+;;    (while (forward-word 1)
+        (word-frequency-incr (downcase (match-string 0)))
+;;      (setq bounds (bounds-of-thing-at-point 'word))
+;;      (setq beg (car bounds))
+;;      (setq end (cdr bounds))
+;;      (setq word (downcase (buffer-substring-no-properties beg end)))
+;;      (word-frequency-incr word)
+        ))))
 
 (provide 'init-misc-lazy)
 ;;; init-misc-lazy.el ends here
