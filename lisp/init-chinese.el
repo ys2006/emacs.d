@@ -90,7 +90,10 @@
      ;; `curl -L https://github.com/tumashu/pyim-greatdict/raw/master/pyim-greatdict.pyim.gz | zcat > ~/.eim/pyim-greatdict.pyim`
 
      ;; don't use tooltip
-     (setq pyim-use-tooltip 'popup)))
+     ;; (setq pyim-page-tooltip 'popup)
+     (setq pyim-page-tooltip 'posframe)
+     (setq pyim-use-tooltip 'posframe)
+     ))
 ;; }}
 
 ;; {{ cal-china-x setup

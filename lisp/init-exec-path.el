@@ -3,10 +3,11 @@
 (eval-after-load 'exec-path-from-shell
   '(progn
      (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO"))
-       (add-to-list exec-path-from-shell-variables var))))
+       (add-to-list 'exec-path-from-shell-variables var)))
+  )
 
  (when (and window-system
-            (memq window-system '(mac ns)))
+            (memq window-system '(mac ns x)))
    (exec-path-from-shell-initialize))
 
  (when (memq system-type '(windows-nt ms-dos cygwin))

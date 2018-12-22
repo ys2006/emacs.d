@@ -268,7 +268,7 @@ If the character before and after CH is space or tab, CH is NOT slash"
         (eshell-mode . emacs)
         (shell-mode . emacs)
         (xref--xref-buffer-mode . emacs)
-        ;;(message-mode . emacs)
+        ;(message-mode . emacs)
         (epa-key-list-mode . emacs)
         (fundamental-mode . emacs)
         (weibo-timeline-mode . emacs)
@@ -282,6 +282,7 @@ If the character before and after CH is space or tab, CH is NOT slash"
         (ivy-occur-mode . emacs)
         (ivy-occur-grep-mode . normal)
         (messages-buffer-mode . normal)
+        (easy-hugo-mode . emacs)
         (js2-error-buffer-mode . emacs))
       do (evil-set-initial-state mode state))
 ;; }}

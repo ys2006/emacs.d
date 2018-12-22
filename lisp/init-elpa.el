@@ -39,6 +39,7 @@
     flatland-theme
     clues-theme
     darkburn-theme
+    posframe
     soothe-theme
     dakrone-theme
     busybee-theme
@@ -60,6 +61,11 @@
     findr
     mwe-log-commands
     yaml-mode
+    flymake-go
+    go-guru
+    flycheck
+    py-autopep8
+    autocomplete
     counsel-gtags ; the stable version is never released
     noflet
     db
@@ -106,21 +112,21 @@
       '(("localelpa" . "~/.emacs.d/localelpa/")
         ;; uncomment below line if you need use GNU ELPA
         ;; ("gnu" . "https://elpa.gnu.org/packages/")
-        ("melpa" . "https://melpa.org/packages/")
-        ("melpa-stable" . "https://stable.melpa.org/packages/")
+        ;; ("melpa" . "https://melpa.org/packages/")
+        ;; ("melpa-stable" . "https://stable.melpa.org/packages/")
 
         ;; Use either 163 or tsinghua mirror repository when official melpa
         ;; is too slow or shutdown.
 
         ;; ;; {{ Option 1: 163 mirror repository:
         ;; ;; ("gnu" . "https://mirrors.163.com/elpa/gnu/")
-        ;; ("melpa" . "https://mirrors.163.com/elpa/melpa/")
-        ;; ("melpa-stable" . "https://mirrors.163.com/elpa/melpa-stable/")
+        ("melpa" . "https://mirrors.163.com/elpa/melpa/")
+        ("melpa-stable" . "https://mirrors.163.com/elpa/melpa-stable/")
         ;; ;; }}
 
-        ;; ;; {{ Option 2: tsinghua mirror repository
-        ;; ;; @see https://mirror.tuna.tsinghua.edu.cn/help/elpa/ on usage:
-        ;; ;; ("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+        ;; {{ Option 2: tsinghua mirror repository
+        ;; @see https://mirror.tuna.tsinghua.edu.cn/help/elpa/ on usage:
+        ;; ("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
         ;; ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
         ;; ("melpa-stable" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa-stable/")
         ;; }}
@@ -302,17 +308,19 @@
 (require-package 'dumb-jump)
 (require-package 'emms)
 (require-package 'easy-hugo)
+(require-package 'go-mode)
+(require-package 'go-autocomplete)
 (require-package 'ensime)
 (require-package 'gntp)
 (require-package 'mu4e-alert)
-;; (require-package 'ein)
+(require-package 'ein)
 ;; (require-package 'ein-loaddefs)
 ;; (require-package 'ein-notebook)
 ;; (require-package 'ein-subpackages)
 (require-package 'package-lint) ; lint package before submit it to MELPA
 (require-package 'iedit)
 (require-package 'magit)
-;; (require-package 'org-jira)
+(require-package 'org-jira)
 (require-package 'ensime)
 (require-package 'ace-pinyin)
 (require-package 'bash-completion)

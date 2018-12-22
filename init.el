@@ -25,12 +25,12 @@
 
 (setq emacs-load-start-time (current-time))
 
-(setq url-using-proxy t)
-(setq url-proxy-services
-      '(("http"     . "cn-proxy.cn.oracle.com:80")
-        ("https"    . "cn-proxy.cn.oracle.com:80")
-        ("ftp"      . "cn-proxy.cn.oracle.com:80")
-        ("no_proxy" . "^\\(localhost\\|8.*\\)")))
+;; (setq url-using-proxy t)
+;; (setq url-proxy-services
+;;       '(("http"     . "cn-proxy.cn.oracle.com:80")
+;;         ("https"    . "cn-proxy.cn.oracle.com:80")
+;;         ("ftp"      . "cn-proxy.cn.oracle.com:80")
+;;         ("no_proxy" . "^\\(localhost\\|8.*\\)")))
 
 ;; (setq url-proxy-services
 ;;     '(("http"     . "www-proxy.us.oracle.com:80")
@@ -149,13 +149,13 @@
   (require 'init-company)
   (require 'init-chinese) ;; cannot be idle-required
   ;; need statistics of keyfreq asap
-  (require-init 'init-keyfreq)
-  (require-init 'init-httpd)
+  (require 'init-keyfreq)
+  (require 'init-httpd)
   ;; (require-init 'init-dictionary)
-  (require-init 'init-magit)
-  (require-init 'init-easy-hugo)
-  (require-init 'init-calendar)
-  (require-init 'init-mu4e)
+  (require 'init-magit)
+  (require 'init-easy-hugo)
+  (require 'init-calendar)
+  (require 'init-mu4e)
 
   ;; projectile costs 7% startup time
 
@@ -176,6 +176,13 @@
   ;;                              init-semantic))
   ;; (idle-require-mode 1) starts loading
 
+  ;; @see https://github.com/hlissner/doom-emacs/wiki/FAQ
+  ;; Adding directories under "site-lisp/" to `load-path' slows
+  ;; down all `require' statement. So we do this at the end of startup
+  ;; Neither ELPA package nor dependent on "site-lisp/".
+  (setq load-path (cdr load-path))
+  (load (expand-file-name "~/.emacs.d/lisp/init-site-lisp") t t)
+
   ;; misc has some crucial tools I need immediately
   (require 'init-misc)
   (require 'init-emacs-w3m)
@@ -186,13 +193,7 @@
   (require 'init-artbollocks-mode)
   (require 'init-writting)
   (require 'init-encoding)
-
-  ;; @see https://github.com/hlissner/doom-emacs/wiki/FAQ
-  ;; Adding directories under "site-lisp/" to `load-path' slows
-  ;; down all `require' statement. So we do this at the end of startup
-  ;; Neither ELPA package nor dependent on "site-lisp/".
-  (setq load-path (cdr load-path))
-  (load (expand-file-name "~/.emacs.d/lisp/init-site-lisp") t t)
+  (require 'init-golang)
 
   ;; my personal setup, other major-mode specific setup need it.
   ;; It's dependent on "~/.emacs.d/site-lisp/*.el"
@@ -224,5 +225,7 @@
 ;;; no-byte-compile: t
 ;;; End:
 (put 'erase-buffer 'disabled nil)
+
+(setq visible-bell 1)
 
 (put 'dired-find-alternate-file 'disabled nil)

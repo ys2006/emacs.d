@@ -1195,7 +1195,7 @@ version control automatically."
 (defun toggle-env-http-proxy ()
   "Set/unset the environment variable http_proxy used by w3m."
   (interactive)
-  (let* ((proxy "http://127.0.0.1:8000"))
+  (let* ((proxy "http://cn-proxy.cn.oracle.com:80"))
     (cond
      ((string= (getenv "http_proxy") proxy)
       (setenv "http_proxy" "")
@@ -1286,5 +1286,8 @@ Including indent-buffer, which should not be called automatically on save."
      (setq-default mode-line-format
               (cons '(pomodoro-mode-line-string pomodoro-mode-line-string)
                     mode-line-format))))
+
+;; Add Posframe as popup @See https://github.com/tumashu/posframe
+(require 'posframe)
 
 (provide 'init-misc)
