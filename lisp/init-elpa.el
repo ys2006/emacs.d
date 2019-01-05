@@ -1,5 +1,13 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
+(defun initialize-package ()
+  (unless nil ;package--initialized
+    ;; optimization, no need to activate all the packages so early
+    (setq package-enable-at-startup nil)
+    (package-initialize)))
+
+(initialize-package)
+
 ;; List of visible packages from melpa-unstable (http://melpa.org).
 ;; Please add the package name into `melpa-include-packages`
 ;; if it's not visible after  `list-packages'.
@@ -50,6 +58,7 @@
     badger-theme
     distinguished-theme
     challenger-deep-theme
+    tao-theme
     wgrep
     robe
     slime
@@ -132,6 +141,16 @@
         ;; }}
         ))
 
+(defvar my-ask-elpa-mirror t)
+(when (and my-ask-elpa-mirror
+           (not (file-exists-p (file-truename "~/.emacs.d/elpa")))
+           (yes-or-no-p "Switch to faster package repositories in China temporarily?
+You still need modify `package-archives' in \"init-elpa.el\" to PERMANENTLY use this ELPA mirror."))
+  (setq package-archives
+        '(("localelpa" . "~/.emacs.d/localelpa/")
+          ("melpa" . "https://mirrors.163.com/elpa/melpa/")
+          ("melpa-stable" . "https://mirrors.163.com/elpa/melpa-stable/"))))
+
 ;; Un-comment below line if you follow "Install stable version in easiest way"
 ;; (setq package-archives '(("localelpa" . "~/.emacs.d/localelpa/") ("myelpa" . "~/projs/myelpa/")))
 
@@ -143,7 +162,7 @@
 (defadvice package-generate-autoloads (after close-autoloads (name pkg-dir) activate)
   "Stop package.el from leaving open autoload files lying around."
   (let* ((path (expand-file-name (concat
-                                  ;; name is string when emacs <= 24.3.1,
+                                  ;; name is string in emacs 24.3.1,
                                   (if (symbolp name) (symbol-name name) name)
                                   "-autoloads.el") pkg-dir)))
     (with-current-buffer (find-file-existing path)
@@ -390,7 +409,8 @@
   (require-package 'hemisu-theme)
   (require-package 'badger-theme)
   (require-package 'distinguished-theme)
-  (require-package 'challenger-deep-theme))
+  (require-package 'challenger-deep-theme)
+  (require-package 'tao-theme))
 ;; }}
 
 ;; kill buffer without my confirmation
