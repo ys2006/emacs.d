@@ -358,6 +358,8 @@
 (require-package 'stripe-buffer)
 (require-package 'visual-regexp) ;; Press "M-x vr-*"
 (require-package 'vimrc-mode)
+(require-package 'projectile)
+(require-package 'indium)
 
 (when *emacs25*
   (require-package 'zenburn-theme)
