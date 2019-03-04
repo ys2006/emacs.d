@@ -189,6 +189,7 @@
   (require 'init-writting)
   (require 'init-encoding)
   (require 'init-golang)
+  (require 'init-leetcode)
 
   ;; my personal setup, other major-mode specific setup need it.
   ;; It's dependent on "~/.emacs.d/site-lisp/*.el"

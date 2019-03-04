@@ -109,6 +109,7 @@
     zoutline
     tablist
     pdf-tools
+    ctable
     company-statistics)
   "Packages to install from melpa-unstable.")
 
@@ -336,6 +337,7 @@ You still need modify `package-archives' in \"init-elpa.el\" to PERMANENTLY use 
 ;; (require-package 'ein-loaddefs)
 ;; (require-package 'ein-notebook)
 ;; (require-package 'ein-subpackages)
+(require-package 'ctable)
 (require-package 'package-lint) ; lint package before submit it to MELPA
 (require-package 'iedit)
 (require-package 'magit)

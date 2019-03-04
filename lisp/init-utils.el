@@ -380,7 +380,7 @@ you can '(setq my-mplayer-extra-opts \"-ao alsa -vo vdpau\")'.")
            (win64-clip-program
             (call-process-region (point-min) (point-max) win64-clip-program))
            (t
-            (call-process-region (point-min) (point-max) "xsel" nil nil nil "--clipboard" "--input"))))))))
+            (call-process-region (point-min) (point-max) "xsel" nil 0 nil "--clipboard" "--input"))))))))
 ;; }}
 
 (defun make-concated-string-from-clipboard (concat-char)

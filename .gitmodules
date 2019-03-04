@@ -7,3 +7,6 @@
 [submodule "org-jira"]
 	path = site-lisp/org-jira
 	url = https://github.com/ahungry/org-jira
+[submodule "leetcode"]
+	path = site-lisp/leetcode
+	url = git@github.com:ginqi7/leetcode-emacs.git

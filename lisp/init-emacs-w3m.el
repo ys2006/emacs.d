@@ -14,7 +14,8 @@
       w3m-home-page "https://www.duckduckgo.com"
       w3m-command-arguments       '("-F" "-cookie")
       w3m-mailto-url-function     'compose-mail
-      browse-url-browser-function 'w3m
+      ;; browse-url-browser-function 'w3m
+      browse-url-browser-function 'browse-url-firefox
       ;; use shr to view html mail which is dependent on libxml
       ;; I prefer w3m. That's emacs 24.3+ default setup.
       ;; If you prefer colored mail body and other advanced features,

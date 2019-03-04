@@ -76,7 +76,7 @@ If NUM equals 4, kill-ring => clipboard."
   (let* ((thing (my-use-selected-string-or-ask "")))
     (if (region-active-p) (deactivate-mark))
     (cond
-     ((not num))
+     ((not num) (message "not num"))
      ((= num 1)
       (setq thing (downcase thing)))
      ((= num 2)
@@ -87,7 +87,7 @@ If NUM equals 4, kill-ring => clipboard."
       (setq thing (car kill-ring)))
      (t
       (message "C-h f copy-to-x-clipboard to find right usage")))
-
+    (message "true")
     (my-pclip thing)
     (if (not (and num (= 4 num))) (message "kill-ring => clipboard")
       (message "thing => clipboard!"))))
