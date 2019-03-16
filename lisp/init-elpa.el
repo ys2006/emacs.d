@@ -314,6 +314,7 @@ You still need modify `package-archives' in \"init-elpa.el\" to PERMANENTLY use 
 (require-package 'company-c-headers)
 (require-package 'company-statistics)
 (require-package 'elpy)
+(require-package 'pyenv-mode)
 (require-package 'legalese)
 (require-package 'simple-httpd)
 ;; (require-package 'git-gutter) ; use my patched version
