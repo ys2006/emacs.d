@@ -217,6 +217,10 @@
   (message "Emacs startup time: %d seconds."
            (time-to-seconds (time-since emacs-load-start-time))))
 
+;; https://github.com/redguardtoo/emacs.d#color-theme
+;; https://emacsthemes.com/
+(load-theme 'Prassee t)
+
 ;;; Local Variables:
 ;;; no-byte-compile: t
 ;;; End:
