@@ -12,6 +12,7 @@
 (add-hook 'cmake-mode-hook 'yasnippet-generic-setup-for-mode-hook)
 (add-hook 'web-mode-hook 'yasnippet-generic-setup-for-mode-hook)
 (add-hook 'scss-mode-hook 'yasnippet-generic-setup-for-mode-hook)
+(add-hook 'org-mode-hook 'yasnippet-generic-setup-for-mode-hook)
 ;; }}
 
 (defun my-yas-reload-all ()

@@ -2,7 +2,34 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(#1=(#("checkButtonExist" 0 16
+(#1=(#("store participants" 0 18
+      (bmkp-full-record #1#))
+    (filename . "~/projects/Galactus/providers/Oardc/src/main/java/com/eloqua/providers/oardc/apps/weChat/services/WeChatCallbackService.java")
+    (buffer-name . "WeChatCallbackService.java")
+    (front-context-string . "(userContext, su")
+    (rear-context-string . "eParticipantInfo")
+    (front-context-region-string)
+    (rear-context-region-string)
+    (visits . 0)
+    (time . #2=(23703 12456 320295 791000))
+    (created . #2#)
+    (position . 60322))
+#1=(#("gift goal achieved" 0 1
+      (bmkp-full-record #1# idx 0)
+      1 18
+      (bmkp-full-record #1#))
+    (end-position . 61803)
+    (filename . "~/projects/Galactus/providers/Oardc/src/main/java/com/eloqua/providers/oardc/apps/weChat/services/WeChatCallbackService.java")
+    (buffer-name . "WeChatCallbackService.java")
+    (front-context-string . "dynamicValueMap.")
+    (rear-context-string . " != -1) {\n						")
+    (front-context-region-string)
+    (rear-context-region-string)
+    (visits . 1)
+    (time 23703 12643 662134 288000)
+    (created 23703 12079 246770 83000)
+    (position . 61803))
+#1=(#("checkButtonExist" 0 16
       (bmkp-full-record #1#))
     (filename . "~/projects/Galactus/providers/Oardc/src/main/java/com/eloqua/providers/oardc/apps/weChat/services/WeChatMenuManagementService.java")
     (buffer-name . "WeChatMenuManagementService.java")
@@ -15,7 +42,7 @@
     (created 23660 44439 108083 802000)
     (position . 5904))
 #1=(#("checkButtonDeleted" 0 1
-      (idx 0 bmkp-full-record #1#)
+      (bmkp-full-record #1# idx 0)
       1 18
       (bmkp-full-record #1#))
     (filename . "~/projects/Galactus/providers/Oardc/WebContent/static/jet/src/js/config/rest.js")
@@ -29,36 +56,37 @@
     (created 23659 56257 7114 896000)
     (position . 14523))
 #1=(#("add no more gift condition" 0 1
-      (idx 1 bmkp-full-record #1#)
+      (bmkp-full-record #1# idx 1)
       1 26
       (bmkp-full-record #1#))
-    (end-position . 54301)
+    (end-position . 55588)
     (filename . "~/projects/Galactus/providers/Oardc/src/main/java/com/eloqua/providers/oardc/apps/weChat/services/WeChatCallbackService.java")
     (buffer-name . "WeChatCallbackService.java")
     (front-context-string . "WelcomeFlag = fi")
     (rear-context-string . "\n		int isDisable")
     (front-context-region-string)
     (rear-context-region-string)
-    (visits . 1)
-    (time 23676 42536 805789 863000)
+    (visits . 3)
+    (time 23703 12101 682585 30000)
     (created 23654 8736 86810 629000)
-    (position . 54301))
+    (position . 55588))
 #1=(#("menu_click" 0 1
-      (idx 2 bmkp-full-record #1#)
+      (bmkp-full-record #1# idx 2)
       1 10
       (bmkp-full-record #1#))
+    (end-position . 16662)
     (filename . "~/projects/Galactus/providers/Oardc/src/main/java/com/eloqua/providers/oardc/apps/weChat/services/WeChatCallbackService.java")
     (buffer-name . "WeChatCallbackService.java")
     (front-context-string . "EVENT_CLICK.equa")
     (rear-context-string . "onstants.WECHAT_")
     (front-context-region-string)
     (rear-context-region-string)
-    (visits . 3)
-    (time 23626 48501 541539 187000)
+    (visits . 4)
+    (time 23694 60566 482203 236000)
     (created 23626 41998 551275 308000)
-    (position . 16610))
+    (position . 16662))
 #1=(#("Fission Statistic endpoing" 0 1
-      (idx 3 bmkp-full-record #1#)
+      (bmkp-full-record #1# idx 3)
       1 26
       (bmkp-full-record #1#))
     (filename . "~/projects/Galactus/providers/Oardc/src/main/java/com/eloqua/providers/oardc/apps/weChat/WeChatEndPoint.java")
@@ -72,7 +100,7 @@
     (created 23614 43193 517756 427000)
     (position . 97710))
 #1=(#("Test2 wechatEndPoint" 0 1
-      (idx 4 bmkp-full-record #1#)
+      (bmkp-full-record #1# idx 4)
       1 20
       (bmkp-full-record #1#))
     (filename . "~/projects/Galactus/providers/Oardc/src/test/java/com/eloqua/providers/oardc/apps/weChat/WeChatEndPointTest.java")
@@ -86,7 +114,7 @@
     (created 23614 42491 580625 595000)
     (position . 1))
 #1=(#("Test1 wechatservice" 0 1
-      (bmkp-full-record #1# idx 5)
+      (idx 5 bmkp-full-record #1#)
       1 19
       (bmkp-full-record #1#))
     (filename . "~/projects/Galactus/providers/Oardc/src/test/java/com/eloqua/providers/oardc/apps/weChat/services/WeChatServiceTestJMockit.java")
@@ -100,7 +128,7 @@
     (created 23614 42276 5297 299000)
     (position . 3546))
 #1=(#("WeChatFissionStatisticBean.java" 0 1
-      (bmkp-full-record #1# idx 6)
+      (idx 6 bmkp-full-record #1#)
       1 31
       (bmkp-full-record #1#))
     (filename . "~/projects/Galactus/providers/Oardc/src/main/java/com/eloqua/providers/oardc/apps/weChat/domain/dto/fission/WeChatFissionStatisticBean.java")
@@ -114,7 +142,7 @@
     (created 23614 41360 364568 598000)
     (position . 799))
 #1=(#("com.eloqua.repodepot" 0 1
-      (bmkp-full-record #1# idx 7)
+      (idx 7 bmkp-full-record #1#)
       1 20
       (bmkp-full-record #1#))
     (buffer-name . "com.eloqua.repodepot")
@@ -134,22 +162,22 @@
     (dired-hidden-dirs)
     (handler . bmkp-jump-dired))
 #1=(#("bug1" 0 1
-      (bmkp-full-record #1# idx 8)
+      (idx 8 bmkp-full-record #1#)
       1 4
       (bmkp-full-record #1#))
-    (end-position . 22686)
+    (end-position . 25164)
     (filename . "~/projects/Galactus/providers/Oardc/src/main/java/com/eloqua/providers/oardc/apps/weChat/services/WeChatFissionService.java")
     (buffer-name . "WeChatFissionService.java")
     (front-context-string . "convertStrForFro")
     (rear-context-string . "foreEffectedMsg(")
     (front-context-region-string)
     (rear-context-region-string)
-    (visits . 7)
-    (time 23688 28173 5826 157000)
+    (visits . 8)
+    (time 23699 1199 436777 47000)
     (created 23613 20882 891514 27000)
-    (position . 22686))
+    (position . 25164))
 #1=(#("WeChatFissionActivityBean.java" 0 1
-      (bmkp-full-record #1# idx 9)
+      (idx 9 bmkp-full-record #1#)
       1 30
       (bmkp-full-record #1#))
     (end-position . 681)
@@ -164,7 +192,7 @@
     (created 23609 28913 522446 668000)
     (position . 681))
 #1=(#("direct sql1" 0 1
-      (bmkp-full-record #1# idx 10)
+      (idx 10 bmkp-full-record #1#)
       1 11
       (bmkp-full-record #1#))
     (annotation)
@@ -180,7 +208,7 @@
     (created 23605 40064 84147 950000)
     (position . 2526))
 #1=(#("direct sql3" 0 1
-      (bmkp-full-record #1# idx 11)
+      (idx 11 bmkp-full-record #1#)
       1 11
       (bmkp-full-record #1#))
     (filename . "~/projects/Galactus/com.eloqua.repodepot/src/main/java/com/eloqua/galactus/db/dao/customer/services/OpenServiceDAO.java")
@@ -194,7 +222,7 @@
     (created 23605 40011 678040 585000)
     (position . 1057))
 #1=(#("direct sql2" 0 1
-      (bmkp-full-record #1# idx 12)
+      (idx 12 bmkp-full-record #1#)
       1 11
       (bmkp-full-record #1#))
     (filename . "~/projects/Galactus/com.eloqua.repodepot/src/main/java/com/eloqua/galactus/db/dao/customer/PushIOContactDAO.java")
@@ -208,7 +236,7 @@
     (created 23605 39992 768284 132000)
     (position . 7731))
 #1=(#("Complaints" 0 1
-      (bmkp-full-record #1# idx 13)
+      (idx 13 bmkp-full-record #1#)
       1 10
       (bmkp-full-record #1#))
     (end-position . 24324)
@@ -223,7 +251,7 @@
     (created 23605 38523 487850 843000)
     (position . 24324))
 #1=(#("dao mediaresource" 0 1
-      (bmkp-full-record #1# idx 14)
+      (idx 14 bmkp-full-record #1#)
       1 17
       (bmkp-full-record #1#))
     (filename . "~/projects/Galactus/com.eloqua.repodepot/src/main/java/com/eloqua/galactus/db/entity/customer/custom/WeChatMediaResourceDAO.java")
@@ -237,7 +265,7 @@
     (created 23602 50739 790639 563000)
     (position . 2006))
 #1=(#("dao participate" 0 1
-      (idx 15 bmkp-full-record #1#)
+      (bmkp-full-record #1# idx 15)
       1 15
       (bmkp-full-record #1#))
     (end-position . 774)
@@ -247,27 +275,27 @@
     (rear-context-string . "Relationship> {\n")
     (front-context-region-string)
     (rear-context-region-string)
-    (visits . 17)
-    (time 23687 44736 831635 890000)
+    (visits . 19)
+    (time 23699 733 46440 613000)
     (created 23602 50726 442288 660000)
     (position . 774))
 #1=(#("Ep-query-activity" 0 1
-      (idx 16 bmkp-full-record #1#)
+      (bmkp-full-record #1# idx 16)
       1 17
       (bmkp-full-record #1#))
-    (end-position . 95821)
+    (end-position . 96817)
     (filename . "~/projects/Galactus/providers/Oardc/src/main/java/com/eloqua/providers/oardc/apps/weChat/WeChatEndPoint.java")
     (buffer-name . "WeChatEndPoint.java")
     (front-context-string . "service.queryTag")
     (rear-context-string . "eChatResponse = ")
     (front-context-region-string)
     (rear-context-region-string)
-    (visits . 2)
-    (time 23671 17074 482070 155000)
+    (visits . 4)
+    (time 23699 13204 822382 43000)
     (created 23602 50305 389054 174000)
-    (position . 95821))
+    (position . 96817))
 #1=(#("dev.conf" 0 1
-      (idx 17 bmkp-full-record #1#)
+      (bmkp-full-record #1# idx 17)
       1 8
       (bmkp-full-record #1#))
     (filename . "~/projects/Galactus/GalactusGlobal/dev.conf")
@@ -281,7 +309,7 @@
     (created . #2#)
     (position . 113))
 #1=(#("QA-what-if-already-scaner" 0 1
-      (bmkp-full-record #1# idx 18)
+      (idx 3 bmkp-full-record #1#)
       1 25
       (bmkp-full-record #1#))
     (end-position . 48933)
@@ -296,7 +324,7 @@
     (created 23597 29356 65791 993000)
     (position . 48933))
 #1=(#("qa-difference-of-scenes" 0 1
-      (bmkp-full-record #1# idx 19)
+      (idx 4 bmkp-full-record #1#)
       1 23
       (bmkp-full-record #1#))
     (filename . "~/projects/Galactus/providers/Oardc/src/main/java/com/eloqua/providers/oardc/apps/weChat/services/WeChatCallbackService.java")
@@ -310,7 +338,7 @@
     (created 23596 23737 840880 872000)
     (position . 46853))
 #1=(#("fission bean" 0 1
-      (bmkp-full-record #1# idx 20)
+      (idx 20 bmkp-full-record #1#)
       1 12
       (bmkp-full-record #1#))
     (end-position . 414)
@@ -325,7 +353,7 @@
     (created 23587 5888 430191 628000)
     (position . 414))
 #1=(#("send wechat welcome message " 0 1
-      (bmkp-full-record #1# idx 21)
+      (idx 21 bmkp-full-record #1#)
       1 28
       (bmkp-full-record #1#))
     (filename . "~/projects/Galactus/providers/Oardc/src/main/java/com/eloqua/providers/oardc/apps/weChat/services/WeChatService.java")
@@ -339,22 +367,22 @@
     (created . #2#)
     (position . 82051))
 #1=(#("process qr code scan" 0 1
-      (bmkp-full-record #1# idx 22)
+      (idx 5 bmkp-full-record #1#)
       1 20
       (bmkp-full-record #1#))
-    (end-position . 43394)
+    (end-position . 45922)
     (filename . "~/projects/Galactus/providers/Oardc/src/main/java/com/eloqua/providers/oardc/apps/weChat/services/WeChatCallbackService.java")
     (buffer-name . "WeChatCallbackService.java")
     (front-context-string . "QrEvent(String a")
     (rear-context-string . "rocessWeChatScan")
     (front-context-region-string)
     (rear-context-region-string)
-    (visits . 6)
-    (time 23626 42554 21894 236000)
+    (visits . 7)
+    (time 23699 1100 126152 719000)
     (created 23587 3200 314047 829000)
-    (position . 43394))
+    (position . 45922))
 #1=(#("callback service event scan" 0 1
-      (bmkp-full-record #1# idx 23)
+      (idx 6 bmkp-full-record #1#)
       1 27
       (bmkp-full-record #1#))
     (end-position . 14501)
@@ -369,7 +397,7 @@
     (created 23587 3069 236057 708000)
     (position . 14501))
 #1=(#("UI build README" 0 1
-      (bmkp-full-record #1# idx 24)
+      (idx 24 bmkp-full-record #1#)
       1 15
       (bmkp-full-record #1#))
     (filename . "~/projects/Galactus/providers/Oardc/WebContent/static/jet/README.md")
@@ -383,7 +411,7 @@
     (created 23586 62128 743789 554000)
     (position . 393))
 #1=(#("UI fission top" 0 1
-      (bmkp-full-record #1# idx 25)
+      (idx 25 bmkp-full-record #1#)
       1 14
       (bmkp-full-record #1#))
     (filename . "~/projects/Galactus/providers/Oardc/WebContent/static/jet/src/js/views/menu/top/top-fission.html")
@@ -397,7 +425,7 @@
     (created 23586 57846 146319 499000)
     (position . 196))
 #1=(#("wechat ep scan qrcode event" 0 1
-      (bmkp-full-record #1# idx 26)
+      (idx 26 bmkp-full-record #1#)
       1 27
       (bmkp-full-record #1#))
     (annotation)
@@ -413,7 +441,7 @@
     (created 23585 58173 381141 443000)
     (position . 15288))
 #1=(#("wechat fission java service" 0 1
-      (bmkp-full-record #1# idx 27)
+      (idx 27 bmkp-full-record #1#)
       1 27
       (bmkp-full-record #1#))
     (filename . #2="/home/dylan/projects/Galactus/providers/Oardc/src/main/java/com/eloqua/providers/oardc/apps/weChat/services/WeChatFissionService.java")
@@ -427,7 +455,7 @@
     (created 23585 52930 544237 274000)
     (position . 17134))
 #1=(#("WeChatFissionBean.java" 0 1
-      (bmkp-full-record #1# idx 28)
+      (idx 28 bmkp-full-record #1#)
       1 22
       (bmkp-full-record #1#))
     (filename . #2="/home/dylan/projects/Galactus/providers/Oardc/src/main/java/com/eloqua/providers/oardc/apps/weChat/domain/dto/fission/WeChatFissionBean.java")
@@ -441,7 +469,7 @@
     (created 23585 52909 546399 52000)
     (position . 1))
 #1=(#("wechat endpoints post event" 0 1
-      (bmkp-full-record #1# idx 29)
+      (idx 29 bmkp-full-record #1#)
       1 27
       (bmkp-full-record #1#))
     (end-position . 20270)
@@ -456,22 +484,22 @@
     (created 23585 52651 21060 994000)
     (position . 20270))
 #1=(#("wechat endpoints" 0 1
-      (bmkp-full-record #1# idx 30)
+      (idx 30 bmkp-full-record #1#)
       1 16
       (bmkp-full-record #1#))
-    (end-position . 7170)
+    (end-position . 7245)
     (filename . "~/projects/Galactus/providers/Oardc/src/main/java/com/eloqua/providers/oardc/apps/weChat/WeChatEndPoint.java")
     (buffer-name . "WeChatEndPoint.java")
     (front-context-string . "d\n	private WeCha")
     (rear-context-string . "vice;\n	@Autowire")
     (front-context-region-string)
     (rear-context-region-string)
-    (visits . 4)
-    (time 23614 43175 264648 836000)
+    (visits . 5)
+    (time 23700 21484 943917 646000)
     (created 23585 52042 368636 447000)
-    (position . 7170))
+    (position . 7245))
 #1=(#("eloqua endpoints" 0 1
-      (bmkp-full-record #1# idx 31)
+      (idx 31 bmkp-full-record #1#)
       1 16
       (bmkp-full-record #1#))
     (filename . "~/projects/Galactus/com.eloqua.core/src/main/java/com/eloqua/galactus/core/services/lifecycle/LifecycleEndpoints.java")
@@ -485,7 +513,7 @@
     (created . #2#)
     (position . 12770))
 #1=(#("java oardc" 0 1
-      (bmkp-full-record #1# idx 32)
+      (idx 32 bmkp-full-record #1#)
       1 10
       (bmkp-full-record #1#))
     (buffer-name . "oardc")
@@ -505,7 +533,7 @@
     (dired-hidden-dirs)
     (handler . bmkp-jump-dired))
 #1=(#("UI Ojet dir" 0 1
-      (bmkp-full-record #1# idx 33)
+      (idx 33 bmkp-full-record #1#)
       1 11
       (bmkp-full-record #1#))
     (buffer-name . #2="~/projects/Galactus/providers/Oardc/WebContent/static/jet/")
@@ -525,7 +553,7 @@
     (dired-hidden-dirs)
     (handler . bmkp-jump-dired))
 #1=(#("UI fission top" 0 1
-      (bmkp-full-record #1# idx 34)
+      (idx 34 bmkp-full-record #1#)
       1 14
       (bmkp-full-record #1#))
     (filename . "~/projects/Galactus/providers/Oardc/WebContent/static/jet/src/js/viewModels/menu/top/top-fission.js")
@@ -539,7 +567,7 @@
     (created 23585 38014 666468 564000)
     (position . 205))
 #1=(#("gradle-package-version" 0 1
-      (bmkp-full-record #1# idx 35)
+      (idx 35 bmkp-full-record #1#)
       1 22
       (bmkp-full-record #1#))
     (filename . "~/projects/Galactus/providers/Oardc/build.gradle")
@@ -553,7 +581,7 @@
     (created 23583 10397 732321 317000)
     (position . 2108))
 #1=(#("gradle-testframe" 0 1
-      (bmkp-full-record #1# idx 36)
+      (idx 36 bmkp-full-record #1#)
       1 16
       (bmkp-full-record #1#))
     (filename . "~/projects/Galactus/providers/Oardc/build.gradle")

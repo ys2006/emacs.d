@@ -1,6 +1,6 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
-;; some cool org tricks
+; some cool org tricks
 ;; @see http://emacs.stackexchange.com/questions/13820/inline-verbatim-and-code-with-quotes-in-org-mode
 
 ;; {{ NO spell check for embedded snippets
@@ -263,5 +263,19 @@ If use-indirect-buffer is not nil, use `indirect-buffer' to hold the widen conte
 ;(setq org-tags-exclude-from-inheritance (quote ("secret")))
 ;(setq org-crypt-key nil)
 ;; }}
+
+;; Quike input * under Chinese IME
+;; See https://www.cnblogs.com/bamanzi/p/org-mode-tips.html
+(defun org-mode-my-init ()
+    ;; avoid switch IME when need to insert * under chinese IME 
+    (define-key org-mode-map (kbd "×") (kbd "*"))
+    (define-key org-mode-map (kbd "－") (kbd "-"))
+
+    ;; {{  see https://emacs.stackexchange.com/questions/26991/is-it-possible-to-make-yasnippets-to-expand-snippets-inside-an-org-mode-babel-se
+    ;;  }    
+    (setq-local yas-buffer-local-condition
+                '(not (org-in-src-block-p t))))
+
+(add-hook 'org-mode-hook 'org-mode-my-init)
 
 (provide 'init-org)
