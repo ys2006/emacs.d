@@ -219,7 +219,7 @@
 
 ;; https://github.com/redguardtoo/emacs.d#color-theme
 ;; https://emacsthemes.com/
-(load-theme 'Prassee t)
+;; (load-theme 'Prassee t)
 
 ;;; Local Variables:
 ;;; no-byte-compile: t

@@ -10,3 +10,6 @@
 [submodule "leetcode"]
 	path = site-lisp/leetcode
 	url = git@github.com:ginqi7/leetcode-emacs.git
+[submodule "site-lisp/emacs-password-genarator"]
+	path = site-lisp/emacs-password-genarator
+	url = https://github.com/zargener/emacs-password-genarator.git
