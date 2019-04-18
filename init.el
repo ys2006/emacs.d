@@ -112,12 +112,10 @@
   (require 'init-hippie-expand)
   (require 'init-windows)
   (require 'init-markdown)
-  (require 'init-erlang)
   (require 'init-javascript)
   (require 'init-org)
   (require 'init-css)
   (require 'init-python)
-  (require 'init-haskell)
   (require 'init-ruby-mode)
   (require 'init-lisp)
   (require 'init-elisp)
@@ -133,7 +131,6 @@
   (require 'init-clipboard)
   ;; use evil mode (vi key binding)
   (require 'init-evil)
-  (require 'init-multiple-cursors)
   (require 'init-ctags)
   (require 'init-bbdb)
   (require 'init-gnus)
@@ -153,23 +150,6 @@
   (require 'init-mu4e)
 
   ;; projectile costs 7% startup time
-
-
-  ;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
-  ;; (local-require 'idle-require)
-  ;; (setq idle-require-idle-delay 2)
-  ;; (setq idle-require-symbols '(init-perforce
-  ;;                              init-slime
-  ;;                              init-misc-lazy
-  ;;                              init-which-func
-  ;;                              init-fonts
-  ;;                              init-hs-minor-mode
-  ;;                              init-writting
-  ;;                              init-pomodoro
-  ;;                              init-dired
-  ;;                              init-artbollocks-mode
-  ;;                              init-semantic))
-  ;; (idle-require-mode 1) starts loading
 
   ;; @see https://github.com/hlissner/doom-emacs/wiki/FAQ
   ;; Adding directories under "site-lisp/" to `load-path' slows
