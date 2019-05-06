@@ -1,12 +1,10 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
-(setq leetcode-path "~/bookshelf/read/Python/Leetcode/"
-          leetcode-language "python")
+;; (local-require 'leetcode)
+(require 'leetcode)
 
-;; (use-package leetcode
-;;     :config
-;;     (setq leetcode-path "~/bookshelf/read/Python/Leetcode/"
-;;           leetcode-language "python")
-;; )
+;; (setq leetcode-path "~/bookshelf/read/Python/Leetcode/"
+          ;; leetcode-language "python")
+(setq leetcode-prefer-language "python3")
 
 (provide 'init-leetcode)

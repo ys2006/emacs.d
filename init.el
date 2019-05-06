@@ -4,6 +4,7 @@
 ;; Without this comment emacs25 adds (package-initialize) here
 ;; (package-initialize)
 
+(setq debug-on-error t)
 (push (expand-file-name "~/.emacs.d/lisp") load-path)
 
 (let* ((minver "24.4"))
@@ -20,12 +21,12 @@
 
 (setq emacs-load-start-time (current-time))
 
-;; (setq url-using-proxy t)
-;; (setq url-proxy-services
-;;       '(("http"     . "cn-proxy.cn.oracle.com:80")
-;;         ("https"    . "cn-proxy.cn.oracle.com:80")
-;;         ("ftp"      . "cn-proxy.cn.oracle.com:80")
-;;         ("no_proxy" . "^\\(localhost\\|8.*\\)")))
+(setq url-using-proxy t)
+(setq url-proxy-services
+      '(("http"     . "cn-proxy.cn.oracle.com:80")
+        ("https"    . "cn-proxy.cn.oracle.com:80")
+        ("ftp"      . "cn-proxy.cn.oracle.com:80")
+        ("no_proxy" . "^\\(localhost\\|8.*\\)")))
 
 ;; (setq url-proxy-services
 ;;     '(("http"     . "www-proxy.us.oracle.com:80")
@@ -165,7 +166,6 @@
   (require 'init-hydra)
   (require 'init-shackle)
   (require 'init-dired)
-  (require 'init-artbollocks-mode)
   (require 'init-writting)
   (require 'init-encoding)
   (require 'init-golang)
