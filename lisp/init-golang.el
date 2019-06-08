@@ -31,6 +31,7 @@
 
 ;; Ensure the go specific autocomplete is active in go-mode.
 (with-eval-after-load 'go-mode
+   (require 'auto-complete)
    (require 'go-autocomplete))
 
 ;; If the go-guru.el file is in the load path, this will load it.

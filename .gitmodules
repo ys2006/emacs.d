@@ -9,7 +9,7 @@
 	url = https://github.com/ahungry/org-jira
 [submodule "leetcode"]
 	path = site-lisp/leetcode
-	url = git@github.com:ginqi7/leetcode-emacs.git
+	url = ./site-lisp/leetcode/
 [submodule "site-lisp/emacs-password-genarator"]
 	path = site-lisp/emacs-password-genarator
 	url = https://github.com/zargener/emacs-password-genarator.git
