@@ -1,21 +1,31 @@
-;;;; Emacs Bookmark Format Version 1 ;;;; -*- coding: utf-8-emacs -*-
+;;;; Emacs Bookmark Format Version 1 ;;;; -*- coding: utf-8-emacs -*- 
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(#1=(#("k8s version" 0 11
+(#1=(#("程序员的数学-线性代数" 0 11
+      (bmkp-full-record #1#))
+    (filename . "   - no file -")
+    (location . "http://www.ituring.com.cn/book/1239")
+    (handler . bmkp-jump-url-browse))
+#1=(#("Turling.com" 0 11
+      (bmkp-full-record #1#))
+    (filename . "   - no file -")
+    (location . "http://www.ituring.com.cn/book")
+    (handler . bmkp-jump-url-browse))
+#1=(#("k8s version" 0 11
       (bmkp-full-record #1#))
     (filename . "   - no file -")
     (location . "https://kubernetes.io/docs/setup/version-skew-policy/")
     (handler . bmkp-jump-url-browse))
 #1=(#("k8s network plugin" 0 1
-      (bmkp-full-record #1# idx 0)
+      (idx 0 bmkp-full-record #1#)
       1 18
       (bmkp-full-record #1#))
     (filename . "   - no file -")
     (location . "https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements")
     (handler . bmkp-jump-url-browse))
 #1=(#("elisp for" 0 1
-      (bmkp-full-record #1# idx 1)
+      (idx 1 bmkp-full-record #1#)
       1 9
       (bmkp-full-record #1#))
     (buffer-name . "*info*<3>")
@@ -32,7 +42,7 @@
     (handler . Info-bookmark-jump)
     (defaults "(cl) Loop Facility" "cl" #3#))
 #1=(#("elisp cons cell" 0 1
-      (idx 2 bmkp-full-record #1#)
+      (bmkp-full-record #1# idx 2)
       1 15
       (bmkp-full-record #1#))
     (buffer-name . "*info*<2>")
@@ -49,7 +59,7 @@
     (handler . Info-bookmark-jump)
     (defaults "(elisp) Cons Cell Type" "elisp" #3#))
 #1=(#("elisp cdr car" 0 1
-      (idx 3 bmkp-full-record #1#)
+      (bmkp-full-record #1# idx 3)
       1 13
       (bmkp-full-record #1#))
     (buffer-name . "*info*<2>")
@@ -66,7 +76,7 @@
     (handler . Info-bookmark-jump)
     (defaults "(elisp) Cons Cells" "elisp" #3#))
 #1=(#("ubuntu.org" 0 1
-      (idx 4 bmkp-full-record #1#)
+      (bmkp-full-record #1# idx 4)
       1 10
       (bmkp-full-record #1#))
     (filename . "~/recipes/ubuntu.org")
@@ -74,7 +84,7 @@
     (rear-context-string . "atest chrome]] \n")
     (position . 7733))
 #1=(#("learn-js" 0 1
-      (idx 5 bmkp-full-record #1#)
+      (bmkp-full-record #1# idx 5)
       1 8
       (bmkp-full-record #1#))
     (filename . "~/bookshelf/read/Js/test.js")
@@ -88,7 +98,7 @@
     (created . #2#)
     (position . 1))
 #1=(#("learn-elisp" 0 1
-      (idx 6 bmkp-full-record #1#)
+      (bmkp-full-record #1# idx 6)
       1 11
       (bmkp-full-record #1#))
     (filename . "~/bookshelf/read/Emacs/learn.el")
@@ -102,7 +112,7 @@
     (created . #2#)
     (position . 301))
 #1=(#("book-emacs" 0 1
-      (idx 7 bmkp-full-record #1#)
+      (bmkp-full-record #1# idx 7)
       1 10
       (bmkp-full-record #1#))
     (filename . #2="/home/dylan/bookshelf/read/Emacs/Writing-GNU-Emacs-Extensions/samples.el")
@@ -116,7 +126,7 @@
     (created . #3#)
     (position . 1402))
 #1=(#("learn-python" 0 1
-      (idx 8 bmkp-full-record #1#)
+      (bmkp-full-record #1# idx 8)
       1 12
       (bmkp-full-record #1#))
     (end-position . 503)
@@ -131,7 +141,7 @@
     (created 23572 36678 946538 86000)
     (position . 503))
 #1=(#("emacs-setting-package" 0 1
-      (idx 9 bmkp-full-record #1#)
+      (bmkp-full-record #1# idx 9)
       1 21
       (bmkp-full-record #1#))
     (end-position . 9982)
@@ -146,7 +156,7 @@
     (created 23572 25688 510870 354000)
     (position . 9982))
 #1=(#("learn-togaf" 0 1
-      (idx 10 bmkp-full-record #1#)
+      (bmkp-full-record #1# idx 10)
       1 11
       (bmkp-full-record #1#))
     (filename . "/home/dylan/bookshelf/blog/content/post/TOGAF.org")
@@ -154,7 +164,7 @@
     (rear-context-string . "nce\ncomprehensio")
     (position . 266))
 #1=(#("oreilly book examples" 0 1
-      (bmkp-full-record #1# idx 11)
+      (idx 11 bmkp-full-record #1#)
       1 21
       (bmkp-full-record #1#))
     (buffer-name . "*w3m*")
@@ -169,7 +179,7 @@
     (location . "https://resources.oreilly.com/examples/")
     (handler . bmkp-jump-w3m))
 #1=(#("book-emacs" 0 1
-      (idx 12 bmkp-full-record #1#)
+      (bmkp-full-record #1# idx 12)
       1 10
       (bmkp-full-record #1#))
     (buffer-name . "/home/dylan/bookshelf/read/Writing-GNU-Emacs-Extensions/9781565922617/src/")
@@ -189,7 +199,7 @@
     (dired-hidden-dirs)
     (handler . bmkp-jump-dired))
 #1=(#("reading" 0 1
-      (idx 13 bmkp-full-record #1#)
+      (bmkp-full-record #1# idx 13)
       1 7
       (bmkp-full-record #1#))
     (end-position . 597)
@@ -204,7 +214,7 @@
     (created 23522 39557 999461 566000)
     (position . 597))
 #1=(#("emacs-setting-customize-func" 0 1
-      (idx 14 bmkp-full-record #1#)
+      (bmkp-full-record #1# idx 14)
       1 28
       (bmkp-full-record #1#))
     (filename . #2="/home/dylan/.emacs.d/lisp/init-misc.el")
@@ -218,7 +228,7 @@
     (created 23518 61632 439791 999000)
     (position . 36516))
 #1=(#("emacs-setting-shortcut" 0 1
-      (idx 15 bmkp-full-record #1#)
+      (bmkp-full-record #1# idx 15)
       1 22
       (bmkp-full-record #1#))
     (filename . #2="/home/dylan/.emacs.d/lisp/init-evil.el")
@@ -232,7 +242,7 @@
     (created 23516 595 707108 614000)
     (position . 16337))
 #1=(#("fabric readme" 0 1
-      (bmkp-full-record #1# idx 16)
+      (idx 16 bmkp-full-record #1#)
       1 13
       (bmkp-full-record #1#))
     (filename . #2="/home/dylan/install/blockchain/fabric/README.md")
@@ -246,7 +256,7 @@
     (created . #3#)
     (position . 5468))
 #1=(#("cfa.org" 0 1
-      (bmkp-full-record #1# idx 17)
+      (idx 17 bmkp-full-record #1#)
       1 7
       (bmkp-full-record #1#))
     (end-position . 27461)
@@ -261,7 +271,7 @@
     (created 23513 33410 488088 961000)
     (position . 27461))
 #1=(#("todo-list" 0 1
-      (idx 18 bmkp-full-record #1#)
+      (bmkp-full-record #1# idx 18)
       1 9
       (bmkp-full-record #1#))
     (filename . #2="/home/dylan/recipes/todo.org")
@@ -275,7 +285,7 @@
     (created 23513 18374 783646 230000)
     (position . 83))
 #1=(#("emacs-setting-proxy" 0 1
-      (idx 19 bmkp-full-record #1#)
+      (bmkp-full-record #1# idx 19)
       1 19
       (bmkp-full-record #1#))
     (end-position . 952)
@@ -290,7 +300,7 @@
     (created 23513 17229 9228 830000)
     (position . 952))
 #1=(#("fabric-sample-readme" 0 1
-      (bmkp-full-record #1# idx 20)
+      (idx 20 bmkp-full-record #1#)
       1 20
       (bmkp-full-record #1#))
     (filename . #2="/home/dylan/install/blockchain/fabric-samples/README.md")
@@ -304,7 +314,7 @@
     (created 23513 16110 744214 351000)
     (position . 78))
 #1=(#("DockerBuild node" 0 1
-      (idx 21 bmkp-full-record #1#)
+      (bmkp-full-record #1# idx 21)
       1 16
       (bmkp-full-record #1#))
     (filename . "~/install/blockchain/fabric/core/chaincode/platforms/node/platform.go")
@@ -318,7 +328,7 @@
     (created . #2#)
     (position . 5595))
 #1=(#("java oardc" 0 1
-      (bmkp-full-record #1# idx 23)
+      (idx 23 bmkp-full-record #1#)
       1 10
       (bmkp-full-record #1#))
     (buffer-name . "oardc")
@@ -338,7 +348,7 @@
     (dired-hidden-dirs)
     (handler . bmkp-jump-dired))
 #1=(#("jet" 0 1
-      (bmkp-full-record #1# idx 24)
+      (idx 24 bmkp-full-record #1#)
       1 3
       (bmkp-full-record #1#))
     (buffer-name . "jet")

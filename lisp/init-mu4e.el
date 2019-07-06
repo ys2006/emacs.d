@@ -5,6 +5,8 @@
 (add-to-list 'load-path "~/.emacs.d/site-lisp/mu4e")
 (require 'mu4e)
 
+(setq mu4e-mu-binary "/opt/local/bin/mu")
+
 ;; use mu4e for e-mail in emacs
 (setq mail-user-agent 'mu4e-user-agent)
 
@@ -100,36 +102,13 @@
 ;;       smtpmail-debug-info t)
 
 (setq message-send-mail-function 'message-send-mail-with-sendmail
-      sendmail-program "/usr/bin/msmtp"
+      sendmail-program "/usr/local/bin/msmtp"
       user-full-name "Dylan")
 
 (setq mu4e-contexts
-      `( ,(make-mu4e-context
-          :name "Work"
-          :enter-func (lambda () (mu4e-message "Switch to the Work context"))
-          :leave-func (lambda () (mu4e-message "Leaving Work context"))
-          ;; we match based on the maildir of the message
-          ;; this matches maildir /Work and its sub-directories
-          :match-func (lambda (msg)
-                        (when msg
-                          (string-match-p "^/Work" (mu4e-message-field msg :maildir))))
-          :vars '((mu4e-maildir            . "~/Maildir/Work")
-                  (smtpmail-smtp-user      . "dylan.yin@oracle.com")
-                  (smtpmail-smtp-server    . "stbeehive.oracle.com")
-                  (smtpmail-smtp-service   . 465)
-                  (mu4e-sent-folder        . "/Sent")
-                  (mu4e-drafts-folder      . "/Drafts")
-                  (mu4e-trash-folder       . "/Junk E-mail")
-                  (mu4e-refile-folder      . "/Archives")
-                  (user-mail-address       . "dylan.yin@oracle.com")
-                  (user-full-name          . "Dylan Yin" )
-                  (mu4e-compose-signature  .
-                                            (concat
-                                             "Sincerely,\n"
-                                             "Dylan.\n"))))
-        ,(make-mu4e-context
+      `(,(make-mu4e-context
           :name "Hotmail"
-          :enter-func (lambda () (mu4e-message "Entering Hotmail context"))
+          :enter-func (lambda () (mu4e-message "Switch Hotmail context"))
           :leave-func (lambda () (mu4e-message "Leaving Hotmail context"))
           ;; we match based on the maildir of the message
           ;; this matches maildir /Work and its sub-directories
@@ -138,13 +117,13 @@
                           (string-match-p "^/Hotmail" (mu4e-message-field msg :maildir))))
           :vars '((mu4e-maildir            . "~/Maildir/Hotmail")
                   (smtpmail-smtp-user      . "yinshuo335@hotmail.com")
-                  (smtpmail-smtp-server    . "imap-mail.outlook.com")
+                  (smtpmail-smtp-server    . "smtp.office365.com")
                   (smtpmail-smtp-service   . 587)
                   (mu4e-sent-folder        . "/Sent")
                   (mu4e-drafts-folder      . "/Drafts")
+                  (mu4e-trash-folder           . "/Deleted")
+                  (mu4e-refile-folder          . "/Archive")
                   (mu4e-sent-messages-behavior . "delete")
-                  (mu4e-trash-folder           . "/Junk E-mail")
-                  (mu4e-refile-folder          . "/Archives")
                   (user-mail-address           . "yinshuo335@hotmail.com")
                   (user-full-name              . "Yinshuo" )
                   (mu4e-compose-signature .
@@ -159,9 +138,13 @@
           ;; this matches maildir /Gmail and its sub-directories
           :match-func (lambda (msg)
                         (when msg
-                          (string= (mu4e-message-field msg :maildir) "/Gmail")))
-          :vars '((user-mail-address       . "dylan.yins@gmail.com" )
+                          (string= (mu4e-message-field msg :maildir) "^/Gmail")))
+          :vars '((mu4e-maildir            . "/Users/dylan/Maildir/Gmail")
+                  (user-mail-address       . "dylan.yins@gmail.com" )
                   (user-full-name          . "Yinshuo" )
+                  (mu4e-sent-folder        . "/Sent Mail")
+                  (mu4e-drafts-folder      . "/Drafts")
+                  (mu4e-trash-folder           . "/Trash")
                   (mu4e-sent-messages-behavior . "delete")
                   (mu4e-compose-signature  .
                                              (concat
@@ -228,9 +211,9 @@ mu4e-attachment-dir (expand-file-name "~/Downloads")
       mu4e-show-images t
       mu4e-view-image-max-width 800)
 ;; the list of all of my e-mail addresses
-(setq mu4e-user-mail-address-list '("dylan.yin@oracle.com"
-                                    "yinshuo335@hotmail.com"
-                                    "dylan.yins@gmail.com"))
+(setq mu4e-user-mail-address-list '("yinshuo335@hotmail.com"
+                                    "dylan.yins@gmail.com"
+                                    "yinshuo333@gmail.com"))
 ;; the headers to show in the headers list -- a pair of a field
 ;; and its width, with `nil' meaning 'unlimited'
 ;; (better only use that for the last field.
@@ -244,7 +227,7 @@ mu4e-attachment-dir (expand-file-name "~/Downloads")
 ;; don't keep message buffers around
 (setq message-kill-buffer-on-exit t)
 
-;; start with the first (default) context; 
+;; start with the first (default) context;
 (setq mu4e-context-policy 'pick-first)
 ;; give me ISO(ish) format date-time stamps in the header list
 (setq mu4e-headers-date-format "%Y/%m/%d %H:%M")
@@ -260,6 +243,12 @@ mu4e-attachment-dir (expand-file-name "~/Downloads")
 ;; From Ben Maughan: Get some Org functionality in compose buffer
 (add-hook 'message-mode-hook 'turn-on-orgtbl)
 (add-hook 'message-mode-hook 'turn-on-orgstruct++)
+
+(defun offlineimap-get-password (host port)
+  (require 'netrc)
+  (let* ((netrc (netrc-parse (expand-file-name "~/.authinfo.gpg")))
+         (hostentry (netrc-machine netrc host port port)))
+    (when hostentry (netrc-get hostentry "password"))))
 
 ;; every new email composition gets its own frame! (window)
 ;; (setq mu4e-compose-in-new-frame t)

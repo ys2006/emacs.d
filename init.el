@@ -34,6 +34,9 @@
 ;;       ("ftp"      . "www-proxy.us.oracle.com:80")
 ;;       ("no_proxy" . "^\\(localhost\\|10.*\\)")))
 
+;; Using daemon mode @See https://stackoverflow.com/questions/25044592/use-gui-emacs-on-os-x-when-opening-files-with-emacsclient
+;; (server-start)
+
 (setq default-directory "~/.emacs.d")
 ;;(setq browse-url-browser-function 'browse-url-default-windows-browser)
 ;;(setq browse-url-browser-function 'eww-browse-url)
@@ -209,3 +212,15 @@
 (setq visible-bell 1)
 
 (put 'dired-find-alternate-file 'disabled nil)
+
+;;; Maximize the window
+;; (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
+;;                          '(2 "_NET_WM_STATE_MAXIMIZED_HORZ" 0))
+;; (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
+;;                         '(2 "_NET_WM_STATE_MAXIMIZED_VERT" 0))
+
+ ;;设置窗口位置为屏库左上角(0,0)
+ (set-frame-position (selected-frame) 0 0)
+ ;;设置宽和高
+ (set-frame-width (selected-frame) 140)
+ (set-frame-height (selected-frame) 54)

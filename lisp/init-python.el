@@ -20,7 +20,7 @@
      (setq python-shell-interpreter "ipython"  ;; IPython
            python-shell-interpreter-args "-i --simple-prompt")
      (setq py-shell-name "python3")
-     (setq elpy-rpc-python-command "python3")  ;; python3
+     ;; (setq elpy-rpc-python-command "python3")  ;; python3
      (setq elpy-rpc-backend "jedi")
      (setq python-indent-offset 4)
 

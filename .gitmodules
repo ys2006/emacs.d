@@ -19,3 +19,6 @@
 [submodule "site-lisp/spinner.el"]
 	path = site-lisp/spinner.el
 	url = https://github.com/Malabarba/spinner.el.git
+[submodule "site-lisp/org-opml"]
+	path = site-lisp/org-opml
+	url = https://github.com/org-opml/org-opml.git

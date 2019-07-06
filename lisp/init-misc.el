@@ -19,6 +19,7 @@
 
 (add-to-list 'auto-mode-alist '("TAGS\\'" . text-mode))
 (add-to-list 'auto-mode-alist '("\\.ctags\\'" . text-mode))
+(add-to-list 'auto-mode-alist '("\\.gpg\\'" . text-mode))
 
 ;; {{ auto-yasnippet
 ;; Use C-q instead tab to complete snippet
@@ -956,14 +957,46 @@ If no region is selected. You will be asked to use `kill-ring' or clipboard inst
 
 (setq jiralib-url "https://jira.oraclecorp.com")
 
-;; {{ mail setup
+;; {{ Mail setup
 (require 'epa-file)
+(custom-set-variables '(epg-gpg-program  "/opt/local/bin/gpg2"))
 (epa-file-enable)
 
-(defun offlineimap-get-password (host port)
-      (let* ((netrc (netrc-parse (expand-file-name "~/.netrc.gpg")))
-             (hostentry (netrc-machine netrc host port port)))
-        (when hostentry (netrc-get hostentry "password"))))
+;; (defun offlineimap-get-password (host port)
+;;       (let* ((netrc (netrc-parse (expand-file-name "~/.netrc.gpg")))
+;;              (hostentry (netrc-machine netrc host port port)))
+;;         (when hostentry (netrc-get hostentry "password"))))
+;; }}
+
+;; {{ GPG setup @See https://www.jianshu.com/p/bd4266fb4551
+(setq epa-file-select-keys 0)
+;; }}
+
+;; {{ For ccrypt @See https://www.cnblogs.com/atskyline/archive/2012/06/16/2552112.html
+(local-require 'ps-ccrypt)
+;; }}
+
+
+;; {{ For org-opml @See https://github.com/org-opml/org-opml
+(local-require 'org-opml)
+
+(defvar org-export-output-directory-prefix "export_" "prefix of directory used for org-mode export")
+
+    (defadvice org-export-output-file-name (before org-add-export-dir activate)
+      "Modifies org-export to place exported files in a different directory"
+      (when (not pub-dir)
+          (setq pub-dir (concat org-export-output-directory-prefix (substring extension 1)))
+          (when (not (file-directory-p pub-dir))
+           (make-directory pub-dir))))
+
+(defun opml-preview-file ()
+      "run MindNote on the current file and revert the buffer"
+      (interactive)
+      (execute-kbd-macro (kbd "C-c C-e m"))
+      (shell-command 
+       (format "open -a /Applications/MindNode.app %s"  
+           (shell-quote-argument (concat (file-name-directory buffer-file-name) "export_opml/" (file-name-sans-extension (file-name-nondirectory buffer-file-name)) ".opml"))))
+    )
 ;; }}
 
 (defun move-line (n)
@@ -1373,6 +1406,16 @@ Including indent-buffer, which should not be called automatically on save."
   (local-set-key (kbd "w") 'my-pronounce-current-word)
   (local-set-key (kbd ";") 'avy-goto-char-2))
 (add-hook 'nov-mode-hook 'nov-mode-hook-setup)
+;; }}
+
+;; {{ get-rid-of-big-yellow-exclamation-mark @See https://stackoverflow.com/questions/42061111/how-to-get-rid-of-big-yellow-exclamation-mark-in-emacs
+(setq visible-bell nil)
+(setq ring-bell-function 'ignore)
+;; }}
+
+;; {{ org table font align issue @See https://www.cnblogs.com/bamanzi/p/org-mode-tips.html
+;;(set-default-font "DejaVu Sans Mono 10")
+;;(set-fontset-font "fontset-default" 'unicode"WenQuanYi Bitmap Song 12") ;;for linux
 ;; }}
 
 (provide 'init-misc)

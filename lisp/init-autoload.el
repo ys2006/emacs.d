@@ -41,6 +41,8 @@
 (autoload 'org-mime-htmlize "org-mime" nil t)
 (autoload 'org-mime-org-buffer-htmlize "org-mime" nil t)
 (autoload 'org-mime-org-subtree-htmlize "org-mime" nil t)
+(autoload 'opml-decode "org-opml" nil t)
+(autoload 'opml-encode "org-opml" nil t)
 (autoload 'doctest-mode "doctest-mode" "Python doctest editing mode." t)
 (autoload 'textile-mode "textile-mode" "Mode for editing Textile documents" t)
 (autoload 'find-library-name "find-func")

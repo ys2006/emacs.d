@@ -20,6 +20,7 @@
 ;; Chinese name in directory
 (setq-default pathname-coding-system 'utf-8)
 (set-file-name-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
 ;; Shell Mode(cmd) encoding
 (defun change-shell-mode-coding ()
 

@@ -1,6 +1,6 @@
-This is mu4e.info, produced by makeinfo version 6.1 from mu4e.texi.
+This is mu4e.info, produced by makeinfo version 6.6 from mu4e.texi.
 
-Copyright © 2012-2016 Dirk-Jan C. Binnema
+Copyright © 2012-2018 Dirk-Jan C. Binnema
 
      Permission is granted to copy, distribute and/or modify this
      document under the terms of the GNU Free Documentation License,
@@ -10,7 +10,7 @@ Copyright © 2012-2016 Dirk-Jan C. Binnema
      section entitled “GNU Free Documentation License.”
 INFO-DIR-SECTION Emacs
 START-INFO-DIR-ENTRY
-* mu4e: (Mu4e).  An email client for GNU/Emacs.
+* Mu4e: (Mu4e).  An email client for GNU Emacs.
 END-INFO-DIR-ENTRY
 
 
@@ -19,11 +19,11 @@ File: mu4e.info,  Node: Top,  Next: Introduction,  Up: (dir)
 mu4e manual
 ***********
 
-Welcome to mu4e 1.1.0.
+Welcome to mu4e 1.2.0.
 
-   mu4e (mu-for-emacs) is an e-mail client for GNU-Emacs version 24.4 or
+   mu4e (mu-for-emacs) is an e-mail client for GNU Emacs version 24.4 or
 higher, built on top of the mu(1) e-mail search engine.  mu4e is
-optimized for fast handling of large amounts of e-mail.
+optimized for quickly processing large amounts of e-mail.
 
    Some of its highlights:
    • Fully search-based: there are no folders(2), only queries.
@@ -42,8 +42,8 @@ configuration and explain its daily use.  We also show you how you can
 customize mu4e for your special needs.
 
    At the end of the manual, there are some example configurations, to
-get you up to speed quickly: *note Example configurations::.  There’s
-also a section with answers to frequenly asked questions, *note FAQ::.
+get you up to speed quickly: *note Example configs::.  There’s also a
+section with answers to frequenly asked questions, *note FAQ::.
 
 * Menu:
 
@@ -61,12 +61,13 @@ also a section with answers to frequenly asked questions, *note FAQ::.
 * Extending mu4e:: Writing code for mu4e
 
 Appendices
-* Interaction with other tools:: mu4e and the rest of the world
-* Example configurations:: Some examples to set you up quickly
+* Other tools:: mu4e and the rest of the world
+* Example configs:: Some examples to set you up quickly
 * FAQ:: Common questions and answers
 * Tips and Tricks:: Useful tips
 * How it works:: Some notes about the implementation of mu4e
-* Logging and debugging:: How to debug problems in mu4e
+* Debugging:: How to debug problems in mu4e
+
 * GNU Free Documentation License::  The license of this manual
 
    ---------- Footnotes ----------
@@ -119,7 +120,7 @@ Under the hood, mu4e is fully search-based, similar to programs like
 notmuch(1) and sup(2).
 
    However, mu4e’s user-interface is quite different.  mu4e’s mail
-handling (deleting, moving etc.)  is inspired by Wanderlustu(3) (another
+handling (deleting, moving etc.)  is inspired by Wanderlust(3) (another
 emacs-based e-mail client), mutt(4) and the dired file-manager for
 emacs.
 
@@ -242,8 +243,8 @@ Webkit.
    If you intend to compile mu yourself, you need to have the typical
 development tools, such as C and C++ compilers (both ‘gcc’ and ‘clang’
 should work), GNU Autotools and ‘make’, and the development packages for
-GMime, GLib and Xapian.  Optionally (if you use them), you also need the
-development packages for GTK+, Webkit and Guile.
+GMime 3.x, GLib and Xapian.  Optionally, you also need the development
+packages for GTK+, Webkit and Guile.
 
    ---------- Footnotes ----------
 
@@ -276,23 +277,21 @@ tarball:: or *note Building from git::.
 2.2.1 Dependencies for Debian/Ubuntu
 ------------------------------------
 
-Tested with Ubuntu 16.04.
+     $ sudo apt-get install libgmime-3.0-dev libxapian-dev
 
-     $ sudo apt-get install libgmime-2.6-dev libxapian-dev
-
-     # get emacs 24 or higher if you don't have it yet
+     # get emacs 25 or higher if you don't have it yet
      $ sudo apt-get install emacs
 
      # optional
      $ sudo apt-get install guile-2.0-dev html2text xdg-utils
 
      # optional: only needed for msg2pdf and mug (toy gtk+ frontend)
-     $ sudo apt-get install libwebkit-dev
+     $ sudo apt-get install libwebkitgtk-3.0-dev
 
 2.2.2 Dependencies for Fedora
 -----------------------------
 
-     $ sudo yum install gmime-devel xapian-core-devel
+     $ sudo yum install gmime30-devel xapian-core-devel
 
      # get emacs 25 or higher if you don't have it yet
      $ sudo yum install emacs
@@ -351,8 +350,8 @@ before trying again:
 
 There is some support for using the ‘emacs’ customization system in
 mu4e, but for now, we recommend setting the values manually.  Please
-refer to *note Example configurations:: for a couple of examples of
-this; here we go through things step-by-step.
+refer to *note Example configs:: for a couple of examples of this; here
+we go through things step-by-step.
 
    ---------- Footnotes ----------
 
@@ -556,8 +555,11 @@ corpa.  For a faster approach, you can use the following:
 
    In many cases, the mentioned thoroughness might not be needed, and
 these settings give a very significant speed-up.  Note that you can of
-course occasionally run a thorough indexing round.  For further details,
-please refer to the mu-index manpage.
+course occasionally run a thorough indexing round.
+
+   For further details, please refer to the mu-index manpage; in
+particular, see .noindex and .noupdate which can help reducing the
+indexing time.
 
 2.7.5 Example setup
 -------------------
@@ -591,7 +593,7 @@ mail and inherits the setup for sending mail as well.
 mail; please refer to its documentation for the details.
 
    Here, we only provide some simple examples — for more, see *note
-Example configurations::.
+Example configs::.
 
    A very minimal setup:
 
@@ -839,13 +841,12 @@ End of search results
      details.
    • By default, the date is shown with the :human-date field, which
      shows the _time_ for today’s messages, and the _date_ for older
-     messages.  If you want to distinguish between ‘today’ and ‘older’,
-     you can use the :date field instead.
+     messages.  If you do not want to distinguish between ‘today’ and
+     ‘older’, you can use the :date field instead.
    • You can customize the date and time formats with the variable
      ‘mu4e-headers-date-format’ and ‘mu4e-headers-time-format’,
      respectively.  In the example, we use ‘:human-date’, which shows
-     when the time when the message was sent today, and the date
-     otherwise.
+     the time when the message was sent today, and the date otherwise.
    • By default, the subject is shown using the :subject field; however,
      it is also possible to use :thread-subject, which shows the subject
      of a thread only once, similar to the display of the mutt e-mail
@@ -1133,6 +1134,11 @@ After selecting a message in the *note Headers view::, it appears in a
 message view window, which shows the message headers, followed by the
 message body.  Its major mode is ‘mu4e-view-mode’.
 
+   Note, the current message view is to be replaced by a new one, based
+on Gnus’ article-mode.  It is available now as a ’tech preview’, which
+you can try by setting ‘mu4e-view-use-gnus’ to ‘t’ before starting
+‘mu4e’.
+
 * Menu:
 
 * Overview: MSGV Overview. What is the Message View
@@ -1159,16 +1165,16 @@ An example message view:
     Date: Mon 19 Jan 2004 09:39:42 AM EET
     Maildir: /inbox
     Attachments(2): [1]DSCN4961.JPG(1.3M), [2]DSCN4962.JPG(1.4M)
-
+     
     Hi Julia,
-
+     
     Some pics from our trip to Cerin Amroth. Enjoy!
-
+     
     All the best,
     Randy.
-
+     
     On Sun 21 Dec 2003 09:06:34 PM EET, Julia wrote:
-
+     
     [....]
 
    Some notes:
@@ -1618,9 +1624,9 @@ File: mu4e.info,  Node: EV Overview,  Next: EV Keybindings,  Up: Editor view
     To: Wally the Walrus <wally@example.com>
     Subject: Re: Eau-qui d'eau qui?
     --text follows this line--
-
+     
     On Mon 16 Jan 2012 10:18:47 AM EET, Wally the Walrus wrote:
-
+     
     > Hi Rupert,
     >
     > Dude - how are things?
@@ -2026,7 +2032,6 @@ configuration (‘~/.emacs’) something like:
          :name  "Big messages"
          :query "size:5M..500M"
          :key ?b))
- 
 
    This prepends your bookmark to the list, and assigns the key <b> to
 it.  If you want to _append_ your bookmark, you can use ‘t’ as the third
@@ -2037,12 +2042,12 @@ defined in the echo area, with the shortcut key highlighted.  So, to
 invoke the bookmark we just defined (to get the list of "Big Messages"),
 all you need to type is ‘bb’.
 
-7.2.2 Lisp expressions as bookmarks
------------------------------------
+7.2.2 Lisp expressions or functions as bookmarks
+------------------------------------------------
 
 Instead of using strings, it is also possible to use Lisp expressions as
-bookmarks.  The only requirement is that they evaluate to a query
-string.
+bookmarks.  Either the expression evaluates to a query string or the
+expression is a function taking no argument that returns a query string.
 
    For example, to get all the messages that are at most a week old in
 your inbox:
@@ -2050,10 +2055,27 @@ your inbox:
      (add-to-list 'mu4e-bookmarks
        (make-mu4e-bookmark
         :name  "Inbox messages in the last 7 days"
-        :query (concat "maildir:/inbox AND date:"
+        :query (lambda () (concat "maildir:/inbox AND date:"
                   (format-time-string "%Y%m%d"
-                     (subtract-time (current-time) (days-to-time 7))))
+                     (subtract-time (current-time) (days-to-time 7)))))
         :key ?w) t)
+
+   Another example where the user is prompted how many days old messages
+should be shown:
+
+     (defun my/mu4e-bookmark-num-days-old-query (days-old)
+       (interactive (list (read-number "Show days old messages: " 7)))
+       (let ((start-date (subtract-time (current-time) (days-to-time days-old))))
+         (concat "maildir:/inbox AND date:"
+                 (format-time-string "%Y%m%d" start-date))))
+
+     (add-to-list 'mu4e-bookmarks
+       (make-mu4e-bookmark
+        :name  "Inbox messages in the last 7 days"
+        :query (lambda () (call-interactively 'my/mu4e-bookmark-num-days-old-query))
+        :key ?o) t)
+
+   It is defining a function to make the code more readable.
 
 7.2.3 Editing bookmarks before searching
 ----------------------------------------
@@ -2953,7 +2975,7 @@ for viewing messages in an external web browser, or listening to a
 message’s body-text using text-to-speech.
 
 
-File: mu4e.info,  Node: Extending mu4e,  Next: Interaction with other tools,  Prev: Actions,  Up: Top
+File: mu4e.info,  Node: Extending mu4e,  Next: Other tools,  Prev: Actions,  Up: Top
 
 12 Extending mu4e
 *****************
@@ -3165,10 +3187,10 @@ See their docstrings for details:
 versions it falls back to ‘error’
 
 
-File: mu4e.info,  Node: Interaction with other tools,  Next: Example configurations,  Prev: Extending mu4e,  Up: Top
+File: mu4e.info,  Node: Other tools,  Next: Example configs,  Prev: Extending mu4e,  Up: Top
 
-Appendix A Interaction with other tools
-***************************************
+Appendix A Other tools
+**********************
 
 In this chapter, we discuss some ways in which mu4e can cooperate with
 other tools.
@@ -3183,9 +3205,10 @@ other tools.
 * Speedbar::A special frame with your folders
 * Mu-cite:: Fancy citation engine
 * Dired:: Attaching files using dired
+* Hydra:: Custom shortcut menus
 
 
-File: mu4e.info,  Node: Emacs default,  Next: Org-mode links,  Up: Interaction with other tools
+File: mu4e.info,  Node: Emacs default,  Next: Org-mode links,  Up: Other tools
 
 A.1 Emacs default
 =================
@@ -3198,7 +3221,7 @@ the following to your configuration:
      (setq mail-user-agent 'mu4e-user-agent)
 
 
-File: mu4e.info,  Node: Org-mode links,  Next: Org-contacts,  Prev: Emacs default,  Up: Interaction with other tools
+File: mu4e.info,  Node: Org-mode links,  Next: Org-contacts,  Prev: Emacs default,  Up: Other tools
 
 A.2 Org-mode links
 ==================
@@ -3247,7 +3270,7 @@ key-bindings for that in headers and view mode:
 instead
 
 
-File: mu4e.info,  Node: Org-contacts,  Next: BBDB,  Prev: Org-mode links,  Up: Interaction with other tools
+File: mu4e.info,  Node: Org-contacts,  Next: BBDB,  Prev: Org-mode links,  Up: Other tools
 
 A.3 Org-contacts
 ================
@@ -3277,7 +3300,7 @@ org-contact-add.
    (1) <https://julien.danjou.info/projects/emacs-packages#org-contacts>
 
 
-File: mu4e.info,  Node: BBDB,  Next: Sauron,  Prev: Org-contacts,  Up: Interaction with other tools
+File: mu4e.info,  Node: BBDB,  Next: Sauron,  Prev: Org-contacts,  Up: Other tools
 
 A.4 BBDB
 ========
@@ -3301,7 +3324,7 @@ line:
        ;; (bbdb-initialize 'message 'mu4e)
 
        (setq bbdb-mail-user-agent 'mu4e-user-agent)
-       (setq mu4e-view-mode-hook 'bbdb-mua-auto-update visual-line-mode)
+       (setq mu4e-view-mode-hook 'bbdb-mua-auto-update)
        (setq mu4e-compose-complete-addresses nil)
        (setq bbdb-mua-pop-up t)
        (setq bbdb-mua-pop-up-window-size 5)
@@ -3317,7 +3340,7 @@ After this, you should be able to:
    (1) <https://savannah.nongnu.org/projects/bbdb/>
 
 
-File: mu4e.info,  Node: Sauron,  Next: Speedbar,  Prev: BBDB,  Up: Interaction with other tools
+File: mu4e.info,  Node: Sauron,  Next: Speedbar,  Prev: BBDB,  Up: Other tools
 
 A.5 Sauron
 ==========
@@ -3373,7 +3396,7 @@ when running outside its session.
 the Marmalade package repository at <https://marmalade-repo.org/>
 
 
-File: mu4e.info,  Node: Speedbar,  Next: Mu-cite,  Prev: Sauron,  Up: Interaction with other tools
+File: mu4e.info,  Node: Speedbar,  Next: Mu-cite,  Prev: Sauron,  Up: Other tools
 
 A.6 Speedbar
 ============
@@ -3395,7 +3418,7 @@ to a maildir.
    ‘mu4e-speedbar’ was contributed by _Antono Vasiljev_.
 
 
-File: mu4e.info,  Node: Mu-cite,  Next: Dired,  Prev: Speedbar,  Up: Interaction with other tools
+File: mu4e.info,  Node: Mu-cite,  Next: Dired,  Prev: Speedbar,  Up: Other tools
 
 A.7 Mu-cite
 ===========
@@ -3419,7 +3442,7 @@ make it work with mu4e:
 mu/mu4e
 
 
-File: mu4e.info,  Node: Dired,  Prev: Mu-cite,  Up: Interaction with other tools
+File: mu4e.info,  Node: Dired,  Next: Hydra,  Prev: Mu-cite,  Up: Other tools
 
 A.8 Dired
 =========
@@ -3454,10 +3477,43 @@ C-c RET C-a, and you’ll be asked whether to attach them to an existing
 message, or create a new one.
 
 
-File: mu4e.info,  Node: Example configurations,  Next: FAQ,  Prev: Interaction with other tools,  Up: Top
+File: mu4e.info,  Node: Hydra,  Prev: Dired,  Up: Other tools
 
-Appendix B Example configurations
-*********************************
+A.9 Hydra
+=========
+
+People sometimes ask about having multi-character shortcuts for
+bookmarks; and easy way to achieve this, is by using anm emacs package
+called Hydra(1).
+
+   With Hydra installed, we can add multi-character shortcuts, for
+instance:
+     (defhydra my-mu4e-bookmarks-work (:color blue)
+       "work bookmarks"
+       ("b" (mu4e-headers-search "banana AND maildir:/work") "banana")
+       ("u" (mu4e-headers-search "flag:unread AND maildir:/work")   "unread"))
+
+     (defhydra my-mu4e-bookmarks-personal (:color blue)
+       "personal bookmarks"
+       ("c" (mu4e-headers-search "capybara AND maildir:/personal") "capybara")
+       ("u" (mu4e-headers-search "flag:unread AND maildir:/personal")  "unread"))
+
+     (defhydra my-mu4e-bookmarks (:color blue)
+       "mu4e bookmarks"
+       ("p" (my-mu4e-bookmarks-personal/body) "Personal")
+       ("w" (my-mu4e-bookmarks-work/body) "Work"))
+
+     Now, you can bind a convenient key to my-mu4e-bookmarks/body.
+
+   ---------- Footnotes ----------
+
+   (1) <https://github.com/abo-abo/hydra>
+
+
+File: mu4e.info,  Node: Example configs,  Next: FAQ,  Prev: Other tools,  Up: Top
+
+Appendix B Example configs
+**************************
 
 In this chapter, we show some example configurations.  While it is very
 useful to see some working settings, we’d like to warn against blindly
@@ -3471,7 +3527,7 @@ copying such things.
 * Other settings:CONF Other settings. Some other useful configuration
 
 
-File: mu4e.info,  Node: Minimal configuration,  Next: Longer configuration,  Up: Example configurations
+File: mu4e.info,  Node: Minimal configuration,  Next: Longer configuration,  Up: Example configs
 
 B.1 Minimal configuration
 =========================
@@ -3510,7 +3566,7 @@ see, most of it is commented-out.
         smtpmail-local-domain        "example.com")
 
 
-File: mu4e.info,  Node: Longer configuration,  Next: Gmail configuration,  Prev: Minimal configuration,  Up: Example configurations
+File: mu4e.info,  Node: Longer configuration,  Next: Gmail configuration,  Prev: Minimal configuration,  Up: Example configs
 
 B.2 Longer configuration
 ========================
@@ -3564,7 +3620,7 @@ customize.
 
      ;; general emacs mail settings; used when composing e-mail
      ;; the non-mu4e-* stuff is inherited from emacs/message-mode
-     (setq mu4e-reply-to-address "foo@bar.example.com"
+     (setq mu4e-compose-reply-to-address "foo@bar.example.com"
            user-mail-address "foo@bar.example.com"
            user-full-name  "Foo X. Bar")
      (setq mu4e-compose-signature
@@ -3586,7 +3642,7 @@ customize.
      (setq message-kill-buffer-on-exit t)
 
 
-File: mu4e.info,  Node: Gmail configuration,  Next: CONF Other settings,  Prev: Longer configuration,  Up: Example configurations
+File: mu4e.info,  Node: Gmail configuration,  Next: CONF Other settings,  Prev: Longer configuration,  Up: Example configs
 
 B.3 Gmail configuration
 =======================
@@ -3596,8 +3652,8 @@ with mu4e.  Since we are using IMAP, you must enable that in the Gmail
 web interface (in the settings, under the “Forwarding and
 POP/IMAP”-tab).
 
-   Gmail users may also be interested in *note skipping duplicates:
-Including related messages.
+   Gmail users may also be interested in *note Including related
+messages::, and in *note Skipping duplicates::.
 
 B.3.1 Setting up offlineimap
 ----------------------------
@@ -3750,7 +3806,7 @@ Next step: let’s make a mu4e configuration for this:
 etc.  to your own, and restart ‘emacs’, and run ‘M-x mu4e’.
 
 
-File: mu4e.info,  Node: CONF Other settings,  Prev: Gmail configuration,  Up: Example configurations
+File: mu4e.info,  Node: CONF Other settings,  Prev: Gmail configuration,  Up: Example configs
 
 B.4 Other settings
 ==================
@@ -3768,7 +3824,7 @@ default for various reasons.
      (setq mu4e-view-show-images t)
 
 
-File: mu4e.info,  Node: FAQ,  Next: Tips and Tricks,  Prev: Example configurations,  Up: Top
+File: mu4e.info,  Node: FAQ,  Next: Tips and Tricks,  Prev: Example configs,  Up: Top
 
 Appendix C FAQ — Frequently Asked Questions
 *******************************************
@@ -3897,6 +3953,17 @@ C.2 Retrieving mail
      correctly?_  This is best solved by telling ‘offlineimap’ to use
      UTF-8 instead — see
      <https://github.com/djcb/mu/issues/68#issuecomment-8598652>.
+  9. _mbsync or offlineimap do not sync properly with my web-mail
+     provider (such as gmail) – what can I do about it?_  Unfortunately,
+     mbsync and/or offlineimap do not always agree with mu about the
+     meaning of various Maildir-flags.  If you encounter unexpected
+     behavior, it is recommended you check before and after a
+     sync-operation.
+
+     If the problem only shows up _after_ sync’ing, the problem is with
+     the sync-program, and it’s most productive to complain there.
+     Otherwise, there have been quite a few related queries on the
+     mailing-list; worthwhile to check out.
 
    ---------- Footnotes ----------
 
@@ -4075,6 +4142,34 @@ C.4 Writing messages
      ‘M-x use-hard-newlines’ (to turn ‘use-hard-newlines’ off) or
      uncheck the box format=flowed in the Text menu when composing a
      message.
+  17. _How can force images to be shown at the end of my messages,
+     regardless of where I insert them?_  User Marcin Borkowski has a
+     solution:
+          (defun mml-attach-file--go-to-eob (orig-fun &rest args)
+            "Go to the end of buffer before attaching files."
+            (save-excursion
+              (save-restriction
+                (widen)
+                (goto-char (point-max))
+                (apply orig-fun args))))
+
+          (advice-add 'mml-attach-file :around #'mml-attach-file--go-to-eob)
+
+  18. _How can I avoid Outlook display issues?_
+
+     Limited testing shows that certain Outlook clients do not work well
+     with inline replies, and the entire message including-and-below the
+     first quoted section is collapsed.  This means recipients may not
+     even notice important inline text, especially if there is some
+     top-posted content.  This has been observed on OS X, Windows, and
+     Web-based Outlook clients accessing Office 365.
+
+     It appears the bug is triggered by the standard reply regex "On ...
+     wrote:".  Changing "On", or removing the trailing ":" appears to
+     fix the bug (in limited testing).  Therefore, a simple work-around
+     is to set ‘message-citation-line-format‘ to something slightly
+     non-standard, such as:
+          (setq  message-citation-line-format "On %Y-%m-%d at %R %Z, %f wrote...")
 
 
 File: mu4e.info,  Node: Known issues,  Prev: Writing messages,  Up: FAQ
@@ -4407,7 +4502,7 @@ wish.
            (signal 'quit nil))))
 
 
-File: mu4e.info,  Node: How it works,  Next: Logging and debugging,  Prev: Tips and Tricks,  Up: Top
+File: mu4e.info,  Node: How it works,  Next: Debugging,  Prev: Tips and Tricks,  Up: Top
 
 Appendix E How it works
 ***********************
@@ -4611,10 +4706,10 @@ number; the other bits are use by ‘emacs’ for internal purposes.
 Therefore, we need to split time_t in two numbers.
 
 
-File: mu4e.info,  Node: Logging and debugging,  Next: GNU Free Documentation License,  Prev: How it works,  Up: Top
+File: mu4e.info,  Node: Debugging,  Next: GNU Free Documentation License,  Prev: How it works,  Up: Top
 
-Appendix F Logging and debugging
-********************************
+Appendix F Debugging
+********************
 
 As explained in *note How it works::, mu4e communicates with its backend
 (mu server) by sending commands and receiving responses (s-expressions).
@@ -4634,7 +4729,7 @@ it on all the time.  By default, the log only maintains the most recent
 <MUHOME>/log/mu.log, typically ~/.mu/log/mu.log.
 
 
-File: mu4e.info,  Node: GNU Free Documentation License,  Prev: Logging and debugging,  Up: Top
+File: mu4e.info,  Node: GNU Free Documentation License,  Prev: Debugging,  Up: Top
 
 Appendix G GNU Free Documentation License
 *****************************************
@@ -5066,171 +5161,173 @@ their use in free software.
 
 Tag Table:
 Node: Top628
-Ref: Top-Footnote-12893
-Ref: Top-Footnote-22939
-Ref: Top-Footnote-33035
-Node: Introduction3160
-Node: Why another e-mail client3540
-Node: Other mail clients4151
-Ref: Other mail clients-Footnote-14893
-Ref: Other mail clients-Footnote-24928
-Ref: Other mail clients-Footnote-34972
-Ref: Other mail clients-Footnote-45008
-Node: What mu4e does not do5039
-Ref: What mu4e does not do-Footnote-16073
-Ref: What mu4e does not do-Footnote-26112
-Ref: What mu4e does not do-Footnote-36152
-Node: Becoming a mu4e user6189
-Ref: Becoming a mu4e user-Footnote-17596
-Node: Getting started7649
-Node: Requirements8436
-Ref: Requirements-Footnote-19336
-Ref: Requirements-Footnote-29366
-Node: Installation9413
-Ref: Building from a release tarball11253
-Ref: Building from git11644
-Ref: Installation-Footnote-113086
-Ref: Installation-Footnote-213132
-Node: Getting mail13242
-Ref: Getting mail-Footnote-114347
-Node: Indexing your messages14518
-Ref: Indexing your messages-Footnote-116042
-Node: Basic configuration16184
-Node: Folders16816
-Ref: Folders-Footnote-117761
-Node: Retrieval and indexing18040
-Node: Sending mail22191
-Node: Running mu4e24421
-Node: Main view25466
-Node: MV Overview25995
-Node: Basic actions26980
-Node: MV Bookmarks27835
-Node: Miscellaneous28476
-Node: Headers view29351
-Node: HV Overview30111
-Ref: HV Overview-Footnote-134586
-Ref: HV Overview-Footnote-234677
-Ref: HV Overview-Footnote-334784
-Node: Keybindings34884
-Node: HV Marking36943
-Node: Sorting and threading38106
-Ref: Sorting and threading-Footnote-139464
-Node: HV Custom headers39555
-Node: HV Actions41738
-Node: Split view42448
-Node: Message view43884
-Node: MSGV Overview44670
-Node: MSGV Keybindings46909
-Node: Attachments49764
-Ref: Attachments-Footnote-151185
-Ref: Attachments-Footnote-251248
-Node: Viewing images inline51356
-Ref: Viewing images inline-Footnote-152198
-Node: Displaying rich-text messages52236
-Ref: Html2text functions54889
-Ref: Privacy aspects55630
-Ref: Displaying rich-text messages-Footnote-155969
-Ref: Displaying rich-text messages-Footnote-256134
-Node: MSGV Crypto56176
-Ref: Decryption57089
-Ref: Verifying signatures57806
-Ref: MSGV Crypto-Footnote-158847
-Node: MSGV Custom headers58950
-Node: MSGV Actions59489
-Node: Editor view61035
-Node: EV Overview61834
-Node: EV Keybindings62249
-Node: Address autocompletion62873
-Ref: Address autocompletion-Footnote-165191
-Node: Compose hooks65238
-Node: Signing and encrypting68464
-Node: Queuing mail69596
-Node: Message signatures70890
-Node: Other settings71524
-Node: Searching72365
-Node: Queries73330
-Ref: Queries-Footnote-175995
-Node: Bookmarks76109
-Ref: Bookmarks-Footnote-179430
-Node: Maildir searches79473
-Node: Other search functionality81828
-Ref: Including related messages83732
-Ref: Skipping duplicates84351
-Node: Marking84940
-Node: Marking messages85718
-Node: What to mark for86510
-Ref: What to mark for-Footnote-188087
-Ref: What to mark for-Footnote-288190
-Node: Executing the marks88386
-Node: Leaving the headers buffer88841
-Node: Built-in marking functions89276
-Node: Custom mark functions89832
-Node: Adding a new kind of mark92174
-Node: Contexts95304
-Node: What are contexts96526
-Node: Context policies98178
-Node: Contexts and special folders99651
-Node: Contexts example101047
-Node: Some context tricks105528
-Node: Dynamic folders106253
-Node: Smart refiling107516
-Ref: Smart refiling-Footnote-1110104
-Node: Other dynamic folders110149
-Node: Actions111417
-Node: Defining actions112320
-Ref: Defining actions-Footnote-1113600
-Ref: Defining actions-Footnote-2113776
-Node: Headers view actions113963
-Node: Message view actions114893
-Node: Attachment actions115727
-Node: Example actions116512
-Node: Extending mu4e116903
-Node: Extension points117446
-Node: Available functions119237
-Node: Message functions120148
-Node: Contact functions123257
-Node: Utility functions124818
-Ref: Utility functions-Footnote-1126081
-Node: Interaction with other tools126197
-Node: Emacs default126883
-Node: Org-mode links127328
-Ref: Org-mode links-Footnote-1129454
-Node: Org-contacts129531
-Ref: Org-contacts-Footnote-1130629
-Node: BBDB130703
-Ref: BBDB-Footnote-1132104
-Node: Sauron132157
-Ref: Sauron-Footnote-1133686
-Node: Speedbar133823
-Node: Mu-cite134766
-Ref: Mu-cite-Footnote-1135439
-Node: Dired135515
-Node: Example configurations136782
-Node: Minimal configuration137363
-Node: Longer configuration138727
-Node: Gmail configuration141575
-Node: CONF Other settings146952
-Node: FAQ147504
-Node: General148031
-Node: Retrieving mail151509
-Ref: Retrieving mail-Footnote-1154474
-Node: Reading messages154507
-Node: Writing messages158279
-Node: Known issues164121
-Node: Tips and Tricks165999
-Node: Fancy characters166462
-Node: Multiple accounts167493
-Node: Refiling messages172831
-Node: Saving outgoing messages176430
-Node: Confirmation before sending178964
-Node: How it works179431
-Node: High-level overview179944
-Node: mu server181456
-Node: Reading from the server182485
-Node: The message s-expression184797
-Ref: The message s-expression-Footnote-1188013
-Node: Logging and debugging188206
-Node: GNU Free Documentation License189280
+Ref: Top-Footnote-12853
+Ref: Top-Footnote-22899
+Ref: Top-Footnote-32995
+Node: Introduction3120
+Node: Why another e-mail client3500
+Node: Other mail clients4111
+Ref: Other mail clients-Footnote-14852
+Ref: Other mail clients-Footnote-24887
+Ref: Other mail clients-Footnote-34931
+Ref: Other mail clients-Footnote-44967
+Node: What mu4e does not do4998
+Ref: What mu4e does not do-Footnote-16032
+Ref: What mu4e does not do-Footnote-26071
+Ref: What mu4e does not do-Footnote-36111
+Node: Becoming a mu4e user6148
+Ref: Becoming a mu4e user-Footnote-17555
+Node: Getting started7608
+Node: Requirements8395
+Ref: Requirements-Footnote-19281
+Ref: Requirements-Footnote-29311
+Node: Installation9358
+Ref: Building from a release tarball11180
+Ref: Building from git11571
+Ref: Installation-Footnote-113006
+Ref: Installation-Footnote-213052
+Node: Getting mail13162
+Ref: Getting mail-Footnote-114267
+Node: Indexing your messages14438
+Ref: Indexing your messages-Footnote-115962
+Node: Basic configuration16104
+Node: Folders16736
+Ref: Folders-Footnote-117681
+Node: Retrieval and indexing17960
+Node: Sending mail22199
+Node: Running mu4e24422
+Node: Main view25467
+Node: MV Overview25996
+Node: Basic actions26981
+Node: MV Bookmarks27836
+Node: Miscellaneous28477
+Node: Headers view29352
+Node: HV Overview30112
+Ref: HV Overview-Footnote-134584
+Ref: HV Overview-Footnote-234675
+Ref: HV Overview-Footnote-334782
+Node: Keybindings34882
+Node: HV Marking36941
+Node: Sorting and threading38104
+Ref: Sorting and threading-Footnote-139462
+Node: HV Custom headers39553
+Node: HV Actions41736
+Node: Split view42446
+Node: Message view43882
+Node: MSGV Overview44905
+Node: MSGV Keybindings47169
+Node: Attachments50024
+Ref: Attachments-Footnote-151445
+Ref: Attachments-Footnote-251508
+Node: Viewing images inline51616
+Ref: Viewing images inline-Footnote-152458
+Node: Displaying rich-text messages52496
+Ref: Html2text functions55149
+Ref: Privacy aspects55890
+Ref: Displaying rich-text messages-Footnote-156229
+Ref: Displaying rich-text messages-Footnote-256394
+Node: MSGV Crypto56436
+Ref: Decryption57349
+Ref: Verifying signatures58066
+Ref: MSGV Crypto-Footnote-159107
+Node: MSGV Custom headers59210
+Node: MSGV Actions59749
+Node: Editor view61295
+Node: EV Overview62094
+Node: EV Keybindings62519
+Node: Address autocompletion63143
+Ref: Address autocompletion-Footnote-165461
+Node: Compose hooks65508
+Node: Signing and encrypting68734
+Node: Queuing mail69866
+Node: Message signatures71160
+Node: Other settings71794
+Node: Searching72635
+Node: Queries73600
+Ref: Queries-Footnote-176265
+Node: Bookmarks76379
+Ref: Bookmarks-Footnote-180493
+Node: Maildir searches80536
+Node: Other search functionality82891
+Ref: Including related messages84795
+Ref: Skipping duplicates85414
+Node: Marking86003
+Node: Marking messages86781
+Node: What to mark for87573
+Ref: What to mark for-Footnote-189150
+Ref: What to mark for-Footnote-289253
+Node: Executing the marks89449
+Node: Leaving the headers buffer89904
+Node: Built-in marking functions90339
+Node: Custom mark functions90895
+Node: Adding a new kind of mark93237
+Node: Contexts96367
+Node: What are contexts97589
+Node: Context policies99241
+Node: Contexts and special folders100714
+Node: Contexts example102110
+Node: Some context tricks106591
+Node: Dynamic folders107316
+Node: Smart refiling108579
+Ref: Smart refiling-Footnote-1111167
+Node: Other dynamic folders111212
+Node: Actions112480
+Node: Defining actions113383
+Ref: Defining actions-Footnote-1114663
+Ref: Defining actions-Footnote-2114839
+Node: Headers view actions115026
+Node: Message view actions115956
+Node: Attachment actions116790
+Node: Example actions117575
+Node: Extending mu4e117966
+Node: Extension points118492
+Node: Available functions120283
+Node: Message functions121194
+Node: Contact functions124303
+Node: Utility functions125864
+Ref: Utility functions-Footnote-1127127
+Node: Other tools127243
+Node: Emacs default127903
+Node: Org-mode links128331
+Ref: Org-mode links-Footnote-1130440
+Node: Org-contacts130517
+Ref: Org-contacts-Footnote-1131598
+Node: BBDB131672
+Ref: BBDB-Footnote-1133039
+Node: Sauron133092
+Ref: Sauron-Footnote-1134604
+Node: Speedbar134741
+Node: Mu-cite135667
+Ref: Mu-cite-Footnote-1136323
+Node: Dired136399
+Node: Hydra137663
+Ref: Hydra-Footnote-1138737
+Node: Example configs138780
+Node: Minimal configuration139323
+Node: Longer configuration140680
+Node: Gmail configuration143529
+Node: CONF Other settings148916
+Node: FAQ149461
+Node: General149981
+Node: Retrieving mail153459
+Ref: Retrieving mail-Footnote-1157040
+Node: Reading messages157073
+Node: Writing messages160845
+Node: Known issues168068
+Node: Tips and Tricks169946
+Node: Fancy characters170409
+Node: Multiple accounts171440
+Node: Refiling messages176778
+Node: Saving outgoing messages180377
+Node: Confirmation before sending182911
+Node: How it works183378
+Node: High-level overview183879
+Node: mu server185391
+Node: Reading from the server186420
+Node: The message s-expression188732
+Ref: The message s-expression-Footnote-1191948
+Node: Debugging192141
+Node: GNU Free Documentation License193179
 
 End Tag Table
 
