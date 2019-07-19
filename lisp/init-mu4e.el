@@ -7,70 +7,62 @@
 
 (setq mu4e-mu-binary "/opt/local/bin/mu")
 
+;;; Default
+(setq mu4e-maildir "~/Maildir")
+(setq mu4e-compose-complete-addresses nil)
+(setq mu4e-completing-read-function 'completing-read)
+(setq mu4e-view-show-addresses t)
+(setq mu4e-headers-include-related nil)
+
 ;; use mu4e for e-mail in emacs
-(setq mail-user-agent 'mu4e-user-agent)
-
-;; (defvar my-mu4e-account-alist
-;;     '(("Work"
-;;         (mu4e-maildir "~/Maildir/Work")
-;;         (user-mail-address "dylan.yin@oracle.com")
-;;         (smtpmail-smtp-user "dylan.yin@oracle.com")
-;;         (smtpmail-smtp-server "stbeehive.oracle.com")
-;;         (smtpmail-smtp-service 465)
-;;         (mu4e-sent-folder   "/INBOX")
-;;         (mu4e-sent-folder   "/Sent")
-;;         (mu4e-drafts-folder "/Drafts")
-;;         (mu4e-trash-folder  "/Trash")
-;;     )
-;;     ("Hotmail"
-;;         (mu4e-maildir "~/Maildir/Hotmail")
-;;         (user-mail-address "yinshuo335@hotmail.com")
-;;         (smtpmail-smtp-user "yinshuo335@hotmail.com")
-;;         (smtpmail-smtp-server "smtp-mail.outlook.com")
-;;         (smtpmail-smtp-service 587)
-;;         (mu4e-sent-folder   "/Sent")
-;;         (mu4e-drafts-folder "/Drafts")
-;;         (mu4e-trash-folder  "/Junk")
-;;      )
-;;     ("Gmail"
-;;         (mu4e-maildir "~/Maildir/Gmail")
-;;         (user-mail-address "dylan.yins@gmail.com")
-;;         (smtpmail-smtp-user "dylan.yins@gmail.com")
-;;         (smtpmail-smtp-server "smtp.gmail.com")
-;;         (smtpmail-smtp-service 587)
-;;         (mu4e-sent-folder   "/sent")
-;;         (mu4e-drafts-folder "/drafts")
-;;         (mu4e-trash-folder  "/trash")
-;;      )))
-
-;; (defun my-mu4e-set-account ()
-;;   "Set the account for composing a message."
-;;   (interactive)
-;;   (let* ((account
-;;           (if mu4e-compose-parent-message
-;;               (let ((maildir (mu4e-message-field mu4e-compose-parent-message :maildir)))
-;;                 (string-match "/\\(.*?\\)/" maildir)
-;;                 (match-string 1 maildir))
-;;             (completing-read (format "Compose with account: (%s) "
-;;                                      (mapconcat #'(lambda (var) (car var))
-;;                                                 my-mu4e-account-alist "/"))
-;;                              (mapcar #'(lambda (var) (car var)) my-mu4e-account-alist)
-;;                              nil t nil nil (caar my-mu4e-account-alist))))
-;;          (account-vars (cdr (assoc account my-mu4e-account-alist))))
-;;     (if account-vars
-;;         (mapc #'(lambda (var)
-;;                   (set (car var) (cadr var)))
-;;               account-vars)
-;;       (error "No email account found"))))
-
-;; (add-hook 'mu4e-main-mode-hook 'my-mu4e-set-account)
+(setq mail-user-agent      'mu4e-user-agent
+      read-mail-command    'mu4e
+      gnus-dired-mail-mode 'mu4e-user-agent)
 
 ;; the maildirs you use frequently; access them with 'j' ('jump')
-(setq   mu4e-maildir-shortcuts
-    '(("/archive"     . ?a)
-      ("/INBOX"       . ?i)
-      ("/Sent"        . ?s)
-))
+(setq mu4e-maildir-shortcuts
+      '(("/drafts"                         . ?d)
+        ("/Hotmail/INBOX.00NeedDo"         . ?1)
+        ("/Hotmail/INBOX.01NeedSee"        . ?2)
+        ("/Hotmail/INBOX.02NeedSave"       . ?3)
+        ("/Hotmail/INBOX.03NeedReading"    . ?4)
+        ("/Hotmail/INBOX.96Dylan"          . ?5)
+        ("/Hotmail/INBOX.Github"           . ?g)
+        ("/Gmail/INBOX"                    . ?i)
+        ("/Gmail/Sent Mail"        . ?s)
+        ("/Gmail/Trash"            . ?t)
+        ("/Gmail/Spam"             . ?!)))
+
+;; todo @See https://groups.google.com/forum/#!topic/mu-discuss/BpGtwVHMd2E
+;; (setq mu4e-bookmarks `(("\\\\Inbox" "Inbox" ?i)
+;;                        ("flag:flagged" "Flagged messages" ?f)
+;;                        (,(concat "flag:unread AND "
+;;                                  "NOT flag:trashed AND "
+;;                                  "NOT maildir:/[Gmail].Spam AND "
+;;                                  "NOT maildir:/[Gmail].Bin")
+;;                         "Unread messages" ?u)))
+
+;; todo
+(setq mu4e-bookmarks
+      '(("date:1w..now helm AND NOT flag:trashed" "Last 7 days helm messages" ?h)
+        ("date:1d..now helm AND NOT flag:trashed" "Yesterday and today helm messages" ?b)
+        ("flag:unread AND NOT flag:trashed AND NOT maildir:/Gmail/[Gmail].Spam \
+AND NOT maildir:/Zoho/Spam AND NOT maildir:/Yahoo/Bulk\\ Mail" "Unread messages" ?u)
+        ("date:today..now AND NOT flag:trashed AND NOT maildir:/Gmail/[Gmail].Spam \
+AND NOT maildir:/Zoho/Spam AND NOT maildir:/Yahoo/Bulk\\ Mail" "Today's messages" ?t)
+        ("date:1d..now AND NOT flag:trashed AND NOT maildir:/Gmail/[Gmail].Spam \
+AND NOT maildir:/Zoho/Spam AND NOT maildir:/Yahoo/Bulk\\ Mail" "Yesterday and today messages" ?y)
+        ("date:7d..now AND NOT flag:trashed AND NOT maildir:/Gmail/[Gmail].Spam \
+AND NOT maildir:/Zoho/Spam AND NOT maildir:/Yahoo/Bulk\\ Mail" "Last 7 days" ?w)
+        ("mime:image/* AND NOT flag:trashed AND NOT maildir:/Gmail/[Gmail].Spam \
+AND NOT maildir:/Zoho/Spam AND NOT maildir:/Yahoo/Bulk\\ Mail" "Messages with images" ?p)))
+;; todo 
+;; (add-hook 'mu4e-mark-execute-pre-hook
+;;           (lambda (mark msg)
+;;             (cond ((member mark '(refile trash)) (mu4e-action-retag-message msg "-\\Inbox"))
+;;                   ((equal mark 'flag) (mu4e-action-retag-message msg "\\Starred"))
+;;                   ((equal mark 'unflag) (mu4e-action-retag-message msg "-\\Starred")))))
+
 
 ;; program to get mail; alternatives are 'fetchmail', 'getmail'
 ;; isync or your own shellscript. called when 'U' is pressed in
@@ -79,7 +71,9 @@
 ;; If you get your mail without an explicit command,
 ;; use "true" for the command (this is the default)
 ;; (setq mu4e-get-mail-command "offlineimap")
-(setq mu4e-get-mail-command "true")
+;; allow for updating mail using 'U' in the main view:
+;; (setq mu4e-get-mail-command "true")
+(setq mu4e-get-mail-command "offlineimap -q -u Basic")
 
 ;; smtp mail setting; these are the same that `gnus' uses.
 ;; (require 'smtpmail)
@@ -115,14 +109,14 @@
           :match-func (lambda (msg)
                         (when msg
                           (string-match-p "^/Hotmail" (mu4e-message-field msg :maildir))))
-          :vars '((mu4e-maildir            . "~/Maildir/Hotmail")
+          :vars '((mu4e-maildir            . "~/Maildir")
                   (smtpmail-smtp-user      . "yinshuo335@hotmail.com")
                   (smtpmail-smtp-server    . "smtp.office365.com")
                   (smtpmail-smtp-service   . 587)
-                  (mu4e-sent-folder        . "/Sent")
-                  (mu4e-drafts-folder      . "/Drafts")
-                  (mu4e-trash-folder           . "/Deleted")
-                  (mu4e-refile-folder          . "/Archive")
+                  (mu4e-sent-folder        . "/Hotmail/Sent")
+                  (mu4e-drafts-folder      . "/Hotmail/Drafts")
+                  (mu4e-trash-folder           . "/Hotmail/Deleted")
+                  (mu4e-refile-folder          . "/Hotmail/Archive")
                   (mu4e-sent-messages-behavior . "delete")
                   (user-mail-address           . "yinshuo335@hotmail.com")
                   (user-full-name              . "Yinshuo" )
@@ -139,12 +133,12 @@
           :match-func (lambda (msg)
                         (when msg
                           (string= (mu4e-message-field msg :maildir) "^/Gmail")))
-          :vars '((mu4e-maildir            . "/Users/dylan/Maildir/Gmail")
+          :vars '((mu4e-maildir            . "~/Maildir")
                   (user-mail-address       . "dylan.yins@gmail.com" )
                   (user-full-name          . "Yinshuo" )
-                  (mu4e-sent-folder        . "/Sent Mail")
-                  (mu4e-drafts-folder      . "/Drafts")
-                  (mu4e-trash-folder           . "/Trash")
+                  (mu4e-sent-folder        . "/Gmail/Sent Mail")
+                  (mu4e-drafts-folder      . "/Gmail/Drafts")
+                  (mu4e-trash-folder           . "/Gmail/Trash")
                   (mu4e-sent-messages-behavior . "delete")
                   (mu4e-compose-signature  .
                                              (concat
@@ -185,7 +179,8 @@
 
 (require 'mu4e-contrib)
 (setq mu4e-html2text-command 'mu4e-shr2text)
-
+;; add option to view html message in a browser
+;; `aV` in view to activate
 (add-to-list 'mu4e-view-actions
   '("ViewInBrowser" . mu4e-action-view-in-browser) t)
 
@@ -210,6 +205,15 @@ mu4e-attachment-dir (expand-file-name "~/Downloads")
 (setq mu4e-view-show-images t
       mu4e-show-images t
       mu4e-view-image-max-width 800)
+;; use imagemagick, if available
+(when (fboundp 'imagemagick-register-types)
+  (imagemagick-register-types))
+;; spell check
+(add-hook 'mu4e-compose-mode-hook
+        (defun my-do-compose-stuff ()
+           "My settings for message composition."
+           (set-fill-column 72)
+           (flyspell-mode)))
 ;; the list of all of my e-mail addresses
 (setq mu4e-user-mail-address-list '("yinshuo335@hotmail.com"
                                     "dylan.yins@gmail.com"
