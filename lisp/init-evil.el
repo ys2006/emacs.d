@@ -1,33 +1,33 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
+;;
+;; My frequently used commands are listed here
 
 ;; enable evil-mode
 (evil-mode )
 
+(defvar my-use-m-for-matchit nil
+  "If t, use \"m\" key for `evil-matchit-mode'.
+And \"%\" key is also retored to `evil-jump-item'.")
+
 ;; {{ @see https://github.com/timcharper/evil-surround for tutorial
 (global-evil-surround-mode 1)
 (defun evil-surround-prog-mode-hook-setup ()
-  (push '(47 . ("/" . "/")) evil-surround-pairs-alist)
-  (push '(40 . ("(" . ")")) evil-surround-pairs-alist)
-  (push '(41 . ("(" . ")")) evil-surround-pairs-alist)
-  (push '(91 . ("[" . "]")) evil-surround-pairs-alist)
-  (push '(93 . ("[" . "]")) evil-surround-pairs-alist))
+  (push '(?$ . ("${" . "}")) evil-surround-pairs-alist)
+  (push '(?/ . ("/" . "/")) evil-surround-pairs-alist))
 (add-hook 'prog-mode-hook 'evil-surround-prog-mode-hook-setup)
 
 (defun evil-surround-js-mode-hook-setup ()
   ;; ES6
-  (push '(?1 . ("{`" . "`}")) evil-surround-pairs-alist)
-  (push '(?2 . ("${" . "}")) evil-surround-pairs-alist)
-  (push '(?4 . ("(e) => " . "(e)")) evil-surround-pairs-alist)
-  ;; ReactJS
-  (push '(?3 . ("classNames(" . ")")) evil-surround-pairs-alist))
+  (push '(?> . ("(e) => " . "(e)")) evil-surround-pairs-alist))
 (add-hook 'js-mode-hook 'evil-surround-js-mode-hook-setup)
 
 (defun evil-surround-emacs-lisp-mode-hook-setup ()
+  (push '(?( . ("( " . ")")) evil-surround-pairs-alist)
   (push '(?` . ("`" . "'")) evil-surround-pairs-alist))
 (add-hook 'emacs-lisp-mode-hook 'evil-surround-emacs-lisp-mode-hook-setup)
+
 (defun evil-surround-org-mode-hook-setup ()
-  (push '(91 . ("[" . "]")) evil-surround-pairs-alist)
-  (push '(93 . ("[" . "]")) evil-surround-pairs-alist)
+  (push '(93 . ("[[" . "]]")) evil-surround-pairs-alist) ; ]
   (push '(?= . ("=" . "=")) evil-surround-pairs-alist))
 (add-hook 'org-mode-hook 'evil-surround-org-mode-hook-setup)
 ;; }}
@@ -39,11 +39,7 @@
 
 ;; ffip-diff-mode (read only) evil setup
 (defun ffip-diff-mode-hook-setup ()
-  (evil-local-set-key 'normal "K" 'diff-hunk-prev)
-  (evil-local-set-key 'normal "J" 'diff-hunk-next)
-  (evil-local-set-key 'normal "P" 'diff-file-prev)
-  (evil-local-set-key 'normal "N" 'diff-file-next)
-  (evil-local-set-key 'normal "q" 'ffip-diff-quit)
+  (evil-local-set-key 'normal "q" (lambda () (interactive) (quit-window t)))
   (evil-local-set-key 'normal (kbd "RET") 'ffip-diff-find-file)
   ;; "C-c C-a" is binding to `diff-apply-hunk' in `diff-mode'
   (evil-local-set-key 'normal "a" 'ffip-diff-apply-hunk)
@@ -246,43 +242,43 @@ If the character before and after CH is space or tab, CH is NOT slash"
 
 ;; {{ specify major mode uses Evil (vim) NORMAL state or EMACS original state.
 ;; You may delete this setup to use Evil NORMAL state always.
-(loop for (mode . state) in
-      '((minibuffer-inactive-mode . emacs)
-        (calendar-mode . emacs)
-        (special-mode . emacs)
-        (grep-mode . emacs)
-        (Info-mode . emacs)
-        (term-mode . emacs)
-        (sdcv-mode . emacs)
-        (anaconda-nav-mode . emacs)
-        (log-edit-mode . emacs)
-        (vc-log-edit-mode . emacs)
-        (magit-log-edit-mode . emacs)
-        (erc-mode . emacs)
-        (neotree-mode . emacs)
-        (w3m-mode . emacs)
-        (gud-mode . emacs)
-        (help-mode . emacs)
-        (eshell-mode . emacs)
-        (shell-mode . emacs)
-        (xref--xref-buffer-mode . emacs)
-        ;(message-mode . emacs)
-        (epa-key-list-mode . emacs)
-        (fundamental-mode . emacs)
-        (weibo-timeline-mode . emacs)
-        (weibo-post-mode . emacs)
-        (woman-mode . emacs)
-        (sr-mode . emacs)
-        (profiler-report-mode . emacs)
-        (dired-mode . emacs)
-        (compilation-mode . emacs)
-        (speedbar-mode . emacs)
-        (ivy-occur-mode . emacs)
-        (ivy-occur-grep-mode . normal)
-        (messages-buffer-mode . normal)
-        (easy-hugo-mode . emacs)
-        (js2-error-buffer-mode . emacs))
-      do (evil-set-initial-state mode state))
+(dolist (p '((minibuffer-inactive-mode . emacs)
+             (calendar-mode . emacs)
+             (special-mode . emacs)
+             (grep-mode . emacs)
+             (Info-mode . emacs)
+             (term-mode . emacs)
+             (sdcv-mode . emacs)
+             (anaconda-nav-mode . emacs)
+             (log-edit-mode . emacs)
+             (vc-log-edit-mode . emacs)
+             (magit-log-edit-mode . emacs)
+             (erc-mode . emacs)
+             (neotree-mode . emacs)
+             (w3m-mode . emacs)
+             (gud-mode . emacs)
+             (help-mode . emacs)
+             (eshell-mode . emacs)
+             (shell-mode . emacs)
+             (xref--xref-buffer-mode . emacs)
+             ;;(message-mode . emacs)
+             (epa-key-list-mode . emacs)
+             (fundamental-mode . emacs)
+             (weibo-timeline-mode . emacs)
+             (weibo-post-mode . emacs)
+             (woman-mode . emacs)
+             (sr-mode . emacs)
+             (profiler-report-mode . emacs)
+             (dired-mode . emacs)
+             (compilation-mode . emacs)
+             (easy-hugo-mode . emacs)
+             (speedbar-mode . emacs)
+             (ivy-occur-mode . emacs)
+             (ffip-file-mode . emacs)
+             (ivy-occur-grep-mode . normal)
+             (messages-buffer-mode . normal)
+             (js2-error-buffer-mode . emacs)))
+  (evil-set-initial-state (car p) (cdr p)))
 ;; }}
 
 ;; I prefer Emacs way after pressing ":" in evil-mode
@@ -331,7 +327,8 @@ If the character before and after CH is space or tab, CH is NOT slash"
       (cond
        ((and (derived-mode-p 'js2-mode)
              (or (null (get-text-property (point) 'face))
-                 (font-belongs-to (point) '(rjsx-tag))))
+                 (font-belongs-to (point) '(rjsx-tag
+                                            js2-function-call))))
         (js2-jump-to-definition))
        ((fboundp 'imenu--make-index-alist)
         (condition-case nil
@@ -350,8 +347,6 @@ If the character before and after CH is space or tab, CH is NOT slash"
         (my-search-defun-from-pos search (point-min)))))))
 ;; use "gt", someone might prefer original `evil-goto-definition'
 (define-key evil-motion-state-map "gt" 'my-evil-goto-definition)
-
-(global-evil-matchit-mode 1)
 
 ;; I learn this trick from ReneFroger, need latest expand-region
 ;; @see https://github.com/redguardtoo/evil-matchit/issues/38
@@ -429,9 +424,6 @@ If the character before and after CH is space or tab, CH is NOT slash"
                         (xref-pulse-momentarily)))))
 ;; }}
 
-;; My frequently used commands are listed here
-;; For example, for line like `"ef" 'end-of-defun`
-;;   You can either press `,ef` or `M-x end-of-defun` to execute it
 (local-require 'general)
 (general-evil-setup t)
 
@@ -445,7 +437,7 @@ If the character before and after CH is space or tab, CH is NOT slash"
  "bu" 'backward-up-list
  "bb" 'back-to-previous-buffer
  "ef" 'end-of-defun
- "mf" 'mark-defun
+ "m" 'evil-set-marker
  "em" 'erase-message-buffer
  "eb" 'eval-buffer
  "sd" 'sudo-edit
@@ -460,7 +452,6 @@ If the character before and after CH is space or tab, CH is NOT slash"
  "es" 'goto-edge-by-comparing-font-face
  "vj" 'my-validate-json-or-js-expression
  "kc" 'kill-ring-to-clipboard
- "mcr" 'my-create-regex-from-kill-ring
  "ntt" 'neotree-toggle
  "ntf" 'neotree-find ; open file in current buffer in neotree
  "ntd" 'neotree-project-dir
@@ -484,7 +475,7 @@ If the character before and after CH is space or tab, CH is NOT slash"
  "ti" 'fastdef-insert
  "th" 'fastdef-insert-from-history
  "ci" 'evilnc-comment-or-uncomment-lines
- "cl" 'evilnc-comment-or-uncomment-to-the-line
+ "cl" 'evilnc-quick-comment-or-uncomment-to-the-line
  "cc" 'evilnc-copy-and-comment-lines
  "cp" 'my-evilnc-comment-or-uncomment-paragraphs
  "ct" 'evilnc-comment-or-uncomment-html-tag ; evil-nerd-commenter v3.3.0 required
@@ -496,10 +487,8 @@ If the character before and after CH is space or tab, CH is NOT slash"
  "ts" 'evilmr-tag-selected-region ;; recommended
  "cby" 'cb-switch-between-controller-and-view
  "cbu" 'cb-get-url-from-controller
- "ht" 'counsel-etags-find-tag-at-point ; better than find-tag C-]
  "rt" 'counsel-etags-recent-tag
  "ft" 'counsel-etags-find-tag
- "mm" 'counsel-evil-goto-global-marker
  "yy" 'counsel-browse-kill-ring
  "cf" 'counsel-grep ; grep current buffer
  "gf" 'counsel-git ; find file
@@ -577,11 +566,13 @@ If the character before and after CH is space or tab, CH is NOT slash"
  "uu" 'winner-undo
  "UU" 'winner-redo
  "to" 'toggle-web-js-offset
- "sl" 'sort-lines
  "fs" 'ffip-save-ivy-last
  "fr" 'ffip-ivy-resume
  "fc" 'cp-ffip-ivy-last
- "ss" 'swiper-the-thing ; http://oremacs.com/2015/03/25/swiper-0.2.0/ for guide
+ "ss" (lambda ()
+        (interactive)
+        ;; better performance, got Cygwin grep installed on Windows always
+        (counsel-grep-or-swiper (if (region-active-p) (my-selected-str))))
  "hst" 'hs-toggle-fold
  "hsa" 'hs-toggle-fold-all
  "hsh" 'hs-hide-block
@@ -596,6 +587,8 @@ If the character before and after CH is space or tab, CH is NOT slash"
  "fb" 'flyspell-buffer
  "fe" 'flyspell-goto-next-error
  "fa" 'flyspell-auto-correct-word
+ "lb" 'langtool-check-buffer
+ "ll" 'langtool-goto-next-error
  "pe" 'flymake-goto-prev-error
  "ne" 'flymake-goto-next-error
  "bc" '(lambda () (interactive) (wxhelp-browse-class-or-api (thing-at-point 'symbol)))
@@ -667,9 +660,9 @@ If the character before and after CH is space or tab, CH is NOT slash"
  "ee" 'my-swap-sexps
  "pc" 'my-dired-redo-from-commands-history
  "pw" 'pwd
+ "mm" 'counsel-evil-goto-global-marker
+ "mf" 'mark-defun
  "cc" 'my-dired-redo-last-command
- "mm" 'counsel-bookmark-goto
- "mk" 'bookmark-set
  "ss" 'wg-create-workgroup ; save windows layout
  "se" 'evil-iedit-state/iedit-mode ; start iedit in emacs
  "sc" 'shell-command
@@ -680,7 +673,7 @@ If the character before and after CH is space or tab, CH is NOT slash"
  "yy" 'hydra-launcher/body
  "gi" 'gist-region ; only workable on my computer
  "tt" 'my-toggle-indentation
- "gg" 'magit-status
+ "ggg" 'magit-status
  "gs" 'magit-show-commit
  "gl" 'magit-log-all
  "gff" 'magit-find-file ; loading file in specific version into buffer
@@ -689,6 +682,7 @@ If the character before and after CH is space or tab, CH is NOT slash"
  "gau" 'magit-stage-modified
  "gcc" 'magit-commit-popup
  "gca" 'magit-commit-amend
+ "ggt" 'git-commit-tracked
  "gja" 'magit-commit-extend
  "gtt" 'magit-stash
  "gta" 'magit-stash-apply
@@ -777,7 +771,7 @@ If the character before and after CH is space or tab, CH is NOT slash"
  ;;   '(progn
  ;;      (set-face-attribute 'avy-lead-face-0 nil :foreground "black")
  ;;      (set-face-attribute 'avy-lead-face-0 nil :background "#f86bf3")))
- ";" 'avy-goto-char-2
+ ";" 'ace-pinyin-jump-char-2
  "w" 'avy-goto-word-or-subword-1
  "a" 'avy-goto-char-timer
  "db" 'sdcv-search-pointer ; in buffer
@@ -790,10 +784,7 @@ If the character before and after CH is space or tab, CH is NOT slash"
  "gj" 'w3m-search-js-api-mdn
  "ga" 'w3m-java-search
  "gh" 'w3mext-hacker-search ; code search in all engines with firefox
- "gq" 'w3m-stackoverflow-search
- "mw" 'mpc-which-song
- "mn" 'mpc-next-prev-song
- "mp" '(lambda () (interactive) (mpc-next-prev-song t)))
+ "gq" 'w3m-stackoverflow-search)
 ;; }}
 
 ;; {{ remember what we searched
@@ -852,12 +843,13 @@ If the character before and after CH is space or tab, CH is NOT slash"
   (interactive "p")
   (unless (featurep 'evil-nerd-commenter) (require 'evil-nerd-commenter))
   (let* ((paragraph-region (evilnc--get-one-paragraph-region))
-         (html-p (or (save-excursion
-                       (sgml-skip-tag-backward 1)
-                       (my-current-line-html-p paragraph-region))
-                     (save-excursion
-                       (sgml-skip-tag-forward 1)
-                       (my-current-line-html-p paragraph-region)))))
+         (html-p (ignore-errors
+                   (or (save-excursion
+                         (sgml-skip-tag-backward 1)
+                         (my-current-line-html-p paragraph-region))
+                       (save-excursion
+                         (sgml-skip-tag-forward 1)
+                         (my-current-line-html-p paragraph-region))))))
     (if html-p (evilnc-comment-or-uncomment-html-paragraphs num)
       (evilnc-comment-or-uncomment-paragraphs num))))
 
@@ -901,11 +893,12 @@ If the character before and after CH is space or tab, CH is NOT slash"
 ;;  - Please note ";;" or `avy-goto-char-timer' is also useful
 ;; }}
 
-;; {{ Evil’s f/F/t/T command can search Pinyin ,
+;; {{ Evil’s f/F/t/T command can search PinYin ,
 (evil-find-char-pinyin-mode 1)
 ;; }}
 
-;; {{ Port of vim-textobj-syntax. It provides evil text objects for consecutive items with same syntax highlig
+;; {{ Port of vim-textobj-syntax.
+;; It provides evil text objects for consecutive items with same syntax highlight.
 (require 'evil-textobj-syntax)
 ;; }}
 
