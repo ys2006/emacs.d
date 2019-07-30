@@ -774,14 +774,12 @@ If the character before and after CH is space or tab, CH is NOT slash"
  ";" 'ace-pinyin-jump-char-2
  "w" 'avy-goto-word-or-subword-1
  "a" 'avy-goto-char-timer
- "db" 'sdcv-search-pointer ; in buffer
- "dt" 'sdcv-search-input+ ; in tip
+ "db" 'sdcv-search-input ; details
+ "dt" 'sdcv-search-input+ ; summary
  "dd" 'my-lookup-dict-org
  "mm" 'lookup-doc-in-man
  "gg" 'w3m-google-search
- "gf" 'w3m-google-by-filetype
  "gd" 'w3m-search-financial-dictionary
- "gj" 'w3m-search-js-api-mdn
  "ga" 'w3m-java-search
  "gh" 'w3mext-hacker-search ; code search in all engines with firefox
  "gq" 'w3m-stackoverflow-search)
@@ -860,6 +858,10 @@ If the character before and after CH is space or tab, CH is NOT slash"
   (when (fboundp 'evilnc-imenu-create-index-function)
     (let* ((imenu-create-index-function 'evilnc-imenu-create-index-function))
       (counsel-imenu))))
+;; }}
+
+;; {{ `evil-matchit'
+(global-evil-matchit-mode 1)
 ;; }}
 
 ;; {{ evil-exchange

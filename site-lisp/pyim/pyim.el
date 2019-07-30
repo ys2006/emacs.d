@@ -1262,6 +1262,7 @@ dcache 文件的方法让 pyim 正常工作。")
     (dolist (i (number-sequence ?1 ?9))
       (define-key map (char-to-string i) 'pyim-page-select-word-by-number))
     (define-key map " " 'pyim-page-select-word)
+    (define-key map (kbd "C-SPC") 'pyim-page-select-word-simple)
     (define-key map [backspace] 'pyim-delete-last-char)
     (define-key map [delete] 'pyim-delete-last-char)
     (define-key map [M-backspace] 'pyim-backward-kill-cchar)
@@ -1431,7 +1432,6 @@ pyim 使用函数 `pyim-start' 启动输入法的时候，会将变量
 会执行 `pyim-input-method' 这个函数。`pyim-input-method' 又调用函
 数`pyim-start-translation'."
   (interactive)
-  (pyim-upgrade)
   (mapc 'kill-local-variable pyim-local-variable-list)
   (mapc 'make-local-variable pyim-local-variable-list)
   (when (and restart save-personal-dcache)
@@ -1467,26 +1467,6 @@ pyim 使用函数 `pyim-start' 启动输入法的时候，会将变量
   (when restart
     (message "pyim 重启完成。"))
   nil)
-
-(defun pyim-upgrade ()
-  (interactive)
-  ;; breaking changes, dcache -> dhashcache, more information:
-  ;; https://github.com/tumashu/pyim/pull/277
-  ;; https://emacs-china.org/t/2019-07-08-pyim/9876/8
-  (let ((old (concat pyim-dcache-directory "pyim-dcache-icode2word"))
-        (new (concat pyim-dcache-directory "pyim-dhashcache-icode2word"))
-        (default-directory pyim-dcache-directory))
-    (when (and (file-exists-p old)
-               (or (not (file-exists-p new))
-                   (and (file-exists-p new)
-                        (> (file-attribute-size
-                            (file-attributes old))
-                           (file-attribute-size
-                            (file-attributes new)))))
-               (message "PYIM: dcache格式已经调整，自动升级！"))
-      (dolist (f (directory-files default-directory nil "^pyim-dcache"))
-        (copy-file f (replace-regexp-in-string
-                      "^pyim-dcache" "pyim-dhashcache" f))))))
 
 (defun pyim-exit-from-minibuffer ()
   "Pyim 从 minibuffer 退出."
@@ -1673,7 +1653,9 @@ BUG：无法有效的处理多音字。"
       ;; 添加词条到个人缓存
       (dolist (py pinyins)
         (unless (pyim-string-match-p "[^ a-z-]" py)
-          (pyim-insert-word-into-icode2word word py prepend))))))
+          (pyim-insert-word-into-icode2word word py prepend)))
+      ;; TODO, 排序个人词库?
+      )))
 
 (defun pyim-list-merge (a b)
   "Join list A and B to a new list, then delete dups."
@@ -1778,6 +1760,15 @@ FILE 的格式与 `pyim-export' 生成的文件格式相同，
   (when pyim-last-created-word
     (pyim-delete-word-1 pyim-last-created-word)
     (message "pyim: 从个人词库中删除词条 “%s” !" pyim-last-created-word)))
+
+(defun pyim-delete-word-at-point (&optional number silent)
+  "将光标前字符数为 NUMBER 的中文字符串从个人词库中删除
+当 SILENT 设置为 t 是，不显示提醒信息。"
+  (let* ((string (pyim-cstring-at-point (or number 2))))
+    (when string
+      (pyim-delete-word-1 string)
+      (unless silent
+        (message "词条: \"%s\" 已经从个人词库缓冲中删除。" string)))))
 
 (defun pyim-delete-word ()
   "将高亮选择的词条从个人词库中删除。"
@@ -2381,18 +2372,20 @@ IMOBJS 获得候选词条。"
     (dolist (imobj imobjs)
       (setq personal-words
             (append personal-words
-                    (funcall (pyim-dcache-backend-api (if pyim-enable-shortcode
-                                                          "get-icode2word-ishortcode2word"
-                                                        "get-icode2word"))
+                    (funcall (pyim-dcache-backend-api
+                              (if pyim-enable-shortcode
+                                  "get-icode2word-ishortcode2word"
+                                "get-icode2word"))
                              (mapconcat #'identity
                                         (pyim-codes-create imobj scheme-name)
                                         "-"))))
 
       (setq common-words (delete-dups common-words))
       (setq common-words
-            (let* ((cands (funcall (pyim-dcache-backend-api (if pyim-enable-shortcode
-                                                                "get-code2word-shortcode2word"
-                                                              "get-code2word"))
+            (let* ((cands (funcall (pyim-dcache-backend-api
+                                    (if pyim-enable-shortcode
+                                        "get-code2word-shortcode2word"
+                                      "get-code2word"))
                                    (mapconcat #'identity
                                               (pyim-codes-create imobj scheme-name)
                                               "-"))))
@@ -2424,6 +2417,14 @@ IMOBJS 获得候选词条。"
             (append pinyin-chars
                     (pyim-dcache-get
                      (car (pyim-codes-create imobj scheme-name))))))
+
+    ;; 使用词频信息，对个人词库得到的候选词排序，
+    ;; 第一个词的位置比较特殊，不参与排序，
+    ;; 具体原因请参考 `pyim-page-select-word' 中的 comment.
+    (setq personal-words
+          `(,(car personal-words)
+            ,@(funcall (pyim-dcache-backend-api "sort-words")
+                       (cdr personal-words))))
 
     ;; Debug
     (when pyim-debug
@@ -2941,6 +2942,19 @@ minibuffer 原来显示的信息和 pyim 选词框整合在一起显示
          (setq pyim-outcome pyim-entered))
         (t (error "Pyim: invalid pyim-outcome"))))
 
+(defun pyim-page-select-word-simple ()
+  "从选词框中选择当前词条.
+这个函数与 `pyim-page-select-word' 的区别是：
+这个函数不会将选择的词条加入个人词库，主要的使用场景是：
+当用户需要输入一个生僻字时，输入包含该字的一个词条，
+然后再删除不需要的字，由于这个词条不是常用词条，所以
+不需要保存到个人词库。"
+  (interactive)
+  (if (null pyim-candidates)
+      (pyim-outcome-handle 'last-char)
+    (pyim-outcome-handle 'candidate))
+  (pyim-terminate-translation))
+
 (defun pyim-page-select-word ()
   "从选词框中选择当前词条。"
   (interactive)
@@ -3082,6 +3096,17 @@ alist 列表。"
      ;; 空格之前的字符什么也不输入。
      ((< char ? ) "")
 
+     ;; 这个部份与标点符号处理无关，主要用来快速删除用户自定义词条。
+     ;; 比如：在一个中文字符串后输入 2-v，可以将光标前两个中文字符
+     ;; 组成的字符串，从个人词库删除。
+     ((and (eq (char-before) ?-)
+           (pyim-string-match-p "[0-9]" str-before-2)
+           (pyim-string-match-p "\\cc" str-before-3)
+           (equal str trigger-str))
+      (delete-char -2)
+      (pyim-delete-word-at-point
+       (string-to-number str-before-2))
+      "")
      ;; 这个部份与标点符号处理无关，主要用来快速保存用户自定义词条。
      ;; 比如：在一个中文字符串后输入 2v，可以将光标前两个中文字符
      ;; 组成的字符串，保存到个人词库。
