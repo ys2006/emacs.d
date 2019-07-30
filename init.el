@@ -225,7 +225,7 @@
 
 ;; https://github.com/redguardtoo/emacs.d#color-theme
 ;; https://emacsthemes.com/
-;; (load-theme 'Prassee t)
+(load-theme 'doom-dracula t)
 
 ;;; Local Variables:
 ;;; no-byte-compile: t
@@ -241,9 +241,9 @@
 ;;                          '(2 "_NET_WM_STATE_MAXIMIZED_HORZ" 0))
 ;; (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
 ;;                         '(2 "_NET_WM_STATE_MAXIMIZED_VERT" 0))
-
+(message "helloo")
  ;;设置窗口位置为屏库左上角(0,0)
  (set-frame-position (selected-frame) 0 0)
  ;;设置宽和高
- (set-frame-width (selected-frame) 140)
- (set-frame-height (selected-frame) 54)
+ (set-frame-width (selected-frame) 120)
+ (set-frame-height (selected-frame) 100)

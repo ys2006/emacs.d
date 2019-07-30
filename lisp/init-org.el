@@ -108,7 +108,8 @@ It's value could be customized liked \"/usr/bin/firefox\".
                 ;; open with `browse-url-generic-program'
                 ((equal (ad-get-arg 0) '(4)) 'browse-url-generic)
                 ;; open with w3m
-                (t 'w3m-browse-url))))
+                (nil 'w3m-browse-url)
+                (t 'browse-url-default-macosx-browser))))
          ad-do-it))
 
      (defadvice org-publish (around org-publish-advice activate)

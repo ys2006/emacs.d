@@ -538,7 +538,7 @@ If the character before and after CH is space or tab, CH is NOT slash"
  "cxi" 'org-clock-in ; `C-c C-x C-i'
  "cxo" 'org-clock-out ; `C-c C-x C-o'
  "cxr" 'org-clock-report ; `C-c C-x C-r'
- "mp" 'opml-preview-file
+ "pm" 'opml-preview-file
  "qq" 'my-multi-purpose-grep
  "dd" 'counsel-etags-grep-current-directory
  "xc" 'save-buffers-kill-terminal

@@ -786,6 +786,16 @@ If no region is selected. You will be asked to use `kill-ring' or clipboard inst
 (add-hook 'after-make-frame-functions 'run-after-make-frame-hooks)
 ;; }}
 
+;; {{ Frame parame
+;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Frame-Parameters.html#Frame-Parameters
+(add-hook 'before-make-frame-hook
+          #'(lambda ()
+              (add-to-list 'default-frame-alist '(left   . 0))
+              (add-to-list 'default-frame-alist '(top    . 0))
+              (add-to-list 'default-frame-alist '(height . 100))
+              (add-to-list 'default-frame-alist '(width  . 100))))
+;; }}
+
 ;; flymake
 (eval-after-load 'flymake
   '(progn
@@ -1287,10 +1297,10 @@ version control automatically."
     (cond
      ((string= (getenv "http_proxy") proxy)
       (setenv "http_proxy" "")
-      (message "env http_proxy is empty now"))
-     (t
-      (setenv "http_proxy" proxy)
-      (message "env http_proxy is %s now" proxy)))))
+      (message "env http_proxy is empty now")))
+    (t
+     (setenv "http_proxy" proxy)
+     (message "env http_proxy is %s now" proxy))))
 
 ;; Don't disable narrowing commands
 (put 'narrow-to-region 'disabled nil)
@@ -1480,5 +1490,4 @@ If use-indirect-buffer is not nil, use `indirect-buffer' to hold the widen conte
                                                  use-indirect-buffer))
         (t (error "Please select a region to narrow to"))))
 ;; }}
-
 (provide 'init-misc)
