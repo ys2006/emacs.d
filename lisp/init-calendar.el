@@ -21,7 +21,6 @@
 
 ;; (setq org-directory "~/recipes/agenda")
 ;; (setq rg-agenda-files (file-expand-wildcards org-directory))
-;; (setq org-agenda-files "~/recipes/cfa.org")
 
 (setq calendar-latitude 40.08198)
 (setq calendar-longitude 116.4187)

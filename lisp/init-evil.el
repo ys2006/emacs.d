@@ -490,7 +490,8 @@ If the character before and after CH is space or tab, CH is NOT slash"
  "rt" 'counsel-etags-recent-tag
  "ft" 'counsel-etags-find-tag
  "yy" 'counsel-browse-kill-ring
- "cf" 'counsel-grep ; grep current buffer
+ ;; "cf" 'counsel-grep ; grep current buffer
+ "cf" 'counsel-rg ; grep current buffer
  "gf" 'counsel-git ; find file
  "gg" 'counsel-git-grep-by-selected ; quickest grep should be easy to press
  "gm" 'counsel-git-find-my-file
@@ -593,6 +594,7 @@ If the character before and after CH is space or tab, CH is NOT slash"
  "ne" 'flymake-goto-next-error
  "bc" '(lambda () (interactive) (wxhelp-browse-class-or-api (thing-at-point 'symbol)))
  "og" 'org-agenda
+ "oc" 'org-capture
  "otl" 'org-toggle-link-display
  "oa" '(lambda ()
          (interactive)

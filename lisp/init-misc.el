@@ -1010,7 +1010,7 @@ If no region is selected. You will be asked to use `kill-ring' or clipboard inst
 
 
 ;; {{ For org-opml @See https://github.com/org-opml/org-opml
-(local-require 'org-opml)
+;; (local-require 'org-opml)
 
 (defvar org-export-output-directory-prefix "export_" "prefix of directory used for org-mode export")
 
@@ -1489,6 +1489,11 @@ If use-indirect-buffer is not nil, use `indirect-buffer' to hold the widen conte
                                                  (region-end)
                                                  use-indirect-buffer))
         (t (error "Please select a region to narrow to"))))
+;; }}
+
+;; {{
+(setq deft-extensions '("org"))
+(setq deft-directory "~/recipes/cookbooks/")
 ;; }}
 
 ;; {{ octave

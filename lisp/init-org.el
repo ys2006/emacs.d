@@ -199,6 +199,8 @@ It's value could be customized liked \"/usr/bin/firefox\".
            org-tags-column 80
 
            ;; Refile targets include this file and any file contributing to the agenda - up to 5 levels deep
+
+           ;; (setq org-agenda-files "~/recipes/cfa.org")
            org-refile-targets '((nil :maxlevel . 5) (org-agenda-files :maxlevel . 5))
            org-refile-use-outline-path 'file
            org-outline-path-complete-in-steps nil
@@ -209,6 +211,72 @@ It's value could be customized liked \"/usr/bin/firefox\".
            org-src-fontify-natively t)))
 
 
+;; 自定义agenda模板
+;; @See https://www.01hai.com/note/av142802
+(setq org-agenda-custom-commands
+        '(
+          ("w" . "任务安排")
+          ("wa" "重要且紧急的任务" tags-todo "+PRIORITY=\"A\"")
+          ("wb" "重要且不紧急的任务" tags-todo "-weekly-monthly-daily+PRIORITY=\"B\"")
+          ("wc" "不重要且紧急的任务" tags-todo "+PRIORITY=\"C\"")
+          ("W" "Weekly Review"
+           ((stuck "") ;; review stuck projects as designated by org-stuck-projects
+            (tags-todo "project")
+            (tags-todo "daily")
+            (tags-todo "weekly")
+            (tags-todo "school")
+            (tags-todo "code")
+            (tags-todo "theory")
+            ))
+          ))
+
+;; setting org-capture @See https://www.01hai.com/note/av142802
+;; 绑定键位
+  ;; (define-key global-map "C-cc" 'org-capture)
+
+;; 这边就是为路径赋值
+(defvar org-agenda-dir "" "gtd org files location")
+  (setq-default org-agenda-dir "~/recipes/agenda/")
+  (setq org-agenda-file-note (expand-file-name "inbox.org" org-agenda-dir))
+  (setq org-agenda-file-task (expand-file-name "task.org" org-agenda-dir))
+  (setq org-agenda-file-calendar (expand-file-name "calendar.org" org-agenda-dir))
+  (setq org-agenda-file-finished (expand-file-name "finished.org" org-agenda-dir))
+  (setq org-agenda-file-canceled (expand-file-name "canceled.org" org-agenda-dir))
+
+(defvar my-cookbook-dir "" "gtd org files location")
+  (setq-default my-cookbook-dir "~/recipes/cookbooks/")
+  (setq my-cookbook-file-program (expand-file-name "programming.org" my-cookbook-dir))
+  (setq my-cookbook-file-ecom (expand-file-name "ecom.org" my-cookbook-dir))
+
+;; 添加每次打开时可添加的任务类型
+(setq org-capture-templates
+        '(
+          ("t" "Todo" entry (file+headline org-agenda-file-task "Working")
+           "* TODO [#B] %?n  %in"
+           :empty-lines 1)
+          ("l" "Tolearn" entry (file+headline org-agenda-file-task "Learning")
+           "* TODO [#B] %?n  %in"
+           :empty-lines 1)
+          ("h" "Toplay" entry (file+headline org-agenda-file-task "Hobbies")
+           "* TODO [#C] %?n  %in"
+           :empty-lines 1)
+          ("o" "Todo_others" entry (file+headline org-agenda-file-task "Others")
+           "* TODO [#C] %?n  %in"
+           :empty-lines 1)
+          ("n" "notes" entry (file+headline org-agenda-file-note "Quick notes")
+           "* %?n  %in %U"
+           :empty-lines 1)
+          ("i" "ideas" entry (file+headline org-agenda-file-note "Quick ideas")
+           "* %?n  %in %U"
+           :empty-lines 1)))
+;; setting for refile
+ ;; 添加finished和canceled两个文件路径，并且只转移到一级标题
+(setq org-refile-targets  '((org-agenda-file-finished :maxlevel . 2)
+                            (org-agenda-file-task :maxlevel . 2)
+                            (org-agenda-file-canceled :maxlevel . 1)
+                            (my-cookbook-file-ecom :maxlevel . 1)
+                            (my-cookbook-file-program :maxlevel . 1)))
+
 ;; {{  see http://https://coldnew.github.io/4bb1df06/
 ;(org-crypt-use-before-save-magic)
 ;(setq org-crypt-tag-matcher "secret")
@@ -217,8 +285,13 @@ It's value could be customized liked \"/usr/bin/firefox\".
 ;; }}
 
 ;; {{ org table font align issue @See https://www.cnblogs.com/bamanzi/p/org-mode-tips.html
-;;(set-default-font "DejaVu Sans Mono 10")
-;;(set-fontset-font "fontset-default" 'unicode"WenQuanYi Bitmap Song 12") ;;for linux
+;; (set-default-font "DejaVu Sans Mono 10")
+;; (set-fontset-font "fontset-default" 'unicode"WenQuanYi Bitmap Song 12") ;;for linux
+(set-face-attribute 'default nil
+                    :family "Inconsolata"
+                    :height 110
+                    :weight 'normal
+                    :width 'normal)
 
 ;; Quike input * under Chinese IME
 ;; See https://www.cnblogs.com/bamanzi/p/org-mode-tips.html

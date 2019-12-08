@@ -302,6 +302,7 @@ PACKAGE is a symbol, VERSION is a vector as produced by `version-to-list', and
 (require-package 'cpputils-cmake)
 (require-package 'flyspell-lazy)
 (require-package 'bbdb)
+(require-package 'deft)
 (require-package 'pomodoro)
 (require-package 'flymake-lua)
 ;; rvm-open-gem to get gem's code
