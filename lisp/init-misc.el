@@ -1030,11 +1030,13 @@ When join-dark-side is t, pick up dark theme only."
 (eval-after-load 'emms
   '(progn
      (emms-all)
+     (setq emms-player-vlc-command-name
+          "/Applications/VLC.app/Contents/MacOS/VLC")
      (setq emms-player-list '(emms-player-mplayer-playlist
                               emms-player-mplayer
                               emms-player-mpg321
                               emms-player-ogg123
-                              lemms-player-vlc
+                              emms-player-vlc
                               emms-player-vlc-playlist))))
 ;; }}
 
@@ -1315,11 +1317,45 @@ Including indent-buffer, which should not be called automatically on save."
 (which-function-mode 1)
 ;; }}
 
+;; {{ org-pomodoro
+(eval-after-load 'org-pomodoro
+  '(progn
+        (setq org-pomodoro-play-sounds t)
+        (setq org-pomodoro-start-sound-p t)
+        (setq org-pomodoro-finished-sound-p t)
+        (setq org-pomodoro-killed-sound-p t)
+        (setq org-pomodoro-short-break-sound-p t)
+        (setq org-pomodoro-long-break-sound-p t)
+        ;; (setq  org-pomodoro-finished-sound (expand-file-name "~/.emacs.d/manual-addons/sounds/end.wav"))
+        ;; org-pomodoro-finished-sound ""
+        ;; (setq  org-pomodoro-short-break-sound (expand-file-name "~/.emacs.d/manual-addons/sounds/horn_attack.wav"))
+        ;; (setq  org-pomodoro-long-break-sound (expand-file-name "~/.emacs.d/manual-addons/sounds/horn_attack.wav"))
+        ;; (setq  org-pomodoro-ticking-sound (expand-file-name "~/.emacs.d/manual-addons/pomidor/tick.wav"))
+        (setq org-pomodoro-start-sound (expand-file-name "~/Music/work-01.mp3"))
+        (setq org-pomodoro-ticking-sound-p t)
+
+  ;; platform-specific settings
+        (cond ((eq system-type 'darwin)
+                (setq org-pomodoro-audio-player "/usr/bin/afplay"))
+            ((eq system-type 'windows-nt)
+                ;;(add-to-list 'exec-path "C:/emacs/mplayer/")
+                (setq org-pomodoro-audio-player "C:/emacs/bin/swavplayer.exe"
+                org-pomodoro-start-sound-args ""
+                org-pomodoro-finished-sound-args ""
+                org-pomodoro-killed-sound-args ""
+                pomodoro-short-break-sound-args ""
+                pomodoro-long-break-sound-args ""
+                pomodoro-ticking-sound-args ""))
+        (t (setq org-pomodoro-audio-player "/usr/bin/aplay")))))
+
 ;; {{ pomodoro
 (eval-after-load 'pomodoro
   '(progn
-     (setq pomodoro-break-time 2)
-     (setq pomodoro-long-break-time 5)
+     (setq pomodoro-sound-player "/Applications/VLC.app/Contents/MacOS/VLC")
+     ;; (setq pomodoro-sound-player "/usr/bin/afplay")
+     (setq pomodoro-work-start-sound "/Users/dylan/Music/work-01.mp3")
+     (setq pomodoro-break-time 5)
+     (setq pomodoro-long-break-time 15)
      (setq pomodoro-work-time 15)
      (setq-default mode-line-format
               (cons '(pomodoro-mode-line-string pomodoro-mode-line-string)

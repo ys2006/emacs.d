@@ -240,6 +240,7 @@ PACKAGE is a symbol, VERSION is a vector as produced by `version-to-list', and
 ;; Fire up package.el and ensure the following packages are installed.
 ;;------------------------------------------------------------------------------
 
+(require-package 'use-package)
 (require-package 'goto-chg)
 (require-package 'ghub)
 (require-package 'magit-popup)

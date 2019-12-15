@@ -49,8 +49,9 @@
   (interactive)
   (term-send-raw-string "\C-k"))
 
-(setq multi-term-program "/bin/zsh")
-;; (setq multi-term-program my-term-program)
+(setq multi-term-program my-term-program)
+;; elpy issue when using zsh https://github.com/jorgenschaefer/elpy/issues/1001
+;; (setq multi-term-program "/bin/zsh")
 
 ;; check `term-bind-key-alist' for key bindings
 (eval-after-load 'multi-term

@@ -152,13 +152,13 @@
   (require-init 'init-company t)
   (require-init 'init-chinese t) ;; cannot be idle-required
   ;; need statistics of keyfreq asap
-  (require 'init-keyfreq t)
-  (require 'init-httpd t)
+  (require-init 'init-keyfreq t)
+  (require-init 'init-httpd t)
   ;; (require-init 'init-dictionary)
-  (require 'init-magit t)
-  (require 'init-easy-hugo t)
-  (require 'init-calendar t)
-  (require 'init-mu4e t)
+  (require-init 'init-magit t)
+  (require-init 'init-easy-hugo t)
+  (require-init 'init-calendar t)
+  (require-init 'init-mu4e t)
 
   ;; projectile costs 7% startup time
 

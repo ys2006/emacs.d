@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("coding training"
+(("jdk-folder-root"
+ (filename . "~/reading/Java/jdk8u60/get_source.sh")
+ (front-context-string . "fi\n\n\n# Request\ni")
+ (rear-context-string . "ion $hgversion\"\n")
+ (position . 2559))
+("coding training"
  (filename . "~/recipes/cookbooks/codes.org")
  (front-context-string . "a\npublic boolean")
  (rear-context-string . "\n#+BEGIN_SRC jav")
@@ -19,9 +24,9 @@
  (position . 8727))
 ("org-capture-last-stored"
  (filename . "~/recipes/agenda/task.org")
- (front-context-string . "** TODO [#B] 整理物")
- (rear-context-string . "    :Backlogs:\n\n")
- (position . 2069))
+ (front-context-string . "** TODO [#B] 亚马逊")
+ (rear-context-string . "ly K8s to vps \n\n")
+ (position . 7842))
 #1=(#("程序员的数学-线性代数" 0 11
       (bmkp-full-record #1#))
     (filename . "   - no file -")
