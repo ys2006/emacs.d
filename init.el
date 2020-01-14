@@ -21,7 +21,7 @@
 
 (setq emacs-load-start-time (current-time))
 
-(setq url-using-proxy t)
+;; (setq url-using-proxy t)
 ;; (setq url-proxy-services
 ;;     '(("http"     . "cn-proxy.cn.oracle.com:80")
 ;;       ("https"    . "cn-proxy.cn.oracle.com:80")
@@ -104,6 +104,8 @@
 ;; Which means on every .el and .elc file loaded during start up, it has to runs those regexps against the filename.
 (let* ((file-name-handler-alist nil))
 
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+
   ;; ;; {{
   ;; (require 'benchmark-init-modes)
   ;; (require 'benchmark-init)
@@ -131,6 +133,7 @@
   (require-init 'init-org t)
   (require-init 'init-css t)
   (require-init 'init-python t)
+  (require-init 'init-java t)
   (require-init 'init-ruby-mode t)
   (require-init 'init-lisp t)
   (require-init 'init-elisp t)
@@ -236,9 +239,8 @@
 ;;                          '(2 "_NET_WM_STATE_MAXIMIZED_HORZ" 0))
 ;; (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
 ;;                         '(2 "_NET_WM_STATE_MAXIMIZED_VERT" 0))
-(message "helloo")
- ;;设置窗口位置为屏库左上角(0,0)
- (set-frame-position (selected-frame) 0 0)
- ;;设置宽和高
- (set-frame-width (selected-frame) 120)
- (set-frame-height (selected-frame) 100)
+;;设置窗口位置为屏库左上角(0,0)
+(set-frame-position (selected-frame) 1060 0)
+;;设置宽和高
+(set-frame-width (selected-frame) 90)
+(set-frame-height (selected-frame) 100)

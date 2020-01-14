@@ -1433,6 +1433,11 @@ Including indent-buffer, which should not be called automatically on save."
                 (font-lock-mode 1))))
 ;; }}
 
+
+;; {{ font customize
+(set-face-attribute 'default nil :font "Monaco-15")
+;;  }}
+
 ;; {{ wgrep setup
 (eval-after-load 'wgrep
   '(progn

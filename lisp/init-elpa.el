@@ -23,6 +23,9 @@
     edit-server ; use Emacs to edit textarea in browser, need browser addon
     vimrc-mode
     rjsx-mode ; fixed the indent issue in jsx
+    lsp-treemacs
+    helm-lsp
+    tree-mode
     auto-yasnippet
     typescript-mode ; the stable version lacks important feature (highlight function names)
     dumb-jump
@@ -137,7 +140,7 @@
 (setq package-archives
       '(("localelpa" . "~/.emacs.d/localelpa/")
         ;; uncomment below line if you need use GNU ELPA
-        ;; ("gnu" . "https://elpa.gnu.org/packages/")
+        ("gnu" . "https://elpa.gnu.org/packages/")
         ;; ("melpa" . "https://melpa.org/packages/")
         ;; ("melpa-stable" . "https://stable.melpa.org/packages/")
 
@@ -146,8 +149,10 @@
 
         ;; ;; {{ Option 1: 163 mirror repository:
         ;; ;; ("gnu" . "https://mirrors.163.com/elpa/gnu/")
-        ("melpa" . "https://mirrors.163.com/elpa/melpa/")
-        ("melpa-stable" . "https://mirrors.163.com/elpa/melpa-stable/")
+        ;; ("melpa" . "https://mirrors.163.com/elpa/melpa/")
+        ;; ("melpa-stable" . "https://mirrors.163.com/elpa/melpa-stable/")
+        ("melpa" . "https://elpa.emacs-china.org/melpa/")
+        ("melpa-stable" . "https://elpa.emacs-china.org/melpa-stable/")
         ;; ;; }}
 
         ;; {{ Option 2: tsinghua mirror repository
@@ -257,6 +262,10 @@ PACKAGE is a symbol, VERSION is a vector as produced by `version-to-list', and
 (require-package 'fringe-helper)
 (require-package 'gitignore-mode)
 (require-package 'gitconfig-mode)
+(require-package 'lsp-mode)
+(require-package 'lsp-ui)
+(require-package 'company-lsp)
+(require-package 'dap-mode)
 (require-package 'gist)
 (require-package 'wgrep)
 (require-package 'request)

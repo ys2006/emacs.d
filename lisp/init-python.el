@@ -1,33 +1,85 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
-
+;; (require 'pyenv-mode-auto)
 (use-package elpy
-    :init
-    (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
-    :bind (:map elpy-mode-map
-	      ("<M-left>" . nil)
-	      ("<M-right>" . nil)
-	      ("<M-S-left>" . elpy-nav-indent-shift-left)
-	      ("<M-S-right>" . elpy-nav-indent-shift-right)
-	      ("M-." . elpy-goto-definition)
-	      ("M-," . pop-tag-mark))
-    :config
-    (setq elpy-rpc-backend "jedi"))
+  :ensure t
+  :commands elpy-enable
+  :init (with-eval-after-load 'python (elpy-enable))
+
+  :config
+  (electric-indent-local-mode -1)
+  (delete 'elpy-module-highlight-indentation elpy-modules)
+  (delete 'elpy-module-flymake elpy-modules)
+
+  (defun ha/elpy-goto-definition ()
+    (interactive)
+    (condition-case err
+        (elpy-goto-definition)
+      ('error (xref-find-definitions (symbol-name (symbol-at-point))))))
+
+  :bind (:map elpy-mode-map ([remap elpy-goto-definition] .
+                             ha/elpy-goto-definition)))
+;; (use-package elpy
+;;     :init
+;;     (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
+;;     :bind (:map elpy-mode-map
+;; 	      ("<M-left>" . nil)
+;; 	      ("<M-right>" . nil)
+;; 	      ("<M-S-left>" . elpy-nav-indent-shift-left)
+;; 	      ("<M-S-right>" . elpy-nav-indent-shift-right)
+;; 	      ("M-." . elpy-goto-definition)
+;; 	      ("M-," . pop-tag-mark))
+;;     :config
+;;     (setq elpy-rpc-backend "jedi"))
+
+;; https://github.com/emacs-lsp/lsp-python-ms
+(use-package lsp-python-ms
+  :ensure t
+  :hook (python-mode . (lambda ()
+                          (require 'lsp-python-ms)
+                          (lsp-deferred))))  ; or lsp-deferred
 
 (use-package python
   :mode ("\\.py" . python-mode)
+        ("\\.wsgi$" . python-mode)
+  :interpreter ("python" . python-mode)
+  :init
+  (setq-default indent-tabs-mode nil)
   :config
-  (setq python-indent-offset 4)
-  (elpy-enable))
+  (setq python-indent-offset 4))
 
 (use-package pyenv-mode
+  :commands pyenv-mode
   :init
   (add-to-list 'exec-path "/Users/dylan/install/pyenv/shims")
   ;; (setenv "WORKON_HOME" "/Users/dylan/install/pyenv/versions/")
   (setenv "WORKON_HOME" "/Users/dylan/install/pyenv/versions/3.6.8/envs/")
-  :config
-  (pyenv-mode)
   :bind
   ("C-x p e" . pyenv-activate-current-project))
+
+;; (use-package pyenv-mode-auto
+;;   :ensure t)
+
+;;(use-package jedi
+;;  :ensure t
+;;  :init
+;;  (with-eval-after-load 'company 
+;;     (add-to-list 'company-backends 'company-jedi))
+;;  :config
+;;(use-package company-jedi
+;;    :ensure t
+;;    :init
+;;    (add-hook 'python-mode-hook (lambda () (add-to-list 'company-backends 'company-jedi)))
+;;    (setq company-jedi-python-bin "python")))
+
+;; (use-package anaconda-mode
+;;   :ensure t
+;;   :init (add-hook 'python-mode-hook 'anaconda-mode)
+;;         (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
+;;   :config (use-package company-anaconda
+;;             :ensure t
+;;             :init (add-hook 'python-mode-hook 'anaconda-mode)
+;;             (eval-after-load "company"
+;;               '(add-to-list 'company-backends '(company-anaconda :with company-capf)))))
 
 (defun pyenv-activate-current-project ()
   "Automatically activates pyenv version if .python-version file exists."
