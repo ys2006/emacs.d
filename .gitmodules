@@ -22,3 +22,12 @@
 [submodule "site-lisp/org-opml"]
 	path = site-lisp/org-opml
 	url = https://github.com/org-opml/org-opml.git
+[submodule "site-lisp/lsp-treemacs"]
+	path = site-lisp/lsp-treemacs
+	url = https://github.com/emacs-lsp/lsp-treemacs.git
+[submodule "site-lisp/pyenv-mode-auto"]
+	path = site-lisp/pyenv-mode-auto
+	url = https://github.com/ssbb/pyenv-mode-auto.git
+[submodule "site-lisp/tree-mode"]
+	path = site-lisp/tree-mode
+	url = https://github.com/emacsorphanage/tree-mode.git
