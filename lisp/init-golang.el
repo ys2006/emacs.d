@@ -1,6 +1,5 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
-
 ;; @see https://johnsogg.github.io/emacs-golang
 ;; Define function to call when go-mode loads
 (defun my-go-mode-hook ()

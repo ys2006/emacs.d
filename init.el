@@ -23,6 +23,12 @@
 
 ;; (setq url-using-proxy t)
 ;; (setq url-proxy-services
+;;     '(("http"     . "127.0.0.1:1086")
+;;       ("https"    . "127.0.0.1:1086")
+;;       ("ftp"      . "127.0.0.1:1086")
+;;       ("no_proxy" . "^\\(localhost\\|10.*\\)")))
+
+;; (setq url-proxy-services
 ;;     '(("http"     . "cn-proxy.cn.oracle.com:80")
 ;;       ("https"    . "cn-proxy.cn.oracle.com:80")
 ;;       ("ftp"      . "cn-proxy.cn.oracle.com:80")
@@ -33,6 +39,7 @@
 ;;       ("https"    . "www-proxy.us.oracle.com:80")
 ;;       ("ftp"      . "www-proxy.us.oracle.com:80")
 ;;       ("no_proxy" . "^\\(localhost\\|10.*\\)")))
+
 
 ;; Using daemon mode @See https://stackoverflow.com/questions/25044592/use-gui-emacs-on-os-x-when-opening-files-with-emacsclient
 ;; (server-start)
@@ -64,7 +71,10 @@
 (setq *emacs26* (>= emacs-major-version 26))
 (setq *no-memory* (cond
                    (*is-a-mac*
-                    (< (string-to-number (nth 1 (split-string (shell-command-to-string "sysctl hw.physmem")))) 4000000000))
+                    ;; @see https://discussions.apple.com/thread/1753088
+                    ;; "sysctl -n hw.physmem" does not work
+                    (<= (string-to-number (shell-command-to-string "sysctl -n hw.memsize"))
+                        (* 4 1024 1024)))
                    (*linux* nil)
                    (t nil)))
 
@@ -132,8 +142,7 @@
   (require-init 'init-javascript t)
   (require-init 'init-org t)
   (require-init 'init-css t)
-  (require-init 'init-python t)
-  (require-init 'init-java t)
+  (require-init 'init-lsp t)
   (require-init 'init-ruby-mode t)
   (require-init 'init-lisp t)
   (require-init 'init-elisp t)
