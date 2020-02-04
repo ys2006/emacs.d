@@ -89,6 +89,11 @@
 ;; {{ find-file-in-project (ffip)
 (eval-after-load 'find-file-in-project
   '(progn
+     (defun my-search-git-reflog-code ()
+       (let* ((default-directory (locate-dominating-file default-directory ".git")))
+         (ffip-shell-command-to-string (format "git --no-pager reflog --date=short -S\"%s\" -p"
+                                               (read-string "Regex: ")))))
+     (push 'my-search-git-reflog-code ffip-diff-backends)
      (setq ffip-match-path-instead-of-filename t)))
 
 (defun neotree-project-dir ()
@@ -897,14 +902,6 @@ If no region is selected. You will be asked to use `kill-ring' or clipboard inst
                   (list 'mocha "at [^()]+ (\\([^:]+\\):\\([^:]+\\):\\([^:]+\\))" 1 2 3))
      (add-to-list 'compilation-error-regexp-alist 'mocha)))
 
-(defun pickup-random-color-theme (themes)
-  "Pickup random color theme from themes."
-  (my-ensure 'counsel)
-  (let* ((available-themes (mapcar 'symbol-name themes))
-         (theme (nth (random (length available-themes)) available-themes)))
-    (counsel-load-theme-action theme)
-    (message "Color theme [%s] loaded." theme)))
-
 ;; ;; useless and hard to debug
 ;; (defun optimize-emacs-startup ()
 ;;   "Speedup emacs startup by compiling."
@@ -917,11 +914,6 @@ If no region is selected. You will be asked to use `kill-ring' or clipboard inst
 ;;         (let* ((default-directory dir))
 ;;           (byte-compile-file (file-truename f) t))))))
 
-;; random color theme
-(defun random-color-theme ()
-  "Random color theme."
-  (interactive)
-  (pickup-random-color-theme (custom-available-themes)))
 
 (setq jiralib-url "https://jira.oraclecorp.com")
 
@@ -967,53 +959,9 @@ If no region is selected. You will be asked to use `kill-ring' or clipboard inst
     )
 ;; }}
 
-(defun move-line (n)
-  "Move the current line up or down by N lines."
-  (interactive "p")
-  (setq col (current-column))
-  (beginning-of-line) (setq start (point))
-  (end-of-line) (forward-char) (setq end (point))
-  (let ((line-text (delete-and-extract-region start end)))
-    ;; (forward-line n)
-    (forward-line 130)
-    (insert line-text)
-    ;; restore point to original column in moved line
-    (forward-line -1)
-    (forward-char col)))
-
-(defun move-line-up (n)
-  "Move the current line up by N lines."
-  (interactive "p")
-  (move-line (if (null n) -1 (- n))))
-
-(defun move-line-down (n)
-  "Move the current line down by N lines."
-  (interactive "p")
-  (move-line (if (null n) 1 n)))
-
-(defun org-table-move-row-to-table-end ()
-  "Move the current table line all the way down."
-  (interactive)
-  (while (org-at-table-p)
-    (org-table-move-row-down)))
-
-(defun random-healthy-color-theme (join-dark-side)
-  "Random healthy color theme.
-When join-dark-side is t, pick up dark theme only."
-  (interactive "P")
-  (let* (themes
-         (hour (string-to-number (format-time-string "%H" (current-time))))
-         (prefer-light-p (and (not join-dark-side) (>= hour 9) (<= hour 19)) ))
-    (dolist (theme (custom-available-themes))
-      (let* ((light-theme-p (or (string-match-p "-light" (symbol-name theme))
-                                (member theme '(leuven)))))
-        (when (if prefer-light-p light-theme-p (not light-theme-p))
-          (push theme themes))))
-  (pickup-random-color-theme themes)))
-
 (defun switch-to-builtin-shell ()
   "Switch to builtin shell.
-If the shell is already opend in some buffer, open that buffer."
+If the shell is already opened in some buffer, switch to that buffer."
   (interactive)
   (let* ((buf-name (if *win64* "*shell*" "*ansi-term"))
          (buf (get-buffer buf-name))
@@ -1261,13 +1209,6 @@ version control automatically."
 
 (add-auto-mode 'tcl-mode "Portfile\\'")
 
-;; someone mentioned that blink cursor could slow Emacs24.4
-;; I couldn't care less about cursor, so turn it off explicitly
-;; https://github.com/redguardtoo/emacs.d/issues/208
-;; but somebody mentioned that blink cursor is needed in dark theme
-;; so it should not be turned off by default
-;; (blink-cursor-mode -1)
-
 (defun create-scratch-buffer ()
   "Create a new scratch buffer."
   (interactive)
@@ -1367,8 +1308,6 @@ Including indent-buffer, which should not be called automatically on save."
               (cons '(pomodoro-mode-line-string pomodoro-mode-line-string)
                     mode-line-format))))
 
-;; Add Posframe as popup @See https://github.com/tumashu/posframe
-(require 'posframe)
 (unless (featurep 'pomodoro)
   (require 'pomodoro)
   (pomodoro-add-to-mode-line))
@@ -1473,5 +1412,13 @@ Including indent-buffer, which should not be called automatically on save."
 (setq which-key-separator ":")
 (which-key-mode 1)
 ;; }}
+
+;; {{ eldoc
+(eval-after-load 'eldoc
+  '(progn
+     ;; multi-line message should not display too soon
+     (setq eldoc-idle-delay 1)
+     (setq eldoc-echo-area-use-multiline-p t)))
+;;}}
 
 (provide 'init-misc)
