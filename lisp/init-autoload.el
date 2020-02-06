@@ -67,6 +67,7 @@
 (autoload 'dropdown-list "dropdown-list" "")
 (autoload 'magit-commit-popup "magit" "")
 (autoload 'magit-commit-popup "magit" "")
+(autoload 'lsp-deferred "lsp" "" t)
 (autoload 'lsp-ui-mode "lsp-ui" "" t)
 (autoload 'company-lsp "company-lsp" "" t)
 (autoload 'lsp-treemacs-errors-list "lsp-treemacs")
