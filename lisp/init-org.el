@@ -179,6 +179,9 @@ It's value could be customized liked \"/usr/bin/firefox\".
              "xelatex -interaction nonstopmode -output-directory %o %f")) ;; org v8
      ;; }}
 
+     ;; latex preview size
+     (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
+
      ;; misc
      (setq org-log-done t
            org-completion-use-ido t

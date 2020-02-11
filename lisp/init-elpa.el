@@ -33,6 +33,7 @@
     lsp-java
     dap-java
     lsp-python-ms
+    pipenv
     tree-mode
     auto-yasnippet
     typescript-mode ; the stable version lacks important feature (highlight function names)

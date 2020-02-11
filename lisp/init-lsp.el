@@ -46,6 +46,17 @@
 (setq lsp-java-server-install-dir "/Users/dylan/install/eclipse.jdt.ls" )
 (add-hook 'java-hook '(lambda ()
                           (lsp-deferred)))  ; or lsp-deferred
+;; Python
+;; (use-package python
+;;   :mode ("\\.py" . python-mode)
+;;         ("\\.wsgi$" . python-mode)
+;;   :interpreter ("python" . python-mode)
+;;   :init
+;;   (setq-default indent-tabs-mode nil)
+;;   :config
+;;   (setq python-indent-offset 4)
+;;   ;; (when (executable-find "ipython")
+;;     (setq python-shell-interpreter "ipython"))
 
 ;; (use-package lsp-python-ms
 ;;   :ensure t
@@ -55,43 +66,65 @@
 ;;                           (require 'lsp-python-ms)
 ;;                           (lsp-deferred))))  ; or lsp-deferred
 ;; Config lsp-python-ms
+(setq-default indent-tabs-mode nil)
 (setq lsp-python-ms-executable "~/install/python-language-server/output/bin/Release/osx-x64/publish/Microsoft.Python.LanguageServer")
-(add-hook 'python-hook '(lambda ()
-                          (require 'lsp-python-ms)
-                          (lsp-deferred)))  ; or lsp-deferred
-;; Python
-(use-package elpy
-  :ensure t
-  :commands elpy-enable
-  :init (with-eval-after-load 'python (elpy-enable))
-  :config
-  (electric-indent-local-mode -1)
-  (delete 'elpy-module-highlight-indentation elpy-modules)
-  (delete 'elpy-module-flymake elpy-modules)
-  (when (executable-find "ipython")
-    (setq python-shell-interpreter "ipython"
-          elpy-shell-echo-output nil
-          python-shell-interpreter-args "-i --simple-prompt")))
-
-;; (use-package python
-;;   :mode ("\\.py" . python-mode)
-;;         ("\\.wsgi$" . python-mode)
-;;   :interpreter ("python" . python-mode)
-;;   :init
-;;   (setq-default indent-tabs-mode nil)
+(add-hook 'python-mode-hook '(lambda ()
+                        (pipenv-activate)
+                        (setq python-indent-offset 4)
+                        (setq python-shell-interpreter "ipython")
+                        ;; (setq python-shell-interpreter "jupyter-console")
+                        (setq python-shell-interpreter-args "--simple-prompt -i")
+                        (require 'lsp-python-ms)
+                        (lsp-deferred)))  ; or lsp-deferred
+(use-package pipenv
+    :ensure t
+    :init
+    (setq
+     pipenv-projectile-after-switch-function
+     #'pipenv-projectile-after-switch-extended))
+;; Elpy
+;; (use-package elpy
+;;   :ensure t
+;;   :commands elpy-enable
+;;   :init (with-eval-after-load 'python (elpy-enable))
 ;;   :config
-;;   (setq python-indent-offset 4)
-;;   (when (executable-find "ipython")
-;;     (setq python-shell-interpreter "ipython")))
+;;   (electric-indent-local-mode -1)
+;;   (delete 'elpy-module-highlight-indentation elpy-modules)
+;;   (delete 'elpy-module-flymake elpy-modules)
+;;   (setq python-shell-interpreter "ipython"
+;;         elpy-shell-echo-output nil
+;;         ;; python-shell-prompt-detect-failure-warning nil
+;;         python-shell-interpreter-args "-i --simple-prompt"))
+;; Elpy
+;; The author of elpy suggests doing this via an advice, because elpy-enable modifies the python-mode-hook variable, so calling it inside the mode-hook is too late:
+;; https://github.com/jorgenschaefer/elpy/wiki/Configuration
+;; (advice-add 'python-mode :before 'elpy-enable)
+;; (eval-after-load 'elpy
+;;   '(progn
+;;         (electric-indent-local-mode -1)
+;;         (delete 'elpy-module-highlight-indentation elpy-modules)
+;;         (delete 'elpy-module-flymake elpy-modules)
+;;         (setq python-shell-interpreter "ipython"
+;;         elpy-shell-echo-output nil
+;;         ;; python-shell-prompt-detect-failure-warning nil
+;;         python-shell-interpreter-args "-i --simple-prompt")))
 
-(use-package pyenv-mode
-  :commands pyenv-mode
-  :init
-  (add-to-list 'exec-path "/Users/dylan/install/pyenv/shims")
+
+;; (use-package pyenv-mode
+;;   :commands pyenv-mode
+;;   :init
+  ;; (add-to-list 'exec-path "/Users/dylan/install/pyenv/shims"))
   ;; (setenv "WORKON_HOME" "/Users/dylan/install/pyenv/versions/")
-  (setenv "WORKON_HOME" "/Users/dylan/install/pyenv/versions/3.6.8/envs/"))
+  ;; (setenv "WORKON_HOME" "/Users/dylan/install/pyenv/versions/3.6.8/envs/"))
   ;; :bind
   ;; ("C-x p e" . pyenv-activate-current-project))
+
+(eval-after-load 'pyenv
+  '(progn
+    (setq pyenv-use-alias 't)
+    (setq pyenv-modestring-prefix "□ ")
+    (setq pyenv-modestring-postfix nil)
+    (setq pyenv-set-path nil)))
 
 ;; (defun pyenv-activate-current-project ()
 ;;   "Automatically activates pyenv version if .python-version file exists."

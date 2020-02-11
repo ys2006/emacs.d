@@ -45,6 +45,12 @@
                ;; makefile
                "\\.ninja$" )
 
+(add-auto-mode 'python-mode
+               ;; python
+               "\\.py\\'"
+               ;; wsgi
+               "\\.wsgi$" )
+
 ;; {{ support MY packages which are not included in melpa
 (setq org2nikola-use-verbose-metadata t) ; for nikola 7.7+
 ;; }}

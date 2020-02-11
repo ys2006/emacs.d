@@ -71,6 +71,7 @@
 (autoload 'lsp-ui-mode "lsp-ui" "" t)
 (autoload 'company-lsp "company-lsp" "" t)
 (autoload 'lsp-treemacs-errors-list "lsp-treemacs")
+(autoload 'elpy-enable "elpy")
 
 ;; {{ my perforce tools
 (autoload 'p4edit "p4tools" "\
