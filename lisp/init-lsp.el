@@ -21,50 +21,24 @@
      ;; don't scan 3rd party javascript libraries
      (push "[/\\\\]\\node_modules$" lsp-file-watch-ignored)))
 
-;; (use-package lsp-ui :commands lsp-ui-mode)
-;; (use-package company-lsp :commands company-lsp)
-;; (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
+;; Lsp-ui mode
+(add-hook 'lsp-mode-hook '(lambda ()
+                          (lsp-ui-mode)))
 
-;; (use-package dap-mode
-;;   :ensure t
-;;   :after lsp-mode
-;;   :config
-;;   (dap-mode t)
-;;   (dap-ui-mode t))
+(eval-after-load 'lsp-ui-mode
+  '(progn
+     ;; enable log only for debug
+    (setq lsp-ui-sideline-ignore-duplicate t)))
+
 (with-eval-after-load 'dap-mode
    (require 'auto-complete)
    (require 'go-autocomplete))
 
 ;; Java
-;; (require 'cc-mode)
-;; (use-package lsp-java
-;;   :ensure t
-;;   :init
-;;   (setq lsp-server-install-dir "~/install/java-language-server" )
-;;   :after lsp
-;;   :config (add-hook 'java-mode-hook 'lsp))
 (setq lsp-java-server-install-dir "/Users/dylan/install/eclipse.jdt.ls" )
 (add-hook 'java-hook '(lambda ()
                           (lsp-deferred)))  ; or lsp-deferred
 ;; Python
-;; (use-package python
-;;   :mode ("\\.py" . python-mode)
-;;         ("\\.wsgi$" . python-mode)
-;;   :interpreter ("python" . python-mode)
-;;   :init
-;;   (setq-default indent-tabs-mode nil)
-;;   :config
-;;   (setq python-indent-offset 4)
-;;   ;; (when (executable-find "ipython")
-;;     (setq python-shell-interpreter "ipython"))
-
-;; (use-package lsp-python-ms
-;;   :ensure t
-;;   :init
-;;   (setq lsp-python-ms-executable "~/install/python-language-server/output/bin/Release/osx-x64/publish/Microsoft.Python.LanguageServer")
-;;   :hook (python-mode . (lambda ()
-;;                           (require 'lsp-python-ms)
-;;                           (lsp-deferred))))  ; or lsp-deferred
 ;; Config lsp-python-ms
 (setq-default indent-tabs-mode nil)
 (setq lsp-python-ms-executable "~/install/python-language-server/output/bin/Release/osx-x64/publish/Microsoft.Python.LanguageServer")
@@ -82,42 +56,6 @@
     (setq
      pipenv-projectile-after-switch-function
      #'pipenv-projectile-after-switch-extended))
-;; Elpy
-;; (use-package elpy
-;;   :ensure t
-;;   :commands elpy-enable
-;;   :init (with-eval-after-load 'python (elpy-enable))
-;;   :config
-;;   (electric-indent-local-mode -1)
-;;   (delete 'elpy-module-highlight-indentation elpy-modules)
-;;   (delete 'elpy-module-flymake elpy-modules)
-;;   (setq python-shell-interpreter "ipython"
-;;         elpy-shell-echo-output nil
-;;         ;; python-shell-prompt-detect-failure-warning nil
-;;         python-shell-interpreter-args "-i --simple-prompt"))
-;; Elpy
-;; The author of elpy suggests doing this via an advice, because elpy-enable modifies the python-mode-hook variable, so calling it inside the mode-hook is too late:
-;; https://github.com/jorgenschaefer/elpy/wiki/Configuration
-;; (advice-add 'python-mode :before 'elpy-enable)
-;; (eval-after-load 'elpy
-;;   '(progn
-;;         (electric-indent-local-mode -1)
-;;         (delete 'elpy-module-highlight-indentation elpy-modules)
-;;         (delete 'elpy-module-flymake elpy-modules)
-;;         (setq python-shell-interpreter "ipython"
-;;         elpy-shell-echo-output nil
-;;         ;; python-shell-prompt-detect-failure-warning nil
-;;         python-shell-interpreter-args "-i --simple-prompt")))
-
-
-;; (use-package pyenv-mode
-;;   :commands pyenv-mode
-;;   :init
-  ;; (add-to-list 'exec-path "/Users/dylan/install/pyenv/shims"))
-  ;; (setenv "WORKON_HOME" "/Users/dylan/install/pyenv/versions/")
-  ;; (setenv "WORKON_HOME" "/Users/dylan/install/pyenv/versions/3.6.8/envs/"))
-  ;; :bind
-  ;; ("C-x p e" . pyenv-activate-current-project))
 
 (eval-after-load 'pyenv
   '(progn
@@ -125,16 +63,6 @@
     (setq pyenv-modestring-prefix "□ ")
     (setq pyenv-modestring-postfix nil)
     (setq pyenv-set-path nil)))
-
-;; (defun pyenv-activate-current-project ()
-;;   "Automatically activates pyenv version if .python-version file exists."
-;;   (interactive)
-;;   (let ((python-version-directory (locate-dominating-file (buffer-file-name) ".python-version")))
-;;     (if python-version-directory
-;;         (let* ((pyenv-version-path (f-expand ".python-version" python-version-directory))
-;;                (pyenv-current-version (s-trim (f-read-text pyenv-version-path 'utf-8))))
-;;           (pyenv-mode-set pyenv-current-version)
-;;           (message (concat "Setting virtualenv to " pyenv-current-version))))))
 
 (defvar pyenv-current-version nil nil)
 

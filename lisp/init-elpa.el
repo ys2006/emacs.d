@@ -25,6 +25,7 @@
     rjsx-mode ; fixed the indent issue in jsx
     helm-lsp
     lsp-ui
+    lsp-imenu
     company-lsp
     lsp-treemacs
     lsp-ivy

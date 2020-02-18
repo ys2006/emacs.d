@@ -50,6 +50,11 @@
 ;;(setq tramp-default-method "ssh")
 ;;(setq tramp-chunksize 500)
 ;;(eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
+;; todo where to place these locale config?
+;; todo if not Explicitly define the locale will be en_CN which cause ipython cannot present chinese, and why?
+(setenv "LANG" "en_US.UTF-8")
+(setenv "LC_ALL" "en_US.UTF-8")
+(setenv "LC_CTYPE" "en_US.UTF-8")
 
 ;; {{ emergency security fix
 ;; https://bugs.debian.org/766397
