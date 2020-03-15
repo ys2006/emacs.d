@@ -117,9 +117,13 @@
 ;; {{ groovy-mode
 (add-auto-mode 'groovy-mode
                "\\.groovy\\'"
-               "\\.gradle\\'" )
-;; }}
+               "\\.gradle\\'")
+(add-hook 'groovy-mode-hook
+          '(lambda ()
+             (require 'gradle-mode)
+             (gradle-mode)))
 
+;; }}
 (add-auto-mode 'sh-mode
                "\\.\\(bash_profile\\|bash_history\\|sh\\|bash\\|bashrc\\.local\\|zsh\\|bashrc\\)\\'")
 
@@ -131,8 +135,12 @@
     (if root-dir
         (let* ((default-directory root-dir))
           (shell-command (concat "gradle " cmd "&"))))))
-;; }}
 
+(defun build-and-run ()
+	(interactive)
+	(gradle-run "build run"))
+;; (define-key gradle-mode-map (kbd "C-c C-r") 'build-and-run)
+;; }}
 ;; cmake
 (add-auto-mode 'cmake-mode
                "CMakeLists\\.txt\\'"
@@ -185,7 +193,7 @@
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-m") 'counsel-M-x)
 
-(defvar my-do-bury-compliation-buffer t
+(defvar my-do-bury-compliation-buffer nil
   "Hide comliation buffer if compile successfully.")
 
 (defun compilation-finish-hide-buffer-on-success (buffer str)
@@ -241,6 +249,10 @@ This function can be re-used by other major modes after compilation."
 
     (setq-default electric-pair-inhibit-predicate 'my-electric-pair-inhibit)
     (electric-pair-mode 1)
+    ;; (defvar java-electric-pairs '((?/< . ?/>)) "Electric pairs for java-mode." )
+    (defvar java-electric-pairs '((?/ . ?/) (?< . ?>)) "Electric pairs for org-mode.")
+    (setq-local electric-pair-pairs (append electric-pair-pairs java-electric-pairs))
+    (setq-local electric-pair-text-pairs electric-pair-pairs)
 
     ;; eldoc, show API doc in minibuffer echo area
     ;; (turn-on-eldoc-mode)
@@ -959,8 +971,8 @@ If no region is selected. You will be asked to use `kill-ring' or clipboard inst
       "run MindNote on the current file and revert the buffer"
       (interactive)
       (execute-kbd-macro (kbd "C-c C-e m"))
-      (shell-command 
-       (format "open -a /Applications/MindNode.app %s"  
+      (shell-command
+       (format "open -a /Applications/MindNode.app %s"
            (shell-quote-argument (concat (file-name-directory buffer-file-name) "export_opml/" (file-name-sans-extension (file-name-nondirectory buffer-file-name)) ".opml"))))
     )
 ;; }}

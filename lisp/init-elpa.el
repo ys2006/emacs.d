@@ -33,6 +33,7 @@
     lsp-mode
     lsp-java
     dap-java
+    gradle-mode
     lsp-python-ms
     pipenv
     tree-mode

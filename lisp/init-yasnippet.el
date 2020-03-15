@@ -13,6 +13,8 @@
 (add-hook 'web-mode-hook 'yasnippet-generic-setup-for-mode-hook)
 (add-hook 'scss-mode-hook 'yasnippet-generic-setup-for-mode-hook)
 (add-hook 'org-mode-hook 'yasnippet-generic-setup-for-mode-hook)
+;; (add-hook 'python-mode-hook 'yasnippet-generic-setup-for-mode-hook)
+;; (add-hook 'java-mode-hook 'yasnippet-generic-setup-for-mode-hook)
 ;; }}
 
 (defun my-yas-reload-all ()
@@ -70,7 +72,6 @@
   (let* ((rlt (replace-regexp-in-string "'" "\\\\'" s)))
     (setq rlt (replace-regexp-in-string "\"" "\\\\\"" rlt))
     rlt))
-
 (defun my-read-n-from-kill-ring ()
   (let* ((cands (subseq kill-ring 0 (min (read-number "fetch N `kill-ring'?" 1)
                                          (length kill-ring)))))
