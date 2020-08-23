@@ -31,3 +31,6 @@
 [submodule "site-lisp/tree-mode"]
 	path = site-lisp/tree-mode
 	url = https://github.com/emacsorphanage/tree-mode.git
+[submodule "site-lisp/dap-mode"]
+	path = site-lisp/dap-mode
+	url = https://github.com/emacs-lsp/dap-mode.git
