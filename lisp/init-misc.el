@@ -249,7 +249,7 @@ This function can be re-used by other major modes after compilation."
 
     (setq-default electric-pair-inhibit-predicate 'my-electric-pair-inhibit)
     (electric-pair-mode 1)
-    ;; (defvar java-electric-pairs '((?/< . ?/>)) "Electric pairs for java-mode." )
+    ;; dylan enable <> auto pair
     (defvar java-electric-pairs '((?/ . ?/) (?< . ?>)) "Electric pairs for org-mode.")
     (setq-local electric-pair-pairs (append electric-pair-pairs java-electric-pairs))
     (setq-local electric-pair-text-pairs electric-pair-pairs)

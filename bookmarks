@@ -1,62 +1,137 @@
-;;;; Emacs Bookmark Format Version 1 ;;;; -*- coding: utf-8-emacs -*- 
+;;;; Emacs Bookmark Format Version 1 ;;;; -*- coding: utf-8-emacs -*-
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("snippets-java"
+(("Runnable java 11"
+ (filename . "~/doReading/Java/jdk11-1ddf9a99e4ad/src/java.base/share/classes/java/lang/Runnable.java")
+ (front-context-string . "ction whatsoever")
+ (rear-context-string . "    * take any a")
+ (position . 2933))
+("k8s pod type"
+ (filename . "~/doReading/Go/kubernetes/staging/src/k8s.io/apiserver/pkg/apis/example/v1/types.go")
+ (front-context-string . "Pod struct {\n	me")
+ (rear-context-string . "ist, get).\ntype ")
+ (position . 932))
+("k8s pod status"
+ (filename . "~/doReading/Go/kubernetes/staging/src/k8s.io/api/core/v1/types.go")
+ (front-context-string . "(\n	// PodPending")
+ (rear-context-string . " of pods.\nconst ")
+ (position . 128159))
+("k8s types"
+ (filename . "~/doReading/Go/kubernetes/staging/src/k8s.io/api/core/v1/types.go")
+ (front-context-string . "// PersistentVol")
+ (rear-context-string . "runtime.Object\n\n")
+ (position . 24926))
+("Graphic-muiltiThread src code"
+ (filename . "~/doReading/Java/Graphic-MuiltiThread/src/Introduction1/jucThreadFactory/Main.java")
+ (front-context-string . "n {\n    public s")
+ (rear-context-string . "public class Mai")
+ (position . 100))
+("linux kernel 4.16.9"
+ (filename . "~/doReading/linux/linux-4.16.9/Makefile")
+ (front-context-string . "# SPDX-License-I")
+ (rear-context-string)
+ (position . 1))
+("LinkedList.java jdk11"
+ (filename . "~/doReading/Java/jdk11-1ddf9a99e4ad/src/java.base/share/classes/java/util/LinkedList.java")
+ (front-context-string . "/*\n * Copyright ")
+ (rear-context-string)
+ (position . 1))
+("Stack.java jdk11"
+ (filename . "~/doReading/Java/jdk11-1ddf9a99e4ad/src/java.base/share/classes/java/util/Stack.java")
+ (front-context-string . " * DO NOT ALTER ")
+ (rear-context-string . "ights reserved.\n")
+ (position . 84))
+("String.java jdk11"
+ (filename . "~/doReading/Java/jdk11-1ddf9a99e4ad/src/java.base/share/classes/java/lang/String.java")
+ (front-context-string . "String\n    imple")
+ (rear-context-string . "lic final class ")
+ (position . 5408))
+("emacs home"
+ (filename . "~/.emacs.d/")
+ (front-context-string . "bk.org\n  -rw-r--")
+ (rear-context-string . "39 May 28  2019 ")
+ (position . 1047))
+("leetcode test case"
+ (filename . "~/doCoding/leetcode/src/test/java/leetcode/AppTest.java")
+ (front-context-string . "ex].trim();\n			o")
+ (rear-context-string . "part = parts[ind")
+ (position . 1763))
+("leetcode implement"
+ (filename . "~/doCoding/leetcode/src/main/java/leetcode/")
+ (front-context-string . "AddTwoNumbers.ja")
+ (rear-context-string . "96 Apr 12 16:07 ")
+ (position . 237))
+("mm"
+ (filename . "~/.emacs.d/lisp/init-lsp.el")
+ (front-context-string . "hook 'java-mode-")
+ (rear-context-string . " #'lsp)\n(remove-")
+ (position . 5985))
+("Unsafe jdk11"
+ (filename . "~/doReading/Java/jdk11-1ddf9a99e4ad/src/java.base/share/classes/jdk/internal/misc/Unsafe.java")
+ (front-context-string . "/*\n * Copyright ")
+ (rear-context-string)
+ (position . 1))
+("ThreadLocal jdk11"
+ (filename . "~/doReading/Java/jdk11-1ddf9a99e4ad/src/java.base/share/classes/java/lang/ThreadLocal.java")
+ (front-context-string . " *\n * This code ")
+ (rear-context-string . "IS FILE HEADER.\n")
+ (position . 149))
+("AtomicInteger jdk11"
+ (filename . "~/doReading/Java/jdk11-1ddf9a99e4ad/src/java.base/share/classes/java/util/concurrent/atomic/AtomicInteger.java")
+ (front-context-string . " * tools and uti")
+ (rear-context-string . "iform access by\n")
+ (position . 2128))
+("concurrentHashMap jdk11"
+ (filename . "~/doReading/Java/jdk11-1ddf9a99e4ad/src/java.base/share/classes/java/util/concurrent/ConcurrentHashMap.java")
+ (front-context-string . "     * progress.")
+ (rear-context-string . " resizes are in\n")
+ (position . 18995))
+("Objects jdk11"
+ (filename . "~/doReading/Java/jdk11-1ddf9a99e4ad/src/java.base/share/classes/java/util/Objects.java")
+ (front-context-string . "/*\n * Copyright ")
+ (rear-context-string)
+ (position . 1))
+("HashMap jdk11"
+ (filename . "~/doReading/Java/jdk11-1ddf9a99e4ad/src/java.base/share/classes/java/util/HashMap.java")
+ (front-context-string . "}\n        ++modC")
+ (rear-context-string . "      }\n        ")
+ (position . 27135))
+("TreeMap-java11"
+ (filename . "~/doReading/Java/jdk11-1ddf9a99e4ad/src/java.base/share/classes/java/util/TreeMap.java")
+ (front-context-string . "    * Comparable")
+ (rear-context-string . "ent the {@link\n ")
+ (position . 6236))
+("jdk11 root"
+ (filename . "~/doReading/Java/jdk11-1ddf9a99e4ad/Makefile")
+ (front-context-string . "# or visit www.o")
+ (rear-context-string . "s, CA 94065 USA\n")
+ (position . 959))
+("snippets-java"
  (filename . "~/.emacs.d/elpa/yasnippet-snippets-0.20/snippets/java-mode/")
  (front-context-string . "define test meth")
  (rear-context-string . "56 Feb 22 22:30 ")
  (position . 520))
 ("bots-components"
- (filename . "~/projects/bots/common.gradle")
+ (filename . "~/doProjects/bots/common.gradle")
  (front-context-string . "stanford.nlp:sta")
  (rear-context-string . "           \"edu.")
  (position . 16754))
-("LinkedList.java"
- (filename . "~/reading/Java/jdk8u60/jdk/src/share/classes/java/util/LinkedList.java")
- (front-context-string . "/*\n * Copyright ")
- (rear-context-string)
- (position . 1))
-("Object.java"
- (filename . "~/reading/Java/jdk8u60/jdk/src/share/classes/java/lang/Object.java")
- (front-context-string . "/*\n * Copyright ")
- (rear-context-string)
- (position . 1))
-("String.java"
- (filename . "~/reading/Java/jdk8u60/jdk/src/share/classes/java/lang/String.java")
- (front-context-string . ";\n            in")
- (rear-context-string . "(String)anObject")
- (position . 38251))
-("Enum.java"
- (filename . "~/reading/Java/jdk8u60/jdk/src/share/classes/java/lang/Enum.java")
- (front-context-string . "*\n * Copyright (")
- (rear-context-string)
- (position . 2))
-("jdk-folder-root"
- (filename . "~/reading/Java/jdk8u60/get_source.sh")
- (front-context-string . "fi\n\n\n# Request\ni")
- (rear-context-string . "ion $hgversion\"\n")
- (position . 2559))
 ("coding training"
  (filename . "~/recipes/cookbooks/codes.org")
  (front-context-string . "a\npublic boolean")
  (rear-context-string . "\n#+BEGIN_SRC jav")
  (position . 28500))
-("jdk-javac"
- (filename . "~/reading/Java/jdk8u60/langtools/src/share/classes/com/sun/tools/javac/Main.java")
- (front-context-string . "/*\n * Copyright ")
- (rear-context-string)
- (position . 1))
 ("org-refile-last-stored"
  (filename . "~/recipes/agenda/task.org")
  (front-context-string . "** TODO [#A] tra")
  (rear-context-string . "件scratch on mac\n")
  (position . 8727))
 ("org-capture-last-stored"
- (filename . "~/recipes/agenda/task.org")
- (front-context-string . "** TODO [#B] wri")
- (rear-context-string . " 更改Gmail背景色，字体\n\n")
- (position . 2565))
+ (filename . "~/doRecipes/agenda/task.org")
+ (front-context-string . "** TODO [#B] lea")
+ (rear-context-string . " Oracle OCI  n\n\n")
+ (position . 2751))
 #1=(#("程序员的数学-线性代数" 0 11
       (bmkp-full-record #1#))
     (filename . "   - no file -")

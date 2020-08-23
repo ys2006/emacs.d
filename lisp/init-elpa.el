@@ -101,7 +101,6 @@
     mwe-log-commands
     yaml-mode
     flymake-go
-    go-guru
     flycheck
     py-autopep8
     autocomplete

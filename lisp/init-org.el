@@ -241,7 +241,7 @@ It's value could be customized liked \"/usr/bin/firefox\".
 
 ;; 这边就是为路径赋值
 (defvar org-agenda-dir "" "gtd org files location")
-  (setq-default org-agenda-dir "~/recipes/agenda/")
+  (setq-default org-agenda-dir "~/doRecipes/agenda/")
   (setq org-agenda-file-note (expand-file-name "inbox.org" org-agenda-dir))
   (setq org-agenda-file-task (expand-file-name "task.org" org-agenda-dir))
   (setq org-agenda-file-calendar (expand-file-name "calendar.org" org-agenda-dir))

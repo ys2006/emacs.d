@@ -187,6 +187,7 @@
   (require-init 'init-essential)
   ;; handy tools though not must have
   (require-init 'init-misc t)
+  ;; (require-init 'init-use-package)
 
   (require-init 'init-emacs-w3m t)
   (require-init 'init-shackle t)
@@ -200,7 +201,7 @@
   ;; (require-init 'init-emacs-eww t)
   ;; (require-init 'init-leetcode t)
   (require-init 'init-encoding)
-  (require-init 'init-golang t)
+  ;; (require-init 'init-golang t)
   ;; ediff configuration should be last so it can override
   ;; the key bindings in previous configuration
   (require-init 'init-ediff)
