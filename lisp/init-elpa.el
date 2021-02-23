@@ -377,7 +377,7 @@ PACKAGE is a symbol, VERSION is a vector as produced by `version-to-list', and
 (require-package 'iedit)
 (require-package 'magit)
 (require-package 'org-jira)
-(require-package 'ensime)
+;; (require-package 'ensime)
 (require-package 'ace-pinyin)
 (require-package 'bash-completion)
 (require-package 'websocket) ; for debug debugging of browsers
