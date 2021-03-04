@@ -23,18 +23,20 @@
     edit-server ; use Emacs to edit textarea in browser, need browser addon
     vimrc-mode
     rjsx-mode ; fixed the indent issue in jsx
+    ;; {{ lsp mode
     helm-lsp
     lsp-ui
     lsp-imenu
-    company-lsp
+    ;; company-lsp
     lsp-treemacs
     lsp-ivy
     dap-mode
     lsp-mode
     lsp-java
     dap-java
-    gradle-mode
     lsp-python-ms
+    ;; }}
+    gradle-mode
     pipenv
     tree-mode
     auto-yasnippet
@@ -273,12 +275,6 @@ PACKAGE is a symbol, VERSION is a vector as produced by `version-to-list', and
 (require-package 'fringe-helper)
 (require-package 'gitignore-mode)
 (require-package 'gitconfig-mode)
-;; Use the un-stable version to get the latest one
-;; (require-package 'company-lsp)
-;; (require-package 'lsp-mode)
-;; (require-package 'lsp-ui)
-;; (require-package 'lsp-java)
-;; (require-package 'dap-mode)
 (require-package 'gist)
 (require-package 'wgrep)
 (require-package 'request)
@@ -348,6 +344,17 @@ PACKAGE is a symbol, VERSION is a vector as produced by `version-to-list', and
 (require-package 'company-c-headers)
 (require-package 'company-ctags)
 (require-package 'company-statistics)
+
+;; {{ Lsp mode
+;; Use the un-stable version to get the latest one
+;; (require-package 'company-lsp)
+(require-package 'lsp-mode)
+(require-package 'lsp-java)
+;; (require-package 'lsp-ui)
+;; (require-package 'dap-mode)
+(require-package 'tree-sitter)
+(require-package 'tree-sitter-langs)
+;; }}
 (require-package 'elpy)
 (require-package 'pyenv-mode)
 (require-package 'legalese)
