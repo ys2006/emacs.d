@@ -3,14 +3,14 @@
 (local-require 'keyfreq)
 
 (defun turnon-keyfreq-mode ()
+  "Turn on keyfreq."
   (interactive)
-  (keyfreq-mode 1)
-  (keyfreq-autosave-mode 1))
+  ;; Fire up keyfreq a few seconds later to start up emacs faster
+  (my-run-with-idle-timer 4 (lambda ()
+                               (keyfreq-mode 1)
+                               (keyfreq-autosave-mode 1))))
 
-(defun turnoff-keyfreq-mode ()
-  (interactive)
-  (keyfreq-mode -1)
-  (keyfreq-autosave-mode -1))
+(with-eval-after-load 'keyfreq
 
 (setq keyfreq-excluded-commands
       '(self-insert-command
@@ -37,7 +37,7 @@
         diredp-next-line
         diredp-previous-line
         electric-pair-delete-pair
-        erase-message-buffer
+        shellcop-erase-buffer
         eval-buffer
         evil-a-WORD
         evil-append
@@ -240,10 +240,7 @@
         yas-next-field-or-maybe-expand
         ))
 
-(unless (file-exists-p (file-truename keyfreq-file))
-  (with-temp-buffer
-    (insert "()")
-    (write-file (file-truename keyfreq-file))))
+  (my-write-to-missing-file "()" keyfreq-file))
 
 ;; And use keyfreq-show to see how many times you used a command.
 ;; It's recommended to use `keyfreq-mode' (could be in "~/.custom.el").

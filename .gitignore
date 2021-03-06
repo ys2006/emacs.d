@@ -1,4 +1,5 @@
 request/
+.cache
 .depend
 pyim/
 anaconda-mode/
@@ -41,7 +42,7 @@ TAGS
 GTAGS
 GPATH
 GRTAGS
-.emacs.d/emms/
+emms/
 tutorial/
 /var
 org-clock-save.el
@@ -66,3 +67,6 @@ network-security.data
 *.ogg
 nov-places
 transient/
+elpy/
+package-quickstart.el
+.lsp-session*

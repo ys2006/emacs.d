@@ -21,4 +21,4 @@
     (setenv "PATH" (mapconcat 'identity mypaths ";"))
     (setq exec-path (append mypaths 'exec-directory))
   ))
- (provide 'init-exec-path)
+(provide 'init-exec-path)
