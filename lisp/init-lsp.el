@@ -91,7 +91,6 @@
 
 
 ;; lsp-java
-
 (use-package lsp-java :config (add-hook 'java-mode-hook 'lsp))
 
 (setq lsp-java-server-install-dir "/Users/dylan/install/eclipse.jdt.ls/" )
@@ -114,6 +113,14 @@
 
 ;; {{ Python Mode
 ;; Config lsp-python-ms
+(use-package lsp-python-ms
+  :ensure t
+  :hook (python-mode . (lambda ()
+                         (require 'lsp-python-ms)
+                         (lsp)))
+  :init
+  (setq lsp-python-ms-executable (executable-find "python-language-server")))
+
 (setq-default indent-tabs-mode nil)
 (setq lsp-python-ms-executable "~/install/python-language-server/output/bin/Release/osx-x64/publish/Microsoft.Python.LanguageServer")
 ;; pyenv config @See https://cestlaz.github.io/post/using-emacs-58-lsp-mode/

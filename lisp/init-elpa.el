@@ -36,6 +36,7 @@
     dap-java
     lsp-python-ms
     ;; }}
+    org-download
     gradle-mode
     pipenv
     tree-mode
