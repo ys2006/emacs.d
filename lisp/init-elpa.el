@@ -328,6 +328,7 @@ You still need modify `package-archives' in \"init-elpa.el\" to PERMANENTLY use 
 (require-package 'unfill)
 (require-package 'w3m)
 (require-package 'counsel-gtags)
+(require-package 'counsel-etags)
 (require-package 'buffer-move)
 (require-package 'ace-window)
 (require-package 'cmake-mode)
