@@ -93,7 +93,7 @@
 ;; lsp-java
 (use-package lsp-java :config (add-hook 'java-mode-hook 'lsp))
 
-(setq lsp-java-server-install-dir "/Users/dylan/install/eclipse.jdt.ls/" )
+(setq lsp-java-server-install-dir "/Users/yinshuo/install/eclipse.jdt.ls/" )
 (defun my/java-mode-config ()
     (setq-local tab-width 4)
     (setq-local indent-tabs-mode t)
@@ -105,7 +105,7 @@
 
 (add-hook 'java-mode-hook 'my/java-mode-config)
 
-(setq lsp-java-workspace-dir "/Users/dylan/doCoding/langs/JAVA/cheese-shop/")
+(setq lsp-java-workspace-dir "/Users/yinshuo/doCoding/langs/JAVA/cheese-shop/")
 ;; java debug mode
 (use-package dap-mode :after lsp-mode :config (dap-auto-configure-mode))
 (use-package dap-java :ensure nil)
@@ -113,23 +113,32 @@
 
 ;; {{ Python Mode
 ;; Config lsp-python-ms
+;; (use-package lsp-python-ms
+;;   :ensure t
+;;   :hook (python-mode . (lambda ()
+;;                          (require 'lsp-python-ms)
+;;                          (lsp)))
+;;   :init
+;;   (setq lsp-python-ms-executable (executable-find "python-language-server")))
 (use-package lsp-python-ms
   :ensure t
   :hook (python-mode . (lambda ()
                          (require 'lsp-python-ms)
-                         (lsp)))
-  :init
-  (setq lsp-python-ms-executable (executable-find "python-language-server")))
+                         (lsp))))
+
 
 (setq-default indent-tabs-mode nil)
-(setq lsp-python-ms-executable "~/install/python-language-server/output/bin/Release/osx-x64/publish/Microsoft.Python.LanguageServer")
+;; (setq lsp-python-ms-executable "~/install/python-language-server/output/bin/Release/osx-x64/publish/Microsoft.Python.LanguageServer")
+(setq lsp-python-ms-executable "/Users/yinshuo/.emacs.d/.cache/lsp/mspyls/Microsoft.Python.LanguageServer")
+
 ;; pyenv config @See https://cestlaz.github.io/post/using-emacs-58-lsp-mode/
-(setq lsp-python-executable-cmd "~/install/pyenv/shims/python")
+;; (setq lsp-python-executable-cmd "~/install/pyenv/shims/python")
+;; (setq lsp-python-executable-cmd "/usr/bin/python3")
 
 (add-hook 'python-mode-hook '(lambda ()
                         (pipenv-activate)
                         (setq python-indent-offset 4)
-                        (setq python-shell-interpreter "ipython")
+                        ;; (setq python-shell-interpreter "ipython")
                         ;; (setq python-shell-interpreter "jupyter-console")
                         (setq python-shell-interpreter-args "--simple-prompt -i")
                         (require 'lsp-python-ms)

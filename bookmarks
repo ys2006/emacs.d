@@ -2,126 +2,26 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("Runnable java 11"
- (filename . "~/doReading/Java/jdk11-1ddf9a99e4ad/src/java.base/share/classes/java/lang/Runnable.java")
- (front-context-string . "ction whatsoever")
- (rear-context-string . "    * take any a")
- (position . 2933))
-("k8s pod type"
- (filename . "~/doReading/Go/kubernetes/staging/src/k8s.io/apiserver/pkg/apis/example/v1/types.go")
- (front-context-string . "Pod struct {\n	me")
- (rear-context-string . "ist, get).\ntype ")
- (position . 932))
-("k8s pod status"
- (filename . "~/doReading/Go/kubernetes/staging/src/k8s.io/api/core/v1/types.go")
- (front-context-string . "(\n	// PodPending")
- (rear-context-string . " of pods.\nconst ")
- (position . 128159))
-("k8s types"
- (filename . "~/doReading/Go/kubernetes/staging/src/k8s.io/api/core/v1/types.go")
- (front-context-string . "// PersistentVol")
- (rear-context-string . "runtime.Object\n\n")
- (position . 24926))
-("Graphic-muiltiThread src code"
- (filename . "~/doReading/Java/Graphic-MuiltiThread/src/Introduction1/jucThreadFactory/Main.java")
- (front-context-string . "n {\n    public s")
- (rear-context-string . "public class Mai")
- (position . 100))
-("linux kernel 4.16.9"
- (filename . "~/doReading/linux/linux-4.16.9/Makefile")
- (front-context-string . "# SPDX-License-I")
- (rear-context-string)
- (position . 1))
-("LinkedList.java jdk11"
- (filename . "~/doReading/Java/jdk11-1ddf9a99e4ad/src/java.base/share/classes/java/util/LinkedList.java")
- (front-context-string . "/*\n * Copyright ")
- (rear-context-string)
- (position . 1))
-("Stack.java jdk11"
- (filename . "~/doReading/Java/jdk11-1ddf9a99e4ad/src/java.base/share/classes/java/util/Stack.java")
- (front-context-string . " * DO NOT ALTER ")
- (rear-context-string . "ights reserved.\n")
- (position . 84))
-("String.java jdk11"
- (filename . "~/doReading/Java/jdk11-1ddf9a99e4ad/src/java.base/share/classes/java/lang/String.java")
- (front-context-string . "String\n    imple")
- (rear-context-string . "lic final class ")
- (position . 5408))
+(("s3"
+ (filename . "~/proj/chaos-project-github/enablement-platform-backend/enablement_controllor/container_enablement/update_appversion/update_app_controllor.py")
+ (front-context-string . "_productpage_ima")
+ (rear-context-string . "        bookinfo")
+ (position . 19218))
 ("emacs home"
  (filename . "~/.emacs.d/")
  (front-context-string . "bk.org\n  -rw-r--")
  (rear-context-string . "39 May 28  2019 ")
  (position . 1047))
-("leetcode test case"
- (filename . "~/doCoding/leetcode/src/test/java/leetcode/AppTest.java")
- (front-context-string . "ex].trim();\n			o")
- (rear-context-string . "part = parts[ind")
- (position . 1763))
-("leetcode implement"
- (filename . "~/doCoding/leetcode/src/main/java/leetcode/")
- (front-context-string . "AddTwoNumbers.ja")
- (rear-context-string . "96 Apr 12 16:07 ")
- (position . 237))
 ("mm"
  (filename . "~/.emacs.d/lisp/init-lsp.el")
  (front-context-string . "hook 'java-mode-")
  (rear-context-string . " #'lsp)\n(remove-")
  (position . 5985))
-("Unsafe jdk11"
- (filename . "~/doReading/Java/jdk11-1ddf9a99e4ad/src/java.base/share/classes/jdk/internal/misc/Unsafe.java")
- (front-context-string . "/*\n * Copyright ")
- (rear-context-string)
- (position . 1))
-("ThreadLocal jdk11"
- (filename . "~/doReading/Java/jdk11-1ddf9a99e4ad/src/java.base/share/classes/java/lang/ThreadLocal.java")
- (front-context-string . " *\n * This code ")
- (rear-context-string . "IS FILE HEADER.\n")
- (position . 149))
-("AtomicInteger jdk11"
- (filename . "~/doReading/Java/jdk11-1ddf9a99e4ad/src/java.base/share/classes/java/util/concurrent/atomic/AtomicInteger.java")
- (front-context-string . " * tools and uti")
- (rear-context-string . "iform access by\n")
- (position . 2128))
-("concurrentHashMap jdk11"
- (filename . "~/doReading/Java/jdk11-1ddf9a99e4ad/src/java.base/share/classes/java/util/concurrent/ConcurrentHashMap.java")
- (front-context-string . "     * progress.")
- (rear-context-string . " resizes are in\n")
- (position . 18995))
-("Objects jdk11"
- (filename . "~/doReading/Java/jdk11-1ddf9a99e4ad/src/java.base/share/classes/java/util/Objects.java")
- (front-context-string . "/*\n * Copyright ")
- (rear-context-string)
- (position . 1))
-("HashMap jdk11"
- (filename . "~/doReading/Java/jdk11-1ddf9a99e4ad/src/java.base/share/classes/java/util/HashMap.java")
- (front-context-string . "}\n        ++modC")
- (rear-context-string . "      }\n        ")
- (position . 27135))
-("TreeMap-java11"
- (filename . "~/doReading/Java/jdk11-1ddf9a99e4ad/src/java.base/share/classes/java/util/TreeMap.java")
- (front-context-string . "    * Comparable")
- (rear-context-string . "ent the {@link\n ")
- (position . 6236))
-("jdk11 root"
- (filename . "~/doReading/Java/jdk11-1ddf9a99e4ad/Makefile")
- (front-context-string . "# or visit www.o")
- (rear-context-string . "s, CA 94065 USA\n")
- (position . 959))
 ("snippets-java"
  (filename . "~/.emacs.d/elpa/yasnippet-snippets-0.20/snippets/java-mode/")
  (front-context-string . "define test meth")
  (rear-context-string . "56 Feb 22 22:30 ")
  (position . 520))
-("bots-components"
- (filename . "~/doProjects/bots/common.gradle")
- (front-context-string . "stanford.nlp:sta")
- (rear-context-string . "           \"edu.")
- (position . 16754))
-("coding training"
- (filename . "~/recipes/cookbooks/codes.org")
- (front-context-string . "a\npublic boolean")
- (rear-context-string . "\n#+BEGIN_SRC jav")
- (position . 28500))
 ("org-refile-last-stored"
  (filename . "~/recipes/agenda/task.org")
  (front-context-string . "** TODO [#A] tra")
@@ -137,25 +37,20 @@
     (filename . "   - no file -")
     (location . "http://www.ituring.com.cn/book/1239")
     (handler . bmkp-jump-url-browse))
-#1=(#("Turling.com" 0 11
-      (bmkp-full-record #1#))
-    (filename . "   - no file -")
-    (location . "http://www.ituring.com.cn/book")
-    (handler . bmkp-jump-url-browse))
 #1=(#("k8s version" 0 11
       (bmkp-full-record #1#))
     (filename . "   - no file -")
     (location . "https://kubernetes.io/docs/setup/version-skew-policy/")
     (handler . bmkp-jump-url-browse))
 #1=(#("k8s network plugin" 0 1
-      (bmkp-full-record #1# idx 0)
+      (idx 0 bmkp-full-record #1#)
       1 18
       (bmkp-full-record #1#))
     (filename . "   - no file -")
     (location . "https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements")
     (handler . bmkp-jump-url-browse))
 #1=(#("elisp for" 0 1
-      (bmkp-full-record #1# idx 1)
+      (idx 1 bmkp-full-record #1#)
       1 9
       (bmkp-full-record #1#))
     (buffer-name . "*info*<3>")
@@ -172,7 +67,7 @@
     (handler . Info-bookmark-jump)
     (defaults "(cl) Loop Facility" "cl" #3#))
 #1=(#("elisp cons cell" 0 1
-      (idx 2 bmkp-full-record #1#)
+      (bmkp-full-record #1# idx 2)
       1 15
       (bmkp-full-record #1#))
     (buffer-name . "*info*<2>")
@@ -189,7 +84,7 @@
     (handler . Info-bookmark-jump)
     (defaults "(elisp) Cons Cell Type" "elisp" #3#))
 #1=(#("elisp cdr car" 0 1
-      (idx 3 bmkp-full-record #1#)
+      (bmkp-full-record #1# idx 3)
       1 13
       (bmkp-full-record #1#))
     (buffer-name . "*info*<2>")
@@ -206,58 +101,15 @@
     (handler . Info-bookmark-jump)
     (defaults "(elisp) Cons Cells" "elisp" #3#))
 #1=(#("ubuntu.org" 0 1
-      (idx 4 bmkp-full-record #1#)
+      (bmkp-full-record #1# idx 4)
       1 10
       (bmkp-full-record #1#))
     (filename . "~/recipes/ubuntu.org")
     (front-context-string)
     (rear-context-string . "atest chrome]] \n")
     (position . 7733))
-#1=(#("learn-js" 0 1
-      (idx 5 bmkp-full-record #1#)
-      1 8
-      (bmkp-full-record #1#))
-    (filename . "~/bookshelf/read/Js/test.js")
-    (buffer-name . "test.js")
-    (front-context-string . "<html>\n<head>\n<s")
-    (rear-context-string)
-    (front-context-region-string)
-    (rear-context-region-string)
-    (visits . 0)
-    (time . #2=(23675 14458 442103 995000))
-    (created . #2#)
-    (position . 1))
-#1=(#("learn-elisp" 0 1
-      (idx 6 bmkp-full-record #1#)
-      1 11
-      (bmkp-full-record #1#))
-    (filename . "~/bookshelf/read/Emacs/learn.el")
-    (buffer-name . "learn.el")
-    (front-context-string)
-    (rear-context-string . "2f\" radix area))")
-    (front-context-region-string)
-    (rear-context-region-string)
-    (visits . 0)
-    (time . #2=(23673 58761 44444 653000))
-    (created . #2#)
-    (position . 301))
-#1=(#("learn-python" 0 1
-      (idx 8 bmkp-full-record #1#)
-      1 12
-      (bmkp-full-record #1#))
-    (end-position . 503)
-    (filename . #2="/home/dylan/recipes/python.org")
-    (buffer-name . #2#)
-    (front-context-string . "7\n./configure --")
-    (rear-context-string . "/details/7788022")
-    (front-context-region-string)
-    (rear-context-region-string)
-    (visits . 1)
-    (time 23575 13903 850362 265000)
-    (created 23572 36678 946538 86000)
-    (position . 503))
 #1=(#("emacs-setting-package" 0 1
-      (idx 9 bmkp-full-record #1#)
+      (bmkp-full-record #1# idx 9)
       1 21
       (bmkp-full-record #1#))
     (end-position . 9982)
@@ -271,16 +123,8 @@
     (time 23583 8986 623933 182000)
     (created 23572 25688 510870 354000)
     (position . 9982))
-#1=(#("learn-togaf" 0 1
-      (idx 10 bmkp-full-record #1#)
-      1 11
-      (bmkp-full-record #1#))
-    (filename . "/home/dylan/bookshelf/blog/content/post/TOGAF.org")
-    (front-context-string)
-    (rear-context-string . "nce\ncomprehensio")
-    (position . 266))
 #1=(#("oreilly book examples" 0 1
-      (bmkp-full-record #1# idx 11)
+      (idx 11 bmkp-full-record #1#)
       1 21
       (bmkp-full-record #1#))
     (buffer-name . "*w3m*")
@@ -294,28 +138,8 @@
     (position . 1)
     (location . "https://resources.oreilly.com/examples/")
     (handler . bmkp-jump-w3m))
-#1=(#("book-emacs" 0 1
-      (idx 12 bmkp-full-record #1#)
-      1 10
-      (bmkp-full-record #1#))
-    (buffer-name . "/home/dylan/bookshelf/read/Writing-GNU-Emacs-Extensions/9781565922617/src/")
-    (front-context-string . "crossword.el\n  -")
-    (rear-context-string . "8K Dec 31  1996 ")
-    (front-context-region-string)
-    (rear-context-region-string)
-    (visits . 3)
-    (time 23582 13510 202813 261000)
-    (created 23526 22008 69152 819000)
-    (position . 249)
-    (filename . "/home/dylan/bookshelf/read/Writing-GNU-Emacs-Extensions/9781565922617/src/")
-    (dired-directory . "~/bookshelf/read/Writing-GNU-Emacs-Extensions/9781565922617/src/")
-    (dired-marked)
-    (dired-switches . "-laGh1v")
-    (dired-subdirs)
-    (dired-hidden-dirs)
-    (handler . bmkp-jump-dired))
 #1=(#("reading" 0 1
-      (idx 13 bmkp-full-record #1#)
+      (bmkp-full-record #1# idx 13)
       1 7
       (bmkp-full-record #1#))
     (end-position . 597)
@@ -330,7 +154,7 @@
     (created 23522 39557 999461 566000)
     (position . 597))
 #1=(#("emacs-setting-customize-func" 0 1
-      (idx 14 bmkp-full-record #1#)
+      (bmkp-full-record #1# idx 14)
       1 28
       (bmkp-full-record #1#))
     (filename . #2="/home/dylan/.emacs.d/lisp/init-misc.el")
@@ -344,7 +168,7 @@
     (created 23518 61632 439791 999000)
     (position . 36516))
 #1=(#("emacs-setting-shortcut" 0 1
-      (idx 15 bmkp-full-record #1#)
+      (bmkp-full-record #1# idx 15)
       1 22
       (bmkp-full-record #1#))
     (filename . #2="/home/dylan/.emacs.d/lisp/init-evil.el")
@@ -357,51 +181,8 @@
     (time 23583 8758 73425 769000)
     (created 23516 595 707108 614000)
     (position . 16337))
-#1=(#("fabric readme" 0 1
-      (bmkp-full-record #1# idx 16)
-      1 13
-      (bmkp-full-record #1#))
-    (filename . #2="/home/dylan/install/blockchain/fabric/README.md")
-    (buffer-name . #2#)
-    (front-context-string . "[Hyperledger Com")
-    (rear-context-string . "\n\n## Community\n\n")
-    (front-context-region-string)
-    (rear-context-region-string)
-    (visits . 0)
-    (time . #3=(23515 64747 983337 515000))
-    (created . #3#)
-    (position . 5468))
-#1=(#("cfa.org" 0 1
-      (bmkp-full-record #1# idx 17)
-      1 7
-      (bmkp-full-record #1#))
-    (end-position . 27461)
-    (filename . "~/recipes/agenda/cfa.org")
-    (buffer-name . "cfa.org")
-    (front-context-string . "** Dictionaries\n")
-    (rear-context-string . "creases of ROE?\n")
-    (front-context-region-string)
-    (rear-context-region-string)
-    (visits . 6)
-    (time 23569 49243 587858 50000)
-    (created 23513 33410 488088 961000)
-    (position . 27461))
-#1=(#("todo-list" 0 1
-      (idx 18 bmkp-full-record #1#)
-      1 9
-      (bmkp-full-record #1#))
-    (filename . #2="/home/dylan/recipes/todo.org")
-    (buffer-name . #2#)
-    (front-context-string . "macs \n*** Elisp ")
-    (rear-context-string . " Learn\n** TODO E")
-    (front-context-region-string)
-    (rear-context-region-string)
-    (visits . 5)
-    (time 23582 13872 578852 342000)
-    (created 23513 18374 783646 230000)
-    (position . 83))
 #1=(#("emacs-setting-proxy" 0 1
-      (idx 19 bmkp-full-record #1#)
+      (bmkp-full-record #1# idx 19)
       1 19
       (bmkp-full-record #1#))
     (end-position . 952)
@@ -415,72 +196,4 @@
     (time 23582 15107 263291 30000)
     (created 23513 17229 9228 830000)
     (position . 952))
-#1=(#("fabric-sample-readme" 0 1
-      (bmkp-full-record #1# idx 20)
-      1 20
-      (bmkp-full-record #1#))
-    (filename . #2="/home/dylan/install/blockchain/fabric-samples/README.md")
-    (buffer-name . #2#)
-    (front-context-string . "Please visit the")
-    (rear-context-string . "Fabric Samples\n\n")
-    (front-context-region-string)
-    (rear-context-region-string)
-    (visits . 8)
-    (time 23522 32167 876393 859000)
-    (created 23513 16110 744214 351000)
-    (position . 78))
-#1=(#("DockerBuild node" 0 1
-      (idx 21 bmkp-full-record #1#)
-      1 16
-      (bmkp-full-record #1#))
-    (filename . "~/install/blockchain/fabric/core/chaincode/platforms/node/platform.go")
-    (buffer-name . "platform.go")
-    (front-context-string . "d(util.DockerBui")
-    (rear-context-string . " util.DockerBuil")
-    (front-context-region-string)
-    (rear-context-region-string)
-    (visits . 0)
-    (time . #2=(23516 2255 67682 970000))
-    (created . #2#)
-    (position . 5595))
-#1=(#("java oardc" 0 1
-      (bmkp-full-record #1# idx 23)
-      1 10
-      (bmkp-full-record #1#))
-    (buffer-name . "oardc")
-    (front-context-string . "  /home/dylan/pr")
-    (rear-context-string)
-    (front-context-region-string)
-    (rear-context-region-string)
-    (visits . 0)
-    (time . #2=(23585 50853 787444 175000))
-    (created . #2#)
-    (position . 1)
-    (filename . "/home/dylan/projects/Galactus/providers/Oardc/src/main/java/com/eloqua/providers/oardc/")
-    (dired-directory . "~/projects/Galactus/providers/Oardc/src/main/java/com/eloqua/providers/oardc/")
-    (dired-marked)
-    (dired-switches . "-laGh1v")
-    (dired-subdirs)
-    (dired-hidden-dirs)
-    (handler . bmkp-jump-dired))
-#1=(#("jet" 0 1
-      (bmkp-full-record #1# idx 24)
-      1 3
-      (bmkp-full-record #1#))
-    (buffer-name . "jet")
-    (front-context-string . ".gitignore\n  -rw")
-    (rear-context-string . "80 Dec  5  2017 ")
-    (front-context-region-string)
-    (rear-context-region-string)
-    (visits . 1)
-    (time 23585 41381 291735 865000)
-    (created 23585 41369 171790 933000)
-    (position . 249)
-    (filename . "/home/dylan/projects/Galactus/providers/Oardc/WebContent/static/jet/")
-    (dired-directory . "~/projects/Galactus/providers/Oardc/WebContent/static/jet/")
-    (dired-marked)
-    (dired-switches . "-laGh1v")
-    (dired-subdirs)
-    (dired-hidden-dirs)
-    (handler . bmkp-jump-dired))
 )

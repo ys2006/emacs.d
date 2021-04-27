@@ -34,3 +34,6 @@
 [submodule "site-lisp/dap-mode"]
 	path = site-lisp/dap-mode
 	url = https://github.com/emacs-lsp/dap-mode.git
+[submodule "site-lisp/find-file-in-project"]
+	path = site-lisp/find-file-in-project
+	url = https://github.com/redguardtoo/find-file-in-project.git

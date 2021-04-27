@@ -176,17 +176,17 @@
 (setq package-archives
       '(
         ;; uncomment below line if you need use GNU ELPA
-        ;; ("gnu" . "https://elpa.gnu.org/packages/")
-        ;; ("melpa" . "https://melpa.org/packages/")
-        ;; ("melpa-stable" . "https://stable.melpa.org/packages/")
+        ("gnu" . "https://elpa.gnu.org/packages/")
+        ("melpa" . "https://melpa.org/packages/")
+        ("melpa-stable" . "https://stable.melpa.org/packages/")
 
         ;; Use either 163 or tsinghua mirror repository when official melpa
         ;; is slow or shutdown.
 
         ;; ;; {{ Option 1: 163 mirror repository:
-        ("gnu" . "https://mirrors.163.com/elpa/gnu/")
-        ("melpa" . "https://mirrors.163.com/elpa/melpa/")
-        ("melpa-stable" . "https://mirrors.163.com/elpa/melpa-stable/")
+        ;; ("gnu" . "https://mirrors.163.com/elpa/gnu/")
+        ;; ("melpa" . "https://mirrors.163.com/elpa/melpa/")
+        ;; ("melpa-stable" . "https://mirrors.163.com/elpa/melpa-stable/")
         ;; ("melpa" . "https://elpa.emacs-china.org/melpa/")
         ;; ("melpa-stable" . "https://elpa.emacs-china.org/melpa-stable/")
         ;; ;; }}
@@ -379,10 +379,10 @@ You still need modify `package-archives' in \"init-elpa.el\" to PERMANENTLY use 
 (require-package 'easy-hugo)
 (require-package 'go-mode)
 (require-package 'go-autocomplete)
-(require-package 'ensime)
+;; (require-package 'ensime)
 (require-package 'gntp)
 (require-package 'mu4e-alert)
-(require-package 'ein)
+;; (require-package 'ein)
 ;; (require-package 'ein-loaddefs)
 ;; (require-package 'ein-notebook)
 ;; (require-package 'ein-subpackages)
@@ -423,7 +423,7 @@ You still need modify `package-archives' in \"init-elpa.el\" to PERMANENTLY use 
 (require-package 'vimrc-mode)
 (require-package 'projectile)
 (require-package 'indium)
-(require-package 'nov) ; read epub
+;; (require-package 'nov) ; read epub
 (require-package 'rust-mode)
 ;; (require-package 'langtool) ; my own patched version is better
 (require-package 'typescript-mode)

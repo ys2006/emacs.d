@@ -825,6 +825,7 @@ ARG is ignored."
                                 search-ring
                                 regexp-search-ring))
 (setq session-save-file-coding-system 'utf-8)
+(define-coding-system-alias 'UTF-8 'utf-8)
 (add-hook 'after-init-hook 'session-initialize)
 ;; }}
 
