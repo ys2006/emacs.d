@@ -389,7 +389,7 @@ You still need modify `package-archives' in \"init-elpa.el\" to PERMANENTLY use 
 (require-package 'ctable)
 (require-package 'package-lint) ; lint package before submit it to MELPA
 (require-package 'iedit)
-(require-package 'magit)
+;; (require-package 'magit)
 (require-package 'org-jira)
 ;; (require-package 'ensime)
 ;; {{ delete??
