@@ -1,6 +1,8 @@
 
 ;; Set env use chinese lang
 (set-language-environment 'Chinese-GB)
+
+(prefer-coding-system 'utf-8-unix)
 ;;(set-language-environment 'Japanese)
 ;; Emacs default encoding
 (setq locale-coding-system 'utf-8)
@@ -11,7 +13,7 @@
 (set-buffer-file-coding-system 'utf-8)
 (set-default buffer-file-coding-system 'utf8)
 (set-default-coding-systems 'utf-8)
-;; paste Chinese 
+;; paste Chinese
 (set-clipboard-coding-system 'utf-8)
 ;; Chinese name in Terms
 (set-terminal-coding-system 'utf-8)

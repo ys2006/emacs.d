@@ -37,3 +37,6 @@
 [submodule "site-lisp/find-file-in-project"]
 	path = site-lisp/find-file-in-project
 	url = https://github.com/redguardtoo/find-file-in-project.git
+[submodule "site-lisp/org-passwords"]
+	path = site-lisp/org-passwords
+	url = https://bitbucket.org/alfaromurillo/org-passwords.el.git
